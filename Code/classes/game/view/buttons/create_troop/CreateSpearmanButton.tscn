@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://classes/gui/buttons/create_troop/CreateTroopButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateTroopButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://artifacts/graphics/gui/buttons/create_troop/create_spearman_button.svg" type="Texture" id=2]
+
+
 
 [node name="CreateSpearmanButton" index="0" instance=ExtResource( 1 )]
 

@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://classes/gui/buttons/queue/QueueButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/buttons/queue/QueueButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://artifacts/graphics/gui/buttons/queue/swordsman_queue_button.svg" type="Texture" id=2]
+
+
 
 
 

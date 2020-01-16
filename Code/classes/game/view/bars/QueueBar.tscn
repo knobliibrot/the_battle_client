@@ -1,12 +1,14 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://classes/gui/bars/InfoBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/bars/InfoBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://artifacts/graphics/gui/boxes/queue.svg" type="Texture" id=2]
 [ext_resource path="res://artifacts/graphics/gui/boxes/textures/queuebox.png" type="Texture" id=3]
-[ext_resource path="res://classes/gui/buttons/queue/ArcherQueueButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://classes/gui/buttons/queue/SwordsmanQueueButton.tscn" type="PackedScene" id=5]
-[ext_resource path="res://classes/gui/buttons/queue/KnightQueueButton.tscn" type="PackedScene" id=6]
-[ext_resource path="res://classes/gui/buttons/queue/SpearmanQueueButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://classes/game/view/buttons/queue/ArcherQueueButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://classes/game/view/buttons/queue/SwordsmanQueueButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://classes/game/view/buttons/queue/KnightQueueButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://classes/game/view/buttons/queue/SpearmanQueueButton.tscn" type="PackedScene" id=7]
+
+
 
 
 
