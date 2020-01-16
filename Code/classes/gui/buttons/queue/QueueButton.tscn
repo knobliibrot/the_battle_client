@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://artifacts/graphics/gui/buttons/queue/archer-queue-button.svg" type="Texture" id=1]
+
+
+
+
+
+
+
+
+
+[node name="QueueButton" type="MarginContainer"]
+margin_right = 70.0
+margin_bottom = 70.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="Button" type="TextureButton" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 65.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 60, 60 )
+texture_normal = ExtResource( 1 )
+expand = true
