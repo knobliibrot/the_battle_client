@@ -1,6 +1,5 @@
 extends Node
 
-signal battlefield_generated
 
 const FieldTypeEnum = preload("res://classes/enums/FieldTypeEnum.gd")
 const Parameters = preload("res://classes/game/model/Rulebook/GameParameters.gd")
@@ -9,11 +8,7 @@ const Field = preload("res://classes/game/model/Field.tscn")
 var battlefield_map: Array setget ,get_battlefield_map
 
 
-func _ready():
-	generate_battelfield()
-	emit_signal("battlefield_generated")
-
-func generate_battelfield() -> void:
+func generate_battelfield() -> Array:
 	battlefield_map = []
 	battlefield_map.resize(7)
 	for y in range(Parameters.BATTLEFIELD_HEIGHT):
@@ -22,11 +17,18 @@ func generate_battelfield() -> void:
 		battlefield_map[y] = row
 		for x in range(Parameters.BATTLEFIELD_WIDTH):
 			# Fields should be just at positions where x + y is uneven and not in the first and last column
-			if (x + y) % 2 == 1 and x != 0 and x != Parameters.BATTLEFIELD_WIDTH - 1:
-				var field = Field.instance()
-				field.set_position(x, y)
-				battlefield_map[y][x] = field
-				choose_field_type(x, y)
+			if (x + y) % 2 == 1:
+				if x != 0 and x != Parameters.BATTLEFIELD_WIDTH - 1:					
+					var field = Field.instance()
+					field.set_position(x, y)
+					battlefield_map[y][x] = field
+					choose_field_type(x, y)
+				else:
+					var field = Field.instance()
+					field.set_position(x, y)
+					battlefield_map[y][x] = field
+					battlefield_map[y][x].set_field_type(FieldTypeEnum.EMPTY)
+	return battlefield_map
 
 func choose_field_type(x, y) -> void:
 	var field_percantage_map: Dictionary = {
@@ -62,7 +64,7 @@ func choose_field_type(x, y) -> void:
 	battlefield_map[y][x].set_field_type(define_field_type(neigbour_counter_map, field_percantage_map))
 
 func count_neighbour(x, y, neighbour_counter_map) -> void:
-	if battlefield_map.find(y) && battlefield_map[y].find(x) && battlefield_map[y][x] != null:
+	if battlefield_map.find(y) && battlefield_map[y].find(x) && battlefield_map[y][x].get_field_type() != FieldTypeEnum.EMPTY:
 		neighbour_counter_map[battlefield_map[y][x].get_field_type()] += 1
 
 func define_field_type(neigbour_counter_map, field_percantage_map) -> int:
@@ -86,7 +88,7 @@ func define_field_type(neigbour_counter_map, field_percantage_map) -> int:
 	rng.randomize()
 	var result: int = rng.randi_range(1, total)
 	# Return Value amongst the result
-	if GameSettings.COMMENT_MODE:
+	if false:
 		print("--------")
 		print("Total: " + str(total))
 		print("Result: " + str(result))

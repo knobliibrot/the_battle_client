@@ -11,4 +11,3 @@ script = ExtResource( 2 )
 [node name="Gamelogic" parent="." index="0" instance=ExtResource( 3 )]
 
 [node name="Playground" parent="." index="1" instance=ExtResource( 4 )]
-[connection signal="battlefield_generated" from="Gamelogic" to="." method="_on_Gamelogic_battlefield_generated"]

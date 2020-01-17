@@ -1,5 +1,7 @@
 extends "res://classes/scenes/ScreenScene.gd"
 
 
-func _on_Gamelogic_battlefield_generated():
-	$Playground/Battelfield.render_battlefield($Gamelogic.get_battlefield_map())
+func _ready():
+	var battlefield_map: Array = $Gamelogic.generate_battelfield()
+	$Playground/Battelfield.render_battlefield(battlefield_map)
+	$Playground.choose_castel(true)
