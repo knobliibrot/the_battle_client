@@ -1,0 +1,8 @@
+extends Node
+
+enum  {GRASS, 
+FOREST, 
+MOUNTAIN, 
+VILLAGE, 
+CASTLE,
+EMPTY}
