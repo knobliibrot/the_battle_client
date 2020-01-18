@@ -27,7 +27,7 @@ func set_rect(rect: Rect2):
 func create_troop(troop_type: int) -> Field:
 	var troop = load(TroopType.SCENE_BLUE[troop_type]).instance()
 	add_child(troop, true)
-	return self
+	return troop
 	
 func copy_data(old_node: Node) -> void:
 	set_name(old_node.get_name())

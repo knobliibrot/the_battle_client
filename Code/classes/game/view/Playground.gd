@@ -8,6 +8,13 @@ func update_gui_with_player(player: Player) -> void:
 	$UI/Top/TopBar/GoldBox/NinePatchRect/Label.text = str(player.gold)
 	$UI/Top/TopBar/IncomeBox/NinePatchRect/Label.text =  str(player.income)
 	$UI/Top/TopBar/SalaryBox/NinePatchRect/Label.text =  str(player.salary)
+	$UI/Bottom/BottomBar/QueueBar.clear_queue()
+	for item in player.queue:
+		$UI/Bottom/BottomBar/QueueBar.add(item)
+	$UI/Bottom/BottomBar/HealthBar/Background/HealthBox.update_health(player.castle_health)
+	
+func add_to_queue(player_type: int) -> void:
+	$UI/Bottom/BottomBar/QueueBar.add(player_type)
 
 func start_timer_with_message(message: String, seconds: float, finish_signal: String) -> void:
 	show_message(message, GameParameters.MESSAGE_SHOW_TIME)
@@ -26,6 +33,7 @@ func show_message(message: String, seconds: float):
 	
 func stop_timer():
 	$UI/Top/TopBar/TimeBox.stop_timer()
+	
 	
 func activate_castle_mode(is_player1: bool) -> void:
 	var castle_fields: Array

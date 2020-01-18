@@ -39,3 +39,7 @@ func get_field(position: Vector2) -> Node:
 				
 func _on_Field_castle_choosen(position :Vector2) -> void:
 	emit_signal("castle_choosen", position)
+
+
+func _on_ArcherButton_create_troop():
+	pass # Replace with function body.

@@ -24,7 +24,7 @@ func add_troop_to_queue(troop_type: int) -> bool:
 	var queue_size: int = queue.size()
 	if queue_size < GameParameters.QUEUE_SIZE:
 		queue.resize(queue_size + 1)
-		queue[queue_size-1] = troop_type
+		queue[queue_size] = troop_type
 		return true
 	else:
 		return false

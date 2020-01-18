@@ -239,9 +239,6 @@ func set_percentage_village(field_percantage_map: Dictionary, field_amount: int)
 func get_battlefield_map() -> Array:
 	return battlefield_map
 
-func _on_TimeBox_timeout():
-	get_parent().get_node("$Top/TopBar/TimeBox").stop_timer()
-
 func _on_Battlefield_castle_choosen(position: Vector2):
 	set_castle(position, false)
 
@@ -253,7 +250,7 @@ func _on_TimeBox_turn_finished():
 	# TODO: gui
 	emit_signal("turn_finished", false)
 
-func _on_CreateTroopButton_create_troop(troop_type: int):
+func _on_TroopButton_create_troop(troop_type: int):
 	if actual_player.gold >= TroopType.PRICE[troop_type]:
 		#check if someone is in castle
 		var troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(troop_type)
@@ -264,3 +261,4 @@ func _on_CreateTroopButton_create_troop(troop_type: int):
 		get_parent().update_gui_with_player(actual_player)
 	else:
 		get_parent().show_message("You don't have enaugh money!", 1)
+
