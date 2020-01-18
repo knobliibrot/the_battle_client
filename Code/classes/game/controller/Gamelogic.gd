@@ -30,10 +30,14 @@ func choose_castel(is_player1: bool) -> void:
 func start_turn(is_player1: bool) -> void:
 	set_actual_player(is_player1)
 	if is_player1 || self.actual_player.player_type == PlayerTypeEnum.MANUAL:
+		pay_and_trainingday(actual_player)
 		get_parent().update_gui_with_player(actual_player)
 		get_parent().activate_turn_mode(is_player1, actual_player)
 		get_parent().start_timer_with_message("Your turn " + actual_player.player_name + "!", GameParameters.ROUND_TIME, "turn_finished")	
 	
+func pay_and_trainingday(actualPlayer: Player) -> void:
+	actualPlayer.gold += actualPlayer.income
+	#TODO: train from queue
 	
 func set_actual_player(is_player1: bool) -> void:
 	self.is_player1 = is_player1
@@ -58,6 +62,7 @@ func set_castle(position: Vector2, is_timeout: bool) -> void:
 	for field in nodes:
 		if position == field.get_field_position():
 			get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
+			actual_player.castle_position = position
 		else:
 			get_parent().get_node("Battlefield").remove_child(field)
 	
@@ -248,5 +253,14 @@ func _on_TimeBox_turn_finished():
 	# TODO: gui
 	emit_signal("turn_finished", false)
 
-func _on_CreateTroopButton_create_troop(troop_type):
-	print(troop_type)
+func _on_CreateTroopButton_create_troop(troop_type: int):
+	if actual_player.gold >= TroopType.PRICE[troop_type]:
+		#check if someone is in castle
+		var troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(troop_type)
+		if !actual_player.add_troop_to_queue(troop_type):
+			get_parent().show_message("The Queue is full!", 1)
+		else:
+			actual_player.gold -=TroopType.PRICE[troop_type]
+		get_parent().update_gui_with_player(actual_player)
+	else:
+		get_parent().show_message("You don't have enaugh money!", 1)

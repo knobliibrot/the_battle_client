@@ -24,6 +24,11 @@ func set_rect(rect: Rect2):
 	rect_position = rect.position
 	rect_size = rect.size
 	
+func create_troop(troop_type: int) -> Field:
+	var troop = load(TroopType.SCENE_BLUE[troop_type]).instance()
+	add_child(troop, true)
+	return self
+	
 func copy_data(old_node: Node) -> void:
 	set_name(old_node.get_name())
 	set_rect(old_node.get_rect())
