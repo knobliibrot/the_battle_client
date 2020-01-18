@@ -1,7 +1,13 @@
 extends "res://classes/scenes/ScreenScene.gd"
 
+const PlayerTypeEnum = preload("res://classes/enums/PlayerTypeEnum.gd")
 
 func _ready():
-	var battlefield_map: Array = $Gamelogic.generate_battelfield()
-	$Playground/Battelfield.render_battlefield(battlefield_map)
-	$Playground.choose_castel(true)
+	$Playground/Gamelogic.generate_battelfield()
+	$Playground/Gamelogic.choose_castel(true, PlayerTypeEnum.MANUAL)
+	yield($Playground/Gamelogic, "castle_set")
+	print("tssd")
+	$Playground/Gamelogic.choose_castel(false, PlayerTypeEnum.MANUAL)
+
+
+

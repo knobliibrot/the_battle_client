@@ -9,19 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
+"base": "TextureButton",
 "class": "Field",
 "language": "GDScript",
-"path": "res://classes/game/model/Field.gd"
-}, {
-"base": "TextureButton",
-"class": "FieldScene",
-"language": "GDScript",
-"path": "res://classes/game/view/fields/FieldScene.gd"
+"path": "res://classes/game/view/fields/Field.gd"
 } ]
 _global_script_class_icons={
-"Field": "",
-"FieldScene": ""
+"Field": ""
 }
 
 [application]

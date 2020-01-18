@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://artifacts/graphics/fields/forest.png" type="Texture" id=1]
-[ext_resource path="res://classes/game/view/fields/FieldScene.gd" type="Script" id=2]
+[ext_resource path="res://classes/game/view/fields/Field.gd" type="Script" id=2]
 
 [node name="FieldScene" type="TextureButton"]
 margin_right = 80.0

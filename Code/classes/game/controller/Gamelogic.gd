@@ -1,12 +1,41 @@
 extends Node
 
+signal castle_set
 
+const PlayerTypeEnum = preload("res://classes/enums/PlayerTypeEnum.gd")
 const FieldTypeEnum = preload("res://classes/enums/FieldTypeEnum.gd")
 const Parameters = preload("res://classes/game/model/Rulebook/GameParameters.gd")
-const Field = preload("res://classes/game/model/Field.tscn")
 
 var battlefield_map: Array setget ,get_battlefield_map
+var is_player1: bool
 
+func choose_castel(is_player1: bool, player_type: PlayerTypeEnum):
+	print(player_type)
+	self.is_player1 = is_player1
+	get_parent().get_node("Battlefield").activate_castle_mode(is_player1)
+	get_parent().start_timer_with_message("Place your Castle!", 15)	
+	
+func set_castle(position: Vector2, is_timeout: bool) -> void:
+	var nodes: Array 
+	if self.is_player1:
+		nodes = get_tree().get_nodes_in_group("castle_field_1")
+		if is_timeout:
+			position.y = Parameters.DEFAULT_CASTLE_HEIGHT
+			position.x = Parameters.BATTLEFIELD_WIDTH-1
+	else:
+		nodes = get_tree().get_nodes_in_group("castle_field_2")
+		if is_timeout:
+			position.y = Parameters.DEFAULT_CASTLE_HEIGHT
+			position.x = 0
+	
+	for field in nodes:
+		if position == field.get_field_position():
+			get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
+		else:
+			get_parent().get_node("Battlefield").remove_child(field)
+	
+	get_parent().stop_timer()
+	emit_signal("castle_set")
 
 func generate_battelfield() -> Array:
 	battlefield_map = []
@@ -18,19 +47,14 @@ func generate_battelfield() -> Array:
 		for x in range(Parameters.BATTLEFIELD_WIDTH):
 			# Fields should be just at positions where x + y is uneven and not in the first and last column
 			if (x + y) % 2 == 1:
-				if x != 0 and x != Parameters.BATTLEFIELD_WIDTH - 1:					
-					var field = Field.instance()
-					field.set_position(x, y)
-					battlefield_map[y][x] = field
-					choose_field_type(x, y)
+				if x != 0 and x != Parameters.BATTLEFIELD_WIDTH - 1:
+					battlefield_map[y][x] = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), choose_field_type(x, y)) 
+					
 				else:
-					var field = Field.instance()
-					field.set_position(x, y)
-					battlefield_map[y][x] = field
-					battlefield_map[y][x].set_field_type(FieldTypeEnum.EMPTY)
+					battlefield_map[y][x] = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), FieldTypeEnum.EMPTY) 
 	return battlefield_map
 
-func choose_field_type(x, y) -> void:
+func choose_field_type(x, y) -> int:
 	var field_percantage_map: Dictionary = {
 	FieldTypeEnum.GRASS:0,
 	FieldTypeEnum.FOREST:0,
@@ -61,7 +85,7 @@ func choose_field_type(x, y) -> void:
 			count_neighbour(x-1, y-1, neigbour_counter_map)
 			count_neighbour(x+1, y-1, neigbour_counter_map)
 	
-	battlefield_map[y][x].set_field_type(define_field_type(neigbour_counter_map, field_percantage_map))
+	return define_field_type(neigbour_counter_map, field_percantage_map)
 
 func count_neighbour(x, y, neighbour_counter_map) -> void:
 	if battlefield_map.find(y) && battlefield_map[y].find(x) && battlefield_map[y][x].get_field_type() != FieldTypeEnum.EMPTY:
@@ -183,3 +207,13 @@ func set_percentage_village(field_percantage_map: Dictionary, field_amount: int)
 func get_battlefield_map() -> Array:
 	return battlefield_map
 	
+
+func _on_TimeBox_timeout():
+	get_parent().get_node("$Top/TopBar/TimeBox").stop_timer()
+
+
+func _on_Battlefield_castle_choosen(position: Vector2):
+	set_castle(position, false)
+
+func _on_TimeBox_set_castle_timer_finished() -> void:
+	set_castle(Vector2(0,1), true)

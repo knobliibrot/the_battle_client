@@ -12,7 +12,7 @@ margin_right = 86.0
 texture = ExtResource( 3 )
 
 [node name="Label" parent="NinePatchRect" index="1"]
-text = "0"
+text = ""
 
 [node name="Timer" type="Timer" parent="." index="1"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
