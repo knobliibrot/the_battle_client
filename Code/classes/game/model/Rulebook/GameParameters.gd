@@ -1,5 +1,7 @@
 extends Node
 
+class_name GameParameters
+
 # Battelfield Generation Parameters
 const TRIPLET_SAME_CHANCE = 45
 const TRIPLET_GRASS_CHANCE = 21
@@ -26,3 +28,11 @@ const BATTLEFIELD_WIDTH = 21
 const BATTLEFIELD_HEIGHT = 7
 
 const DEFAULT_CASTLE_HEIGHT = 3
+
+# Gaming Values
+const DEFAULT_CASTLE_HEALTH = 100
+const DEFAULT_START_GOLD = 30
+const DEFAULT_BASIC_INCOME = 15
+
+const MESSAGE_SHOW_TIME = 2
+const ROUND_TIME = 10

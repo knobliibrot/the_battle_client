@@ -75,7 +75,6 @@ margin_right = 1066.0
 margin_bottom = 80.0
 
 [node name="Right" type="MarginContainer" parent="UI"]
-editor/display_folded = true
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -93,26 +92,26 @@ margin_bottom = 710.0
 rect_min_size = Vector2( 120, 700 )
 custom_constants/separation = 0
 
-[node name="SwordsmanTroopButton" parent="UI/Right/RightBar" instance=ExtResource( 6 )]
+[node name="SwordsmanButton" parent="UI/Right/RightBar" instance=ExtResource( 6 )]
 margin_right = 140.0
 margin_bottom = 140.0
 
-[node name="SpearmanTroopButton" parent="UI/Right/RightBar" instance=ExtResource( 7 )]
+[node name="SpearmanButton" parent="UI/Right/RightBar" instance=ExtResource( 7 )]
 margin_top = 140.0
 margin_right = 140.0
 margin_bottom = 280.0
 
-[node name="ArcherTroopButton" parent="UI/Right/RightBar" instance=ExtResource( 8 )]
+[node name="ArcherButton" parent="UI/Right/RightBar" instance=ExtResource( 8 )]
 margin_top = 280.0
 margin_right = 140.0
 margin_bottom = 420.0
 
-[node name="KnightTroopButton" parent="UI/Right/RightBar" instance=ExtResource( 9 )]
+[node name="KnightButton" parent="UI/Right/RightBar" instance=ExtResource( 9 )]
 margin_top = 420.0
 margin_right = 140.0
 margin_bottom = 560.0
 
-[node name="CatapultTroopButton" parent="UI/Right/RightBar" instance=ExtResource( 10 )]
+[node name="CatapultButton" parent="UI/Right/RightBar" instance=ExtResource( 10 )]
 margin_top = 560.0
 margin_right = 140.0
 margin_bottom = 700.0
@@ -253,6 +252,7 @@ texture_normal = ExtResource( 17 )
 [node name="Troop" parent="Battlefield/8-1" instance=ExtResource( 18 )]
 margin_right = 40.0
 margin_bottom = 40.0
+script = null
 
 [node name="10-1" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 520.0
@@ -376,6 +376,7 @@ margin_bottom = 401.0
 [node name="Troop" parent="Battlefield/0-3" instance=ExtResource( 20 )]
 margin_bottom = 83.0
 focus_mode = 1
+script = null
 
 [node name="2-3" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 200.0
@@ -429,6 +430,7 @@ texture = ExtResource( 17 )
 [node name="Troop" parent="Battlefield/14-3" instance=ExtResource( 20 )]
 margin_right = 40.0
 margin_bottom = 40.0
+script = null
 
 [node name="16-3" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 760.0
@@ -479,6 +481,7 @@ texture_normal = ExtResource( 17 )
 [node name="Troop" parent="Battlefield/7-4" instance=ExtResource( 20 )]
 margin_right = 40.0
 margin_bottom = 40.0
+script = null
 
 [node name="9-4" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 480.0
@@ -502,6 +505,7 @@ margin_bottom = 470.0
 
 [node name="Troop" parent="Battlefield/13-4" instance=ExtResource( 21 )]
 margin_bottom = 83.0
+script = null
 
 [node name="15-4" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 720.0
@@ -513,6 +517,7 @@ texture_normal = ExtResource( 17 )
 [node name="Troop" parent="Battlefield/15-4" instance=ExtResource( 22 )]
 margin_right = 40.0
 margin_bottom = 40.0
+script = null
 
 [node name="17-4" parent="Battlefield" instance=ExtResource( 14 )]
 editor/display_folded = true
@@ -590,6 +595,7 @@ texture_normal = ExtResource( 15 )
 [node name="Troop" parent="Battlefield/14-5" instance=ExtResource( 21 )]
 margin_right = 40.0
 margin_bottom = 40.0
+script = null
 
 [node name="16-5" parent="Battlefield" instance=ExtResource( 14 )]
 editor/display_folded = true
@@ -684,4 +690,10 @@ texture_normal = ExtResource( 17 )
 [node name="Gamelogic" type="Node" parent="."]
 script = ExtResource( 23 )
 [connection signal="set_castle_timer_finished" from="UI/Top/TopBar/TimeBox" to="Gamelogic" method="_on_TimeBox_set_castle_timer_finished"]
+[connection signal="turn_finished" from="UI/Top/TopBar/TimeBox" to="Gamelogic" method="_on_TimeBox_turn_finished"]
+[connection signal="create_troop" from="UI/Right/RightBar/SwordsmanButton" to="Gamelogic" method="_on_CreateTroopButton_create_troop"]
+[connection signal="create_troop" from="UI/Right/RightBar/SpearmanButton" to="Gamelogic" method="_on_CreateTroopButton_create_troop"]
+[connection signal="create_troop" from="UI/Right/RightBar/ArcherButton" to="Gamelogic" method="_on_CreateTroopButton_create_troop"]
+[connection signal="create_troop" from="UI/Right/RightBar/KnightButton" to="Gamelogic" method="_on_CreateTroopButton_create_troop"]
+[connection signal="create_troop" from="UI/Right/RightBar/CatapultButton" to="Gamelogic" method="_on_CreateTroopButton_create_troop"]
 [connection signal="castle_choosen" from="Battlefield" to="Gamelogic" method="_on_Battlefield_castle_choosen"]

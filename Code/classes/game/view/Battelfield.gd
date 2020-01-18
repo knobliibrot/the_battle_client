@@ -2,8 +2,6 @@ extends Node
 
 signal castle_choosen
 
-const FieldTypeEnum = preload("res://classes/enums/FieldTypeEnum.gd")
-const Parameters = preload("res://classes/game/model/Rulebook/GameParameters.gd")
 
 const SCENE_MAP = { 
 FieldTypeEnum.GRASS : "res://classes/game/view/fields/GrassField.tscn",
@@ -13,15 +11,7 @@ FieldTypeEnum.VILLAGE : "res://classes/game/view/fields/VillageField.tscn",
 FieldTypeEnum.CASTLE : "res://classes/game/view/fields/CastleField.tscn",
 FieldTypeEnum.EMPTY : "res://classes/game/view/fields/EmptyField.tscn"}
 
-func activate_castle_mode(is_player1: bool) -> void:
-	var castle_fields: Array
-	if is_player1:
-		castle_fields = get_tree().get_nodes_in_group("castle_field_1")
-	else:
-		castle_fields = get_tree().get_nodes_in_group("castle_field_2")
-		
-	for field in castle_fields:
-		field.set_disabled(false)
+
 
 func initalize_field(position: Vector2, field_type: int) -> Field:	
 	var old_node : Field = get_field(position)

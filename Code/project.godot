@@ -9,13 +9,61 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "MarginContainer",
+"class": "CreateTroopButton",
+"language": "GDScript",
+"path": "res://classes/game/view/buttons/create_troop/CreateTroopButton.gd"
+}, {
 "base": "TextureButton",
 "class": "Field",
 "language": "GDScript",
 "path": "res://classes/game/view/fields/Field.gd"
+}, {
+"base": "Node",
+"class": "FieldTypeEnum",
+"language": "GDScript",
+"path": "res://classes/enums/FieldTypeEnum.gd"
+}, {
+"base": "Node",
+"class": "GameParameters",
+"language": "GDScript",
+"path": "res://classes/game/model/Rulebook/GameParameters.gd"
+}, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://classes/game/model/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerTypeEnum",
+"language": "GDScript",
+"path": "res://classes/enums/PlayerTypeEnum.gd"
+}, {
+"base": "MarginContainer",
+"class": "Troop",
+"language": "GDScript",
+"path": "res://classes/game/view/troops/Troop.gd"
+}, {
+"base": "Node",
+"class": "TroopType",
+"language": "GDScript",
+"path": "res://classes/game/model/TroopType.gd"
+}, {
+"base": "Node",
+"class": "TroopTypeEnum",
+"language": "GDScript",
+"path": "res://classes/enums/TroopTypeEnum.gd"
 } ]
 _global_script_class_icons={
-"Field": ""
+"CreateTroopButton": "",
+"Field": "",
+"FieldTypeEnum": "",
+"GameParameters": "",
+"Player": "",
+"PlayerTypeEnum": "",
+"Troop": "",
+"TroopType": "",
+"TroopTypeEnum": ""
 }
 
 [application]

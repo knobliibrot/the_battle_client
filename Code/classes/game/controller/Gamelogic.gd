@@ -1,31 +1,58 @@
 extends Node
 
 signal castle_set
+signal turn_finished
 
-const PlayerTypeEnum = preload("res://classes/enums/PlayerTypeEnum.gd")
-const FieldTypeEnum = preload("res://classes/enums/FieldTypeEnum.gd")
-const Parameters = preload("res://classes/game/model/Rulebook/GameParameters.gd")
 
 var battlefield_map: Array setget ,get_battlefield_map
+var player1: Player
+var player2: Player
+
+var actual_player: Player
 var is_player1: bool
 
-func choose_castel(is_player1: bool, player_type: PlayerTypeEnum):
-	print(player_type)
-	self.is_player1 = is_player1
-	get_parent().get_node("Battlefield").activate_castle_mode(is_player1)
-	get_parent().start_timer_with_message("Place your Castle!", 15)	
+func initialize_game(player1: int, player2: int) -> void: 
+	self.player1 = Player.new()
+	self.player1.init(player1)
+	self.player1.player_name= "Sämi"
+	self.player2 = Player.new()
+	self.player2.init(player2)	
+	self.player2.gold = 3000
+
+func choose_castel(is_player1: bool) -> void:
+	set_actual_player(is_player1)
 	
+	if is_player1 || self.actual_player.player_type == PlayerTypeEnum.MANUAL:
+		get_parent().update_gui_with_player(actual_player)
+		get_parent().activate_castle_mode(is_player1)
+		get_parent().start_timer_with_message("Place your Castle " + actual_player.player_name + "!", GameParameters.ROUND_TIME, "set_castle_timer_finished")	
+		
+func start_turn(is_player1: bool) -> void:
+	set_actual_player(is_player1)
+	if is_player1 || self.actual_player.player_type == PlayerTypeEnum.MANUAL:
+		get_parent().update_gui_with_player(actual_player)
+		get_parent().activate_turn_mode(is_player1, actual_player)
+		get_parent().start_timer_with_message("Your turn " + actual_player.player_name + "!", GameParameters.ROUND_TIME, "turn_finished")	
+	
+	
+func set_actual_player(is_player1: bool) -> void:
+	self.is_player1 = is_player1
+	if is_player1:
+		self.actual_player = player1
+	else:
+		self.actual_player = player2
+		
 func set_castle(position: Vector2, is_timeout: bool) -> void:
 	var nodes: Array 
 	if self.is_player1:
 		nodes = get_tree().get_nodes_in_group("castle_field_1")
 		if is_timeout:
-			position.y = Parameters.DEFAULT_CASTLE_HEIGHT
-			position.x = Parameters.BATTLEFIELD_WIDTH-1
+			position.y = GameParameters.DEFAULT_CASTLE_HEIGHT
+			position.x = GameParameters.BATTLEFIELD_WIDTH-1
 	else:
 		nodes = get_tree().get_nodes_in_group("castle_field_2")
 		if is_timeout:
-			position.y = Parameters.DEFAULT_CASTLE_HEIGHT
+			position.y = GameParameters.DEFAULT_CASTLE_HEIGHT
 			position.x = 0
 	
 	for field in nodes:
@@ -40,14 +67,14 @@ func set_castle(position: Vector2, is_timeout: bool) -> void:
 func generate_battelfield() -> Array:
 	battlefield_map = []
 	battlefield_map.resize(7)
-	for y in range(Parameters.BATTLEFIELD_HEIGHT):
+	for y in range(GameParameters.BATTLEFIELD_HEIGHT):
 		var row: Array = []
-		row.resize(Parameters.BATTLEFIELD_WIDTH)
+		row.resize(GameParameters.BATTLEFIELD_WIDTH)
 		battlefield_map[y] = row
-		for x in range(Parameters.BATTLEFIELD_WIDTH):
+		for x in range(GameParameters.BATTLEFIELD_WIDTH):
 			# Fields should be just at positions where x + y is uneven and not in the first and last column
 			if (x + y) % 2 == 1:
-				if x != 0 and x != Parameters.BATTLEFIELD_WIDTH - 1:
+				if x != 0 and x != GameParameters.BATTLEFIELD_WIDTH - 1:
 					battlefield_map[y][x] = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), choose_field_type(x, y)) 
 					
 				else:
@@ -131,89 +158,95 @@ func define_field_type(neigbour_counter_map, field_percantage_map) -> int:
 		return FieldTypeEnum.VILLAGE		
 
 func set_percentage_start(field_percantage_map: Dictionary) -> void:
-	field_percantage_map[FieldTypeEnum.GRASS] = Parameters.START_GRASS_CHANCE
-	field_percantage_map[FieldTypeEnum.FOREST] = Parameters.START_OTHER_CHANCE
-	field_percantage_map[FieldTypeEnum.MOUNTAIN] = Parameters.START_OTHER_CHANCE
-	field_percantage_map[FieldTypeEnum.VILLAGE] = Parameters.START_OTHER_CHANCE
+	field_percantage_map[FieldTypeEnum.GRASS] = GameParameters.START_GRASS_CHANCE
+	field_percantage_map[FieldTypeEnum.FOREST] = GameParameters.START_OTHER_CHANCE
+	field_percantage_map[FieldTypeEnum.MOUNTAIN] = GameParameters.START_OTHER_CHANCE
+	field_percantage_map[FieldTypeEnum.VILLAGE] = GameParameters.START_OTHER_CHANCE
 
 func set_percentage_grass(field_percantage_map: Dictionary, field_amount: int) -> void:
 	if field_amount == 1:
-		field_percantage_map[FieldTypeEnum.GRASS] += Parameters.GRASS_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.GRASS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.GRASS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] +=Parameters.GRASS_OTHER_CHANCE - 2
+		field_percantage_map[FieldTypeEnum.GRASS] += GameParameters.GRASS_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.GRASS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.GRASS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] +=GameParameters.GRASS_OTHER_CHANCE - 2
 	elif field_amount == 2:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.GRASSTWINS_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.GRASSTWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.GRASSTWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.GRASSTWINS_OTHER_CHANCE - 6
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.GRASSTWINS_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.GRASSTWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.GRASSTWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.GRASSTWINS_OTHER_CHANCE - 6
 	elif field_amount == 3:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.GRASSTRIPLET_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.GRASSTRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.GRASSTRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.GRASSTRIPLET_OTHER_CHANCE - 10
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.GRASSTRIPLET_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.GRASSTRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.GRASSTRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.GRASSTRIPLET_OTHER_CHANCE - 10
 		
 func set_percentage_forest(field_percantage_map: Dictionary, field_amount: int) -> void:
 	if field_amount == 1:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.OTHER_CHANCE - 2
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.OTHER_CHANCE - 2
 	elif field_amount == 2:
-		field_percantage_map[FieldTypeEnum.GRASS] += Parameters.TWINS_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] +=Parameters.TWINS_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.TWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] +=Parameters.TWINS_OTHER_CHANCE - 6
+		field_percantage_map[FieldTypeEnum.GRASS] += GameParameters.TWINS_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] +=GameParameters.TWINS_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.TWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] +=GameParameters.TWINS_OTHER_CHANCE - 6
 	elif field_amount == 3:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.TRIPLET_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] +=Parameters.TRIPLET_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.TRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] +=Parameters.TRIPLET_OTHER_CHANCE - 10
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.TRIPLET_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] +=GameParameters.TRIPLET_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.TRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] +=GameParameters.TRIPLET_OTHER_CHANCE - 10
 		
 func set_percentage_mountain(field_percantage_map: Dictionary, field_amount: int) -> void:
 	if field_amount == 1:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] +=Parameters.OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] +=Parameters.SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.OTHER_CHANCE - 2
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] +=GameParameters.OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] +=GameParameters.SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.OTHER_CHANCE - 2
 	elif field_amount == 2:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.TWINS_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.TWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] +=Parameters.TWINS_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.TWINS_OTHER_CHANCE - 6
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.TWINS_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.TWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] +=GameParameters.TWINS_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.TWINS_OTHER_CHANCE - 6
 	elif field_amount == 3:
-		field_percantage_map[FieldTypeEnum.GRASS] +=Parameters.TRIPLET_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] +=Parameters.TRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.TRIPLET_SAME_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] +=Parameters.TRIPLET_OTHER_CHANCE - 10
+		field_percantage_map[FieldTypeEnum.GRASS] +=GameParameters.TRIPLET_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] +=GameParameters.TRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.TRIPLET_SAME_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] +=GameParameters.TRIPLET_OTHER_CHANCE - 10
 		
 func set_percentage_village(field_percantage_map: Dictionary, field_amount: int) -> void:
 	if field_amount == 1:
-		field_percantage_map[FieldTypeEnum.GRASS] += Parameters.GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] +=Parameters.SAME_CHANCE - 5
+		field_percantage_map[FieldTypeEnum.GRASS] += GameParameters.GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] +=GameParameters.SAME_CHANCE - 5
 	elif field_amount == 2:
-		field_percantage_map[FieldTypeEnum.GRASS] += Parameters.TWINS_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.TWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.TWINS_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.TWINS_SAME_CHANCE - 10
+		field_percantage_map[FieldTypeEnum.GRASS] += GameParameters.TWINS_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.TWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.TWINS_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.TWINS_SAME_CHANCE - 10
 	elif field_amount == 3:
-		field_percantage_map[FieldTypeEnum.GRASS] += Parameters.TRIPLET_GRASS_CHANCE
-		field_percantage_map[FieldTypeEnum.FOREST] += Parameters.TRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.MOUNTAIN] += Parameters.TRIPLET_OTHER_CHANCE
-		field_percantage_map[FieldTypeEnum.VILLAGE] += Parameters.TRIPLET_SAME_CHANCE - 30
+		field_percantage_map[FieldTypeEnum.GRASS] += GameParameters.TRIPLET_GRASS_CHANCE
+		field_percantage_map[FieldTypeEnum.FOREST] += GameParameters.TRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.MOUNTAIN] += GameParameters.TRIPLET_OTHER_CHANCE
+		field_percantage_map[FieldTypeEnum.VILLAGE] += GameParameters.TRIPLET_SAME_CHANCE - 30
 
 func get_battlefield_map() -> Array:
 	return battlefield_map
-	
 
 func _on_TimeBox_timeout():
 	get_parent().get_node("$Top/TopBar/TimeBox").stop_timer()
-
 
 func _on_Battlefield_castle_choosen(position: Vector2):
 	set_castle(position, false)
 
 func _on_TimeBox_set_castle_timer_finished() -> void:
 	set_castle(Vector2(0,1), true)
+
+
+func _on_TimeBox_turn_finished():
+	# TODO: gui
+	emit_signal("turn_finished", false)
+
+func _on_CreateTroopButton_create_troop(troop_type):
+	print(troop_type)
