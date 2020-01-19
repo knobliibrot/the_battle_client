@@ -10,31 +10,74 @@ var stationed_troop: Troop
 var connections: Dictionary = {}
 
 
-func force_troop_move(is_player1: bool, troop: Troop) -> void:
-	if self.stationed_troop != null:
-		remove_child(self.stationed_troop)
+func force_troop_move(is_player1: bool, troop: Troop) -> bool:
+	#TODO: Replace with BFS
+	var forced: bool = false
+	remove_child(self.stationed_troop)
+	if self.stationed_troop != null:		
 		if is_player1:
 			if connections.has(FieldConnectionTypeEnum.LEFT_UP) && connections[FieldConnectionTypeEnum.LEFT_UP].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
 			elif connections.has(FieldConnectionTypeEnum.LEFT) && connections[FieldConnectionTypeEnum.LEFT].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
 			elif connections.has(FieldConnectionTypeEnum.LEFT_DOWN) && connections[FieldConnectionTypeEnum.LEFT_DOWN].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_UP) && connections[FieldConnectionTypeEnum.RIGHT_UP].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT) && connections[FieldConnectionTypeEnum.RIGHT].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_DOWN) && connections[FieldConnectionTypeEnum.RIGHT_DOWN].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_UP) && connections[FieldConnectionTypeEnum.LEFT_UP].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT) && connections[FieldConnectionTypeEnum.LEFT].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_DOWN) && connections[FieldConnectionTypeEnum.LEFT_DOWN].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_UP) && connections[FieldConnectionTypeEnum.RIGHT_UP].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT) && connections[FieldConnectionTypeEnum.RIGHT].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_DOWN) && connections[FieldConnectionTypeEnum.RIGHT_DOWN].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
 			else:
-				connections[FieldConnectionTypeEnum.LEFT_UP].force_troop_move(is_player1, self.stationed_troop)
+				forced = false
 		else:
 			if connections.has(FieldConnectionTypeEnum.RIGHT_UP) && connections[FieldConnectionTypeEnum.RIGHT_UP].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
 			elif connections.has(FieldConnectionTypeEnum.RIGHT) && connections[FieldConnectionTypeEnum.RIGHT].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
 			elif connections.has(FieldConnectionTypeEnum.RIGHT_DOWN) && connections[FieldConnectionTypeEnum.RIGHT_DOWN].check_and_set_troop(self.stationed_troop):
-				pass
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_UP) && connections[FieldConnectionTypeEnum.LEFT_UP].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT) && connections[FieldConnectionTypeEnum.LEFT].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_DOWN) && connections[FieldConnectionTypeEnum.LEFT_DOWN].check_and_set_troop(self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_UP) && connections[FieldConnectionTypeEnum.RIGHT_UP].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT) && connections[FieldConnectionTypeEnum.RIGHT].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.RIGHT_DOWN) && connections[FieldConnectionTypeEnum.RIGHT_DOWN].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_UP) && connections[FieldConnectionTypeEnum.LEFT_UP].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT) && connections[FieldConnectionTypeEnum.LEFT].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
+			elif connections.has(FieldConnectionTypeEnum.LEFT_DOWN) && connections[FieldConnectionTypeEnum.LEFT_DOWN].force_troop_move(is_player1, self.stationed_troop):
+				forced = true
 			else:
-				connections[FieldConnectionTypeEnum.RIGHT_UP].force_troop_move(is_player1, self.stationed_troop)
-		self.stationed_troop = null
-	
-	self.stationed_troop = troop
-	add_child(troop)
+				forced = false
+		if forced:
+			self.stationed_troop = troop
+			add_child(troop)
+		else:
+			add_child(self.stationed_troop)
+	else:
+		self.stationed_troop = troop
+		add_child(troop)
+	return forced
 
 func check_and_set_troop(troop: Troop) -> bool:
 	if stationed_troop == null:
@@ -61,8 +104,11 @@ func create_troop(troop_type: int, is_player1: bool) -> Troop:
 	 	troop = load(TroopType.SCENE_BLUE[troop_type]).instance()
 	else:
 		troop = load(TroopType.SCENE_RED[troop_type]).instance()
-	force_troop_move(is_player1, troop)
-	return troop
+	if force_troop_move(is_player1, troop):
+		return troop
+	else:
+		return null
+	
 	
 func copy_data(old_node: Node) -> void:
 	set_name(old_node.get_name())

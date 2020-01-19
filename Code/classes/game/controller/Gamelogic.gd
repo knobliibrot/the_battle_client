@@ -44,9 +44,8 @@ func pay_and_trainingday(actualPlayer: Player) -> void:
 		actualPlayer.salary += TroopType.SALARY[new_troop_type]
 		actualPlayer.income = GameParameters.DEFAULT_BASIC_INCOME - actualPlayer.salary
 		var troop: Troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(new_troop_type, self.is_player1)
-	
-func move_troops_for_new_troop(actualPlayer: Player) -> void:
-	battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].force_troop_move(self.is_player1)
+		if troop == null:
+			get_parent().show_message("WTF the Battelfield is full !!!",3)
 
 func create_troop(troop_type: int):
 	if actual_player.gold >= TroopType.PRICE[troop_type]:
@@ -66,7 +65,7 @@ func set_actual_player(is_player1: bool) -> void:
 		self.actual_player = player2
 		
 func set_castle(position: Vector2, is_timeout: bool) -> void:
-	var nodes: Array 
+	var nodes: Array = []
 	if self.is_player1:
 		nodes = get_tree().get_nodes_in_group("castle_field_1")
 		if is_timeout:
@@ -82,10 +81,10 @@ func set_castle(position: Vector2, is_timeout: bool) -> void:
 		if position == field.get_field_position():
 			var new_field = get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
 			actual_player.castle_position = position
-			battlefield_map[position.y][position.x] = new_field
+			battlefield_map[field.field_position.y][field.field_position.x] = new_field
 		else:
 			get_parent().get_node("Battlefield").remove_child(field)
-			battlefield_map[position.y][position.x] = null
+			battlefield_map[field.field_position.y][field.field_position.x] = null
 	
 	get_parent().stop_timer()
 	emit_signal("castle_set")
