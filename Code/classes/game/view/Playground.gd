@@ -9,8 +9,8 @@ func update_gui_with_player(player: Player) -> void:
 	$UI/Top/TopBar/IncomeBox/NinePatchRect/Label.text =  str(player.income)
 	$UI/Top/TopBar/SalaryBox/NinePatchRect/Label.text =  str(player.salary)
 	$UI/Bottom/BottomBar/QueueBar.clear_queue()
-	for item in player.queue:
-		$UI/Bottom/BottomBar/QueueBar.add(item)
+	for i in range(player.queue.size()):
+		$UI/Bottom/BottomBar/QueueBar.add(player.queue[i], i, player.progress_actual_troop_in_queue)
 	$UI/Bottom/BottomBar/HealthBar/Background/HealthBox.update_health(player.castle_health)
 	
 func add_to_queue(player_type: int) -> void:

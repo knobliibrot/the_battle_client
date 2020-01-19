@@ -37,8 +37,27 @@ func start_turn(is_player1: bool) -> void:
 	
 func pay_and_trainingday(actualPlayer: Player) -> void:
 	actualPlayer.gold += actualPlayer.income
-	#TODO: train from queue
+	var new_troop_type :int = actualPlayer.get_new_troop()
 	
+	# Create Troop
+	if new_troop_type >= 0:
+		actualPlayer.salary += TroopType.SALARY[new_troop_type]
+		actualPlayer.income = GameParameters.DEFAULT_BASIC_INCOME - actualPlayer.salary
+		var troop: Troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(new_troop_type, self.is_player1)
+	
+func move_troops_for_new_troop(actualPlayer: Player) -> void:
+	battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].force_troop_move(self.is_player1)
+
+func create_troop(troop_type: int):
+	if actual_player.gold >= TroopType.PRICE[troop_type]:
+		if !actual_player.add_troop_to_queue(troop_type):
+			get_parent().show_message("The Queue is full!", 1)
+		else:
+			actual_player.gold -=TroopType.PRICE[troop_type]
+		get_parent().update_gui_with_player(actual_player)
+	else:
+		get_parent().show_message("You don't have enaugh money!", 1)
+		
 func set_actual_player(is_player1: bool) -> void:
 	self.is_player1 = is_player1
 	if is_player1:
@@ -61,10 +80,12 @@ func set_castle(position: Vector2, is_timeout: bool) -> void:
 	
 	for field in nodes:
 		if position == field.get_field_position():
-			get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
+			var new_field = get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
 			actual_player.castle_position = position
+			battlefield_map[position.y][position.x] = new_field
 		else:
 			get_parent().get_node("Battlefield").remove_child(field)
+			battlefield_map[position.y][position.x] = null
 	
 	get_parent().stop_timer()
 	emit_signal("castle_set")
@@ -79,11 +100,25 @@ func generate_battelfield() -> Array:
 		for x in range(GameParameters.BATTLEFIELD_WIDTH):
 			# Fields should be just at positions where x + y is uneven and not in the first and last column
 			if (x + y) % 2 == 1:
+				var field: Field
 				if x != 0 and x != GameParameters.BATTLEFIELD_WIDTH - 1:
-					battlefield_map[y][x] = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), choose_field_type(x, y)) 
+					field = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), choose_field_type(x, y)) 
 					
 				else:
-					battlefield_map[y][x] = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), FieldTypeEnum.EMPTY) 
+					field = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), FieldTypeEnum.EMPTY) 
+					
+				if x > 1 :
+					field.set_connection(battlefield_map[y][x-2], FieldConnectionTypeEnum.LEFT)
+					battlefield_map[y][x-2].set_connection(field, FieldConnectionTypeEnum.RIGHT)
+				if y != 0:
+					if x > 0:
+						field.set_connection(battlefield_map[y-1][x-1], FieldConnectionTypeEnum.LEFT_UP)
+						battlefield_map[y-1][x-1].set_connection(field, FieldConnectionTypeEnum.RIGHT_DOWN)
+					if x < GameParameters.BATTLEFIELD_WIDTH-2:
+						field.set_connection(battlefield_map[y-1][x+1], FieldConnectionTypeEnum.RIGHT_UP)
+						battlefield_map[y-1][x+1].set_connection(field, FieldConnectionTypeEnum.LEFT_DOWN)
+					
+				battlefield_map[y][x] = field
 	return battlefield_map
 
 func choose_field_type(x, y) -> int:
@@ -240,9 +275,11 @@ func get_battlefield_map() -> Array:
 	return battlefield_map
 
 func _on_Battlefield_castle_choosen(position: Vector2):
+	print("vec")
 	set_castle(position, false)
 
 func _on_TimeBox_set_castle_timer_finished() -> void:
+	print("vect")
 	set_castle(Vector2(0,1), true)
 
 
@@ -251,14 +288,8 @@ func _on_TimeBox_turn_finished():
 	emit_signal("turn_finished", false)
 
 func _on_TroopButton_create_troop(troop_type: int):
-	if actual_player.gold >= TroopType.PRICE[troop_type]:
-		#check if someone is in castle
-		var troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(troop_type)
-		if !actual_player.add_troop_to_queue(troop_type):
-			get_parent().show_message("The Queue is full!", 1)
-		else:
-			actual_player.gold -=TroopType.PRICE[troop_type]
-		get_parent().update_gui_with_player(actual_player)
-	else:
-		get_parent().show_message("You don't have enaugh money!", 1)
+	create_troop(troop_type)
 
+func _on_QueueBar_remove_from_queue(position: int):
+	actual_player.remove_from_queue(position)
+	get_parent().update_gui_with_player(actual_player)

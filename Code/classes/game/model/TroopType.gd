@@ -10,8 +10,24 @@ TroopTypeEnum.KNIGHT : 25,
 TroopTypeEnum.CATAPULT : 10
 }
 
+const BUILD_TIME = { 
+TroopTypeEnum.SWORDSMAN : 1, 
+TroopTypeEnum.SPEARMAN : 1,
+TroopTypeEnum.ARCHER : 1,
+TroopTypeEnum.KNIGHT : 2,
+TroopTypeEnum.CATAPULT : 2
+}
+
+const SALARY = { 
+TroopTypeEnum.SWORDSMAN : 3, 
+TroopTypeEnum.SPEARMAN : 2,
+TroopTypeEnum.ARCHER : 3,
+TroopTypeEnum.KNIGHT : 6,
+TroopTypeEnum.CATAPULT : 2
+}
+
 const SCENE_BLUE = { 
-TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/BlueSwordsmannTroop.tscn", 
+TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/BlueSwordsmanTroop.tscn", 
 TroopTypeEnum.SPEARMAN : "res://classes/game/view/troops/BlueSpearmanTroop.tscn",
 TroopTypeEnum.ARCHER : "res://classes/game/view/troops/BlueArcherTroop.tscn",
 TroopTypeEnum.KNIGHT : "res://classes/game/view/troops/BlueKnightTroop.tscn",
@@ -19,7 +35,7 @@ TroopTypeEnum.CATAPULT : "res://classes/game/view/troops/BlueCatapultTroop.tscn"
 }
 
 const SCENE_RED = { 
-TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/RedSwordsmannTroop.tscn", 
+TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/RedSwordsmanTroop.tscn", 
 TroopTypeEnum.SPEARMAN : "res://classes/game/view/troops/RedSpearmanTroop.tscn",
 TroopTypeEnum.ARCHER : "res://classes/game/view/troops/RedArcherTroop.tscn",
 TroopTypeEnum.KNIGHT : "res://classes/game/view/troops/RedKnightTroop.tscn",

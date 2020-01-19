@@ -20,6 +20,16 @@ _global_script_classes=[ {
 "path": "res://classes/game/view/fields/Field.gd"
 }, {
 "base": "Node",
+"class": "FieldConnection",
+"language": "GDScript",
+"path": "res://classes/game/model/FieldConnection.gd"
+}, {
+"base": "Node",
+"class": "FieldConnectionTypeEnum",
+"language": "GDScript",
+"path": "res://classes/enums/FieldConnectionTypeEnum.gd"
+}, {
+"base": "Node",
 "class": "FieldTypeEnum",
 "language": "GDScript",
 "path": "res://classes/enums/FieldTypeEnum.gd"
@@ -40,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://classes/enums/PlayerTypeEnum.gd"
 }, {
 "base": "MarginContainer",
+"class": "QueueButton",
+"language": "GDScript",
+"path": "res://classes/game/view/buttons/queue/QueueButton.gd"
+}, {
+"base": "MarginContainer",
 "class": "Troop",
 "language": "GDScript",
 "path": "res://classes/game/view/troops/Troop.gd"
@@ -57,10 +72,13 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "CreateTroopButton": "",
 "Field": "",
+"FieldConnection": "",
+"FieldConnectionTypeEnum": "",
 "FieldTypeEnum": "",
 "GameParameters": "",
 "Player": "",
 "PlayerTypeEnum": "",
+"QueueButton": "",
 "Troop": "",
 "TroopType": "",
 "TroopTypeEnum": ""

@@ -149,7 +149,6 @@ margin_left = 563.0
 margin_right = 1063.0
 
 [node name="Battlefield" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 13 )
 
 [node name="1-0" parent="Battlefield" instance=ExtResource( 14 )]
@@ -649,4 +648,5 @@ script = ExtResource( 18 )
 [connection signal="create_troop" from="UI/Right/RightBar/ArcherButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="UI/Right/RightBar/KnightButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="UI/Right/RightBar/CatapultButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="remove_from_queue" from="UI/Bottom/BottomBar/QueueBar" to="Gamelogic" method="_on_QueueBar_remove_from_queue"]
 [connection signal="castle_choosen" from="Battlefield" to="Gamelogic" method="_on_Battlefield_castle_choosen"]
