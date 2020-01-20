@@ -9,7 +9,7 @@ var castle_health: int
 var gold: int
 var income: int
 var salary: int
-var troops: Array
+var troops: Array = []
 var queue: Array = []
 var progress_actual_troop_in_queue: int
 
@@ -22,6 +22,7 @@ func init(type: int) -> void:
 	self.salary = 0
 	
 func remove_from_queue(position: int) -> void:
+	self.gold += TroopType.PRICE[queue[position]]
 	queue.remove(position)
 	if position == 0:
 		progress_actual_troop_in_queue = 0

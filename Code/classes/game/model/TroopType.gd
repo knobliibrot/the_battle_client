@@ -26,6 +26,14 @@ TroopTypeEnum.KNIGHT : 6,
 TroopTypeEnum.CATAPULT : 2
 }
 
+const FPR = { 
+TroopTypeEnum.SWORDSMAN : 4,
+TroopTypeEnum.SPEARMAN : 5,
+TroopTypeEnum.ARCHER : 5,
+TroopTypeEnum.KNIGHT : 8,
+TroopTypeEnum.CATAPULT : 2
+}
+
 const SCENE_BLUE = { 
 TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/BlueSwordsmanTroop.tscn", 
 TroopTypeEnum.SPEARMAN : "res://classes/game/view/troops/BlueSpearmanTroop.tscn",

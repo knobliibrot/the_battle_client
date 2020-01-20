@@ -3,6 +3,7 @@ extends Node
 signal castle_set
 signal turn_finished
 
+const SCENE_FIELDSET:String = "res://classes/tools/FieldPositionSet.tscn"
 
 var battlefield_map: Array setget ,get_battlefield_map
 var player1: Player
@@ -10,6 +11,8 @@ var player2: Player
 
 var actual_player: Player
 var is_player1: bool
+
+var selected_field: Field
 
 func initialize_game(player1: int, player2: int) -> void: 
 	self.player1 = Player.new()
@@ -44,8 +47,12 @@ func pay_and_trainingday(actualPlayer: Player) -> void:
 		actualPlayer.salary += TroopType.SALARY[new_troop_type]
 		actualPlayer.income = GameParameters.DEFAULT_BASIC_INCOME - actualPlayer.salary
 		var troop: Troop = battlefield_map[actual_player.castle_position.y][actual_player.castle_position.x].create_troop(new_troop_type, self.is_player1)
-		if troop == null:
+		actual_player.troops.append((troop))
+		if troop == null :
 			get_parent().show_message("WTF the Battelfield is full !!!",3)
+	
+	for troop in actual_player.troops:
+		troop.movement_left = TroopType.FPR[troop.troop_type]
 
 func create_troop(troop_type: int):
 	if actual_player.gold >= TroopType.PRICE[troop_type]:
@@ -79,10 +86,11 @@ func set_castle(position: Vector2, is_timeout: bool) -> void:
 	
 	for field in nodes:
 		if position == field.get_field_position():
-			var new_field = get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
+			var new_field: Field = get_parent().get_node("Battlefield").initalize_given_field(field, FieldTypeEnum.CASTLE) 
 			actual_player.castle_position = position
 			battlefield_map[field.field_position.y][field.field_position.x] = new_field
 		else:
+			field.cut_connections()
 			get_parent().get_node("Battlefield").remove_child(field)
 			battlefield_map[field.field_position.y][field.field_position.x] = null
 	
@@ -103,6 +111,7 @@ func generate_battelfield() -> Array:
 				if x != 0 and x != GameParameters.BATTLEFIELD_WIDTH - 1:
 					field = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), choose_field_type(x, y)) 
 					
+					
 				else:
 					field = get_parent().get_node("Battlefield").initalize_field(Vector2(x,y), FieldTypeEnum.EMPTY) 
 					
@@ -116,6 +125,10 @@ func generate_battelfield() -> Array:
 					if x < GameParameters.BATTLEFIELD_WIDTH-2:
 						field.set_connection(battlefield_map[y-1][x+1], FieldConnectionTypeEnum.RIGHT_UP)
 						battlefield_map[y-1][x+1].set_connection(field, FieldConnectionTypeEnum.LEFT_DOWN)
+						
+				if x == GameParameters.BATTLEFIELD_WIDTH - 2 and y % 2 == 0 and y >0:
+					field.set_connection(battlefield_map[y-1][x+1], FieldConnectionTypeEnum.RIGHT_UP)
+					battlefield_map[y-1][x+1].set_connection(field, FieldConnectionTypeEnum.LEFT_DOWN)
 					
 				battlefield_map[y][x] = field
 	return battlefield_map
@@ -274,11 +287,9 @@ func get_battlefield_map() -> Array:
 	return battlefield_map
 
 func _on_Battlefield_castle_choosen(position: Vector2):
-	print("vec")
 	set_castle(position, false)
 
 func _on_TimeBox_set_castle_timer_finished() -> void:
-	print("vect")
 	set_castle(Vector2(0,1), true)
 
 
@@ -292,3 +303,72 @@ func _on_TroopButton_create_troop(troop_type: int):
 func _on_QueueBar_remove_from_queue(position: int):
 	actual_player.remove_from_queue(position)
 	get_parent().update_gui_with_player(actual_player)
+
+func _on_Battlefield_troop_selected(position: Vector2):
+	dijkstra_on_fields(position)
+
+func dijkstra_on_fields(source: Vector2) -> void:
+	self.selected_field = battlefield_map[source.y][source.x]
+	var set = preload(SCENE_FIELDSET).instance()
+	var max_travel_distance = battlefield_map[source.y][source.x].stationed_troop.movement_left
+	
+	for field in get_parent().get_tree().get_nodes_in_group("fields"):
+		field.dijk_distance = GameSettings.MAX_INT
+		field.dijk_previous = null
+		field.dijk_visited = false
+		
+		set.add_new(GameSettings.MAX_INT, field)
+		
+	set.change_existing(0,battlefield_map[source.y][source.x])
+	
+	while !set.is_empty():
+		var actual : Field= set.pop_first()
+		actual.dijk_visited = true
+		if max_travel_distance >= actual.dijk_distance:
+			actual.set_disabled(false)
+			actual.field_state = FieldStateEnum.TARGET_SELECTION
+			actual.set_pressed(false)
+		else:
+			actual.set_disabled(true)
+			actual.set_pressed(false)
+		
+		if actual.stationed_troop == null or actual.stationed_troop.is_player1 == self.is_player1:
+			for i in actual.connections:
+				if !actual.connections[i].dijk_visited:
+					var new_dist = actual.dijk_distance + FieldConnection.FIELD_SPEED[actual.connections[i].field_type]
+					if new_dist < actual.connections[i].dijk_distance:
+						actual.connections[i].dijk_previous = actual
+						set.change_existing(new_dist, actual.connections[i])
+		
+
+func _on_Battlefield_target_selected(position: Vector2):
+	var final_position: Vector2 = position
+	var target: Field = battlefield_map[position.y][position.x]
+	if target.stationed_troop != null:
+		fight(self.selected_field.stationed_troop, target.stationed_troop)
+	move_troop(self.selected_field.stationed_troop, final_position)
+	self.selected_field = null
+	get_parent().activate_turn_mode(is_player1, actual_player)
+
+func fight(attacker: Troop, defender: Troop) -> void:
+	pass
+	
+func move_troop(troop: Troop, target: Vector2) -> void:
+	var group_name: String
+	if is_player1:
+		group_name = "troops_stationed_player1"		
+	else:
+		group_name = "troops_stationed_player2"
+	troop.get_parent().stationed_troop = null		
+	troop.get_parent().remove_from_group(group_name)	
+	troop.get_parent().remove_child(troop)
+	troop.movement_left = troop.movement_left - battlefield_map[target.y][target.x].dijk_distance
+	battlefield_map[target.y][target.x].add_child(troop)
+	battlefield_map[target.y][target.x].stationed_troop = troop
+	battlefield_map[target.y][target.x].add_to_group(group_name)
+
+
+
+func _on_Battlefield_selection_released():
+	self.selected_field = null
+	get_parent().activate_turn_mode(is_player1, actual_player)

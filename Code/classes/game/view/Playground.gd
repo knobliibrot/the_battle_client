@@ -49,3 +49,17 @@ func activate_turn_mode(is_player1: bool, player: Player) -> void:
 	for button in get_tree().get_nodes_in_group("create_troop_button"):
 		button.set_disabled(false)
 	
+	for field in get_tree().get_nodes_in_group("fields"):
+		field.set_disabled(true)
+	
+	var stationed_troop_fields: String
+	if is_player1:
+		stationed_troop_fields = "troops_stationed_player1"
+	else:
+		stationed_troop_fields = "troops_stationed_player2"
+	
+	for field in get_tree().get_nodes_in_group(stationed_troop_fields):
+		if field.stationed_troop.movement_left > 0:
+			field.set_disabled(false)
+			field.pressed = false
+			field.field_state = FieldStateEnum.TROOP_SELECTION

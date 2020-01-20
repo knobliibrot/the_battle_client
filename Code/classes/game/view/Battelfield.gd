@@ -1,6 +1,9 @@
 extends Node
 
 signal castle_choosen
+signal target_selected
+signal troop_selected
+signal selection_released
 
 
 const SCENE_MAP = { 
@@ -27,6 +30,9 @@ func initalize_given_field(old_node: Field, field_type: int) -> Field:
 	new_node.set_field_position(old_node.get_field_position())
 	new_node.field_type = field_type
 	new_node.connect("castle_choosen", self, "_on_Field_castle_choosen")
+	new_node.connect("target_selected", self, "_on_Field_target_selected")
+	new_node.connect("troop_selected", self, "_on_Field_troop_selected")
+	new_node.connect("selection_released", self, "_on_Field_selection_released")
 	old_node.replace_by(new_node,false)
 	return new_node
 	
@@ -41,5 +47,13 @@ func _on_Field_castle_choosen(position :Vector2) -> void:
 	emit_signal("castle_choosen", position)
 
 
-func _on_ArcherButton_create_troop():
-	pass # Replace with function body.
+func _on_Field_target_selected(position :Vector2) -> void:
+	emit_signal("target_selected", position)
+	
+func _on_Field_troop_selected(position :Vector2) -> void:
+	emit_signal("troop_selected", position)
+	
+func _on_Field_selection_released() -> void:
+	emit_signal("selection_released")
+	
+
