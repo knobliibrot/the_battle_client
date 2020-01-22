@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://classes/controller/GameSettings.gd"
 }, {
 "base": "Node",
+"class": "MovementTypeEnum",
+"language": "GDScript",
+"path": "res://classes/enums/MovementTypeEnum.gd"
+}, {
+"base": "Node",
 "class": "Player",
 "language": "GDScript",
 "path": "res://classes/game/model/Player.gd"
@@ -88,6 +93,7 @@ _global_script_class_icons={
 "FieldTypeEnum": "",
 "GameParameters": "",
 "GameSettings": "",
+"MovementTypeEnum": "",
 "Player": "",
 "PlayerTypeEnum": "",
 "QueueButton": "",

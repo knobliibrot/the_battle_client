@@ -20,6 +20,12 @@ var dijk_visited: bool
 func cut_connections() -> void:
 	for connection_type in self.connections:
 		self.connections[connection_type].delete_connection(FieldConnection.PAIRS[connection_type] )
+		
+func remove_stationed_troop() -> void:
+	remove_child(stationed_troop)
+	remove_from_group("troops_stationed_player1")
+	remove_from_group("troops_stationed_player2")
+	stationed_troop = null
 
 func force_troop_move(is_player1: bool, troop: Troop) -> bool:
 	#TODO: Replace with BFS
@@ -121,11 +127,13 @@ func create_troop(troop_type: int, is_player1: bool) -> Troop:
 		troop = load(TroopType.SCENE_BLUE[troop_type]).instance()
 		troop.troop_type = troop_type
 		troop.is_player1 = is_player1
+		troop.set_start_healthpoints(TroopType.START_HEALTH[troop_type])
 		self.add_to_group("troops_stationed_player1")
 	else:
 		troop = load(TroopType.SCENE_RED[troop_type]).instance()
 		troop.troop_type = troop_type
 		troop.is_player1 = is_player1
+		troop.set_start_healthpoints(TroopType.START_HEALTH[troop_type])
 		self.add_to_group("troops_stationed_player2")
 	if force_troop_move(is_player1, troop):
 		return troop

@@ -13,6 +13,7 @@ var troops: Array = []
 var queue: Array = []
 var progress_actual_troop_in_queue: int
 
+
 func init(type: int) -> void:
 	self.player_name = "Player"
 	self.player_type = type
@@ -26,7 +27,13 @@ func remove_from_queue(position: int) -> void:
 	queue.remove(position)
 	if position == 0:
 		progress_actual_troop_in_queue = 0
-	
+		
+func remove_troop(troop: Troop) -> void:
+	troops.remove(troops.find(troop))
+	salary -= TroopType.SALARY[troop.troop_type]
+	income += TroopType.SALARY[troop.troop_type]
+	troop.get_parent().remove_stationed_troop()
+
 func add_troop_to_queue(troop_type: int) -> bool:
 	var queue_size: int = queue.size()
 	if queue_size < GameParameters.QUEUE_SIZE:

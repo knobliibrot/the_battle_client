@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://classes/game/view/troops/Troop.gd" type="Script" id=1]
 [ext_resource path="res://artifacts/graphics/troops/blue/spearman_blue.svg" type="Texture" id=2]
 [ext_resource path="res://artifacts/graphics/troops/troop_healthbar.png" type="Texture" id=3]
 [ext_resource path="res://artifacts/graphics/troops/troop_healthbar_filling.png" type="Texture" id=4]
+[ext_resource path="res://artifacts/fonts/ostrichsans_troop_healthbar.tres" type="DynamicFont" id=5]
 
 [node name="Troop" type="MarginContainer"]
 margin_right = 81.0
-margin_bottom = 85.0
+margin_bottom = 83.0
 mouse_filter = 2
 custom_constants/margin_right = 10
 custom_constants/margin_top = 12
@@ -19,7 +20,7 @@ script = ExtResource( 1 )
 margin_left = 10.0
 margin_top = 12.0
 margin_right = 71.0
-margin_bottom = 75.0
+margin_bottom = 73.0
 hint_tooltip = "Booopom Bitch"
 mouse_filter = 2
 texture = ExtResource( 2 )
@@ -28,7 +29,7 @@ texture = ExtResource( 2 )
 margin_left = 10.0
 margin_top = 12.0
 margin_right = 71.0
-margin_bottom = 75.0
+margin_bottom = 73.0
 mouse_filter = 2
 custom_constants/margin_top = 45
 custom_constants/margin_left = 3
@@ -37,8 +38,17 @@ custom_constants/margin_left = 3
 margin_left = 3.0
 margin_top = 45.0
 margin_right = 61.0
-margin_bottom = 63.0
+margin_bottom = 61.0
 mouse_filter = 2
 value = 80.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="MarginContainer/TextureProgress"]
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 5 )
+text = "100 / 100"
+align = 1
+valign = 1

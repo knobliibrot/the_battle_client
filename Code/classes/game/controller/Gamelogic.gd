@@ -342,18 +342,94 @@ func dijkstra_on_fields(source: Vector2) -> void:
 		
 
 func _on_Battlefield_target_selected(position: Vector2):
-	var final_position: Vector2 = position
 	var target: Field = battlefield_map[position.y][position.x]
+	var movement_type: int
 	if target.stationed_troop != null:
-		fight(self.selected_field.stationed_troop, target.stationed_troop)
-	move_troop(self.selected_field.stationed_troop, final_position)
+		movement_type = fight(self.selected_field.stationed_troop, target.stationed_troop)
+	else:
+		movement_type = MovementTypeEnum.NO_FIGHT
+	show_movement(self.selected_field.stationed_troop, target.stationed_troop, target, movement_type)
 	self.selected_field = null
 	get_parent().activate_turn_mode(is_player1, actual_player)
-
-func fight(attacker: Troop, defender: Troop) -> void:
-	pass
+	get_parent().update_gui_with_player(actual_player)
 	
-func move_troop(troop: Troop, target: Vector2) -> void:
+func show_movement(attacker: Troop, defender: Troop, target_field: Field, movement_type: int) -> void:
+	# TODO: Animation
+	if MovementTypeEnum.ATT_DIE == movement_type:
+		if is_player1:
+			player1.remove_troop(attacker)
+		else:
+			player2.remove_troop(attacker)
+	elif MovementTypeEnum.FRIEND == movement_type:
+		pass
+	else:
+		if MovementTypeEnum.DEFF_DIE == movement_type:
+			if is_player1:
+				player2.remove_troop(defender)
+			else:
+				player1.remove_troop(defender)
+		elif MovementTypeEnum.NOBODY_DIE == movement_type or (MovementTypeEnum.DEFF_DIE == movement_type and target_field.field_type == FieldTypeEnum.CASTLE):
+			target_field = defender.get_parent().dijk_previous
+			while target_field.stationed_troop != null and target_field != attacker.get_parent():
+				target_field = target_field.dijk_previous
+			attacker.movement_left  -= defender.get_parent().dijk_distance + (defender.get_parent().dijk_distance - target_field.dijk_distance * 2)
+		
+		move_troop(attacker, target_field)
+		
+func attack_castle(attacker: Troop, castle: Field) -> int:
+	var field_bonus: float = 1
+	
+	for field in FieldConnection.DAMAGE[defender.get_parent().field_type]:
+		if	field == attacker.troop_type:
+			field_bonus = FieldConnection.DAMAGE[defender.get_parent().field_type][field]
+			break		
+	
+	defender.set_healthpoints(defender.get_healthpoints() - (TroopType.ATTACK_DMG[attacker.troop_type] * field_bonus * troop_bonus))
+	
+
+func fight(attacker: Troop, defender: Troop) -> int:
+	if actual_player.troops.has(defender):
+		return MovementTypeEnum.FRIEND
+	else:
+		var field_bonus: float = 1
+		var troop_bonus: float = 1
+		
+		for troop in TroopType.SPECIAL_DMG[attacker.troop_type]:
+			if	troop == defender.troop_type:
+				troop_bonus = TroopType.SPECIAL_DMG[attacker.troop_type][troop]
+				break
+		
+		for field in FieldConnection.DAMAGE[defender.get_parent().field_type]:
+			if	field == attacker.troop_type:
+				field_bonus = FieldConnection.DAMAGE[defender.get_parent().field_type][field]
+				break		
+		
+		defender.set_healthpoints(defender.get_healthpoints() - (TroopType.ATTACK_DMG[attacker.troop_type] * field_bonus * troop_bonus))
+		
+		if defender.get_healthpoints() > 0:
+			field_bonus = 1
+			troop_bonus = 1
+			for troop in TroopType.SPECIAL_DMG[defender.troop_type]:
+				if	troop == attacker.troop_type:
+					troop_bonus = TroopType.SPECIAL_DMG[defender.troop_type][troop]
+					break
+			
+			for troop in FieldConnection.DEF_DAMAGE[defender.get_parent().field_type]:
+				if	troop == defender.troop_type:
+					field_bonus = FieldConnection.DEF_DAMAGE[defender.get_parent().field_type][troop]
+					break		
+					
+			attacker.set_healthpoints(attacker.get_healthpoints() - (TroopType.DEFFENCE_DMG[defender.troop_type] * field_bonus * troop_bonus))
+			
+			if attacker.get_healthpoints() > 0:
+				return MovementTypeEnum.NOBODY_DIE
+			else:
+				return MovementTypeEnum.ATT_DIE
+			
+		else:
+			return MovementTypeEnum.DEFF_DIE
+	
+func move_troop(troop: Troop, target: Field) -> void:
 	var group_name: String
 	if is_player1:
 		group_name = "troops_stationed_player1"		
@@ -362,10 +438,10 @@ func move_troop(troop: Troop, target: Vector2) -> void:
 	troop.get_parent().stationed_troop = null		
 	troop.get_parent().remove_from_group(group_name)	
 	troop.get_parent().remove_child(troop)
-	troop.movement_left = troop.movement_left - battlefield_map[target.y][target.x].dijk_distance
-	battlefield_map[target.y][target.x].add_child(troop)
-	battlefield_map[target.y][target.x].stationed_troop = troop
-	battlefield_map[target.y][target.x].add_to_group(group_name)
+	troop.movement_left = troop.movement_left - target.dijk_distance
+	target.add_child(troop)
+	target.stationed_troop = troop
+	target.add_to_group(group_name)
 
 
 

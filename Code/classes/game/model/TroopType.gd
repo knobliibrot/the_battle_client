@@ -34,6 +34,38 @@ TroopTypeEnum.KNIGHT : 8,
 TroopTypeEnum.CATAPULT : 2
 }
 
+const START_HEALTH = { 
+TroopTypeEnum.SWORDSMAN : 40,
+TroopTypeEnum.SPEARMAN : 30,
+TroopTypeEnum.ARCHER : 20,
+TroopTypeEnum.KNIGHT : 100,
+TroopTypeEnum.CATAPULT : 60
+}
+
+const ATTACK_DMG = { 
+TroopTypeEnum.SWORDSMAN : 10,
+TroopTypeEnum.SPEARMAN : 8,
+TroopTypeEnum.ARCHER : 20,
+TroopTypeEnum.KNIGHT : 25,
+TroopTypeEnum.CATAPULT : 5
+}
+
+const DEFFENCE_DMG = { 
+TroopTypeEnum.SWORDSMAN : 15,
+TroopTypeEnum.SPEARMAN : 10,
+TroopTypeEnum.ARCHER : 30,
+TroopTypeEnum.KNIGHT : 15,
+TroopTypeEnum.CATAPULT : 10
+}
+
+const SPECIAL_DMG = { 
+TroopTypeEnum.SWORDSMAN : { TroopTypeEnum.SPEARMAN : 1.3 },
+TroopTypeEnum.SPEARMAN : { TroopTypeEnum.KNIGHT : 2.5 },
+TroopTypeEnum.ARCHER : {},
+TroopTypeEnum.KNIGHT : {},
+TroopTypeEnum.CATAPULT : {}
+}
+
 const SCENE_BLUE = { 
 TroopTypeEnum.SWORDSMAN : "res://classes/game/view/troops/BlueSwordsmanTroop.tscn", 
 TroopTypeEnum.SPEARMAN : "res://classes/game/view/troops/BlueSpearmanTroop.tscn",

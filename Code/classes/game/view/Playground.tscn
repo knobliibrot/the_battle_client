@@ -149,7 +149,6 @@ margin_left = 563.0
 margin_right = 1063.0
 
 [node name="Battlefield" type="Node" parent="."]
-editor/display_folded = true
 script = ExtResource( 13 )
 
 [node name="1-0" parent="Battlefield" instance=ExtResource( 14 )]
@@ -382,9 +381,9 @@ texture_normal = ExtResource( 16 )
 
 [node name="6-3" parent="Battlefield" instance=ExtResource( 14 )]
 margin_left = 360.0
-margin_top = 310.5
+margin_top = 310.0
 margin_right = 440.0
-margin_bottom = 401.5
+margin_bottom = 401.0
 texture_normal = ExtResource( 17 )
 
 [node name="8-3" parent="Battlefield" instance=ExtResource( 14 )]
