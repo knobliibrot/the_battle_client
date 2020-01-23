@@ -1,4 +1,3 @@
-- main menu
 - Skalierbares Battelfield
 - Settings-changeable
 - GUI - both castle-health
