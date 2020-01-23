@@ -149,6 +149,7 @@ margin_left = 563.0
 margin_right = 1063.0
 
 [node name="Battlefield" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 13 )
 
 [node name="1-0" parent="Battlefield" instance=ExtResource( 14 )]

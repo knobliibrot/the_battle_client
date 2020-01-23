@@ -12,15 +12,17 @@ var player2: Player
 var actual_player: Player
 var is_player1: bool
 
+var game_over: bool = false
+
 var selected_field: Field
+
 
 func initialize_game(player1: int, player2: int) -> void: 
 	self.player1 = Player.new()
 	self.player1.init(player1)
 	self.player1.player_name= "Sämi"
 	self.player2 = Player.new()
-	self.player2.init(player2)	
-	self.player2.gold = 3000
+	self.player2.init(player2)
 
 func choose_castel(is_player1: bool) -> void:
 	set_actual_player(is_player1)
@@ -346,15 +348,21 @@ func _on_Battlefield_target_selected(position: Vector2):
 	var movement_type: int
 	if target.stationed_troop != null:
 		movement_type = fight(self.selected_field.stationed_troop, target.stationed_troop)
+	elif target.field_type == FieldTypeEnum.CASTLE and target.field_position != actual_player.castle_position:
+		movement_type = attack_castle(self.selected_field.stationed_troop, target)
 	else:
 		movement_type = MovementTypeEnum.NO_FIGHT
 	show_movement(self.selected_field.stationed_troop, target.stationed_troop, target, movement_type)
 	self.selected_field = null
-	get_parent().activate_turn_mode(is_player1, actual_player)
-	get_parent().update_gui_with_player(actual_player)
+	if game_over:
+		game_over()
+	else:
+		get_parent().activate_turn_mode(is_player1, actual_player)
+		get_parent().update_gui_with_player(actual_player)
 	
 func show_movement(attacker: Troop, defender: Troop, target_field: Field, movement_type: int) -> void:
 	# TODO: Animation
+	var final_target: Field = target_field
 	if MovementTypeEnum.ATT_DIE == movement_type:
 		if is_player1:
 			player1.remove_troop(attacker)
@@ -368,24 +376,42 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 				player2.remove_troop(defender)
 			else:
 				player1.remove_troop(defender)
-		elif MovementTypeEnum.NOBODY_DIE == movement_type or (MovementTypeEnum.DEFF_DIE == movement_type and target_field.field_type == FieldTypeEnum.CASTLE):
-			target_field = defender.get_parent().dijk_previous
-			while target_field.stationed_troop != null and target_field != attacker.get_parent():
-				target_field = target_field.dijk_previous
-			attacker.movement_left  -= defender.get_parent().dijk_distance + (defender.get_parent().dijk_distance - target_field.dijk_distance * 2)
+		if MovementTypeEnum.NOBODY_DIE == movement_type or (MovementTypeEnum.DEFF_DIE == movement_type and target_field.field_type == FieldTypeEnum.CASTLE):
+			final_target = target_field.dijk_previous
+			while final_target.stationed_troop != null and final_target != attacker.get_parent():
+				final_target = final_target.dijk_previous
+			attacker.movement_left  -= target_field.dijk_distance + (target_field.dijk_distance - final_target.dijk_distance * 2)
 		
-		move_troop(attacker, target_field)
+		move_troop(attacker, final_target)
+		
+func game_over() -> void:
+	get_parent().stop_timer()
+	if is_player1:
+		get_parent().show_message("Game Over " + player2.player_name, 5)
+	else:
+		get_parent().show_message("Game Over " + player1.player_name, 5)
+	
+	yield(get_tree().create_timer(4), "timeout")
+	
+	emit_signal("turn_finished", true)
 		
 func attack_castle(attacker: Troop, castle: Field) -> int:
-	var field_bonus: float = 1
+	var troop_bonus: float = 1
 	
-	for field in FieldConnection.DAMAGE[defender.get_parent().field_type]:
-		if	field == attacker.troop_type:
-			field_bonus = FieldConnection.DAMAGE[defender.get_parent().field_type][field]
-			break		
+	for troop in TroopType.SPECIAL_DMG[attacker.troop_type]:
+		if	troop == TroopTypeEnum.CASTLE:
+			troop_bonus = TroopType.SPECIAL_DMG[attacker.troop_type][troop]
+			break
+	if is_player1:
+		player2.castle_health = int(player2.castle_health - TroopType.ATTACK_DMG[attacker.troop_type] * troop_bonus)
+		if player2.castle_health < 1:
+			self.game_over = true
+	else:
+		player1.castle_health = int(player1.castle_health - TroopType.ATTACK_DMG[attacker.troop_type] * troop_bonus)
+		if player1.castle_health < 1:
+			self.game_over = true
 	
-	defender.set_healthpoints(defender.get_healthpoints() - (TroopType.ATTACK_DMG[attacker.troop_type] * field_bonus * troop_bonus))
-	
+	return MovementTypeEnum.NOBODY_DIE
 
 func fight(attacker: Troop, defender: Troop) -> int:
 	if actual_player.troops.has(defender):

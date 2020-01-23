@@ -63,7 +63,7 @@ TroopTypeEnum.SWORDSMAN : { TroopTypeEnum.SPEARMAN : 1.3 },
 TroopTypeEnum.SPEARMAN : { TroopTypeEnum.KNIGHT : 2.5 },
 TroopTypeEnum.ARCHER : {},
 TroopTypeEnum.KNIGHT : {},
-TroopTypeEnum.CATAPULT : {}
+TroopTypeEnum.CATAPULT : { TroopTypeEnum.CASTLE : 20}
 }
 
 const SCENE_BLUE = { 

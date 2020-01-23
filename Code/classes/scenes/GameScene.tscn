@@ -4,7 +4,7 @@
 [ext_resource path="res://classes/scenes/GameScene.gd" type="Script" id=2]
 [ext_resource path="res://classes/game/view/Playground.tscn" type="PackedScene" id=3]
 
-[node name="GameScene" index="0" instance=ExtResource( 1 )]
+[node name="GameScene" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Playground" parent="." index="0" instance=ExtResource( 3 )]

@@ -1,0 +1,11 @@
+- main menu
+- Skalierbares Battelfield
+- Settings-changeable
+- GUI - both castle-health
+- hover-info
+- animation
+- new graphics
+- balancing
+- dokumentation
+- BFS for creting troops
+- troop specific FPR

@@ -1,5 +1,6 @@
 extends "res://classes/scenes/ScreenScene.gd"
 
+signal game_over
 
 func _ready():
 	$Playground/Gamelogic.initialize_game(PlayerTypeEnum.MANUAL, PlayerTypeEnum.MANUAL)
@@ -13,9 +14,12 @@ func _ready():
 	var game_finished: bool = false
 	while(!game_finished):
 		$Playground/Gamelogic.start_turn(true)
-		yield($Playground/Gamelogic, "turn_finished")
-		$Playground/Gamelogic.start_turn(false)
-		yield($Playground/Gamelogic, "turn_finished")
+		game_finished = yield($Playground/Gamelogic, "turn_finished")
+		if !game_finished:
+			$Playground/Gamelogic.start_turn(false)
+			game_finished = yield($Playground/Gamelogic, "turn_finished")
+	
+	emit_signal("game_over")
 
 
 
