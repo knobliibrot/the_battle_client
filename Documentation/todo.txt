@@ -1,8 +1,6 @@
-- Skalierbares Battelfield
-- Settings-changeable
-- GUI - both castle-health
-- hover-info
 - animation
+- Settings-changeable
+- hover-info
 - new graphics
 - balancing
 - dokumentation

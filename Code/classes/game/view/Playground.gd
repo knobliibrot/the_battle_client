@@ -11,7 +11,8 @@ func update_gui_with_player(player: Player) -> void:
 	$UI/Bottom/BottomBar/QueueBar.clear_queue()
 	for i in range(player.queue.size()):
 		$UI/Bottom/BottomBar/QueueBar.add(player.queue[i], i, player.progress_actual_troop_in_queue)
-	$UI/Bottom/BottomBar/HealthBar/Background/HealthBox.update_health(player.castle_health)
+	$UI/Bottom/BottomBar/HealthBarBlue/Background/HealthBoxBlue.update_health(player.castle_health)
+	$UI/Bottom/BottomBar/HealthBarRed/Background/HealthBoxRed.update_health(player.castle_health)
 	
 func add_to_queue(player_type: int) -> void:
 	$UI/Bottom/BottomBar/QueueBar.add(player_type)

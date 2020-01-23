@@ -36,4 +36,4 @@ const DEFAULT_BASIC_INCOME = 15
 
 const MESSAGE_SHOW_TIME = 2
 const ROUND_TIME = 4
-const QUEUE_SIZE = 5
+const QUEUE_SIZE = 3
