@@ -19,7 +19,9 @@
 [ext_resource path="res://artifacts/graphics/fields/grass.png" type="Texture" id=17]
 [ext_resource path="res://classes/game/controller/Gamelogic.gd" type="Script" id=18]
 
-[node name="Playground" type="Node"]
+[node name="Playground" type="Viewport"]
+size = Vector2( 1280, 720 )
+usage = 0
 script = ExtResource( 1 )
 
 [node name="UI" type="Node" parent="."]
