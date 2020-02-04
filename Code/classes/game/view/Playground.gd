@@ -55,8 +55,8 @@ func disable_all() -> void:
 		field.set_disabled(true)
 
 # Add given TroopType to queue
-func add_to_queue(player_type: int) -> void:
-	$UI/Bottom/BottomBar/QueueBar.add(player_type)
+func add_to_queue(troop_type: int) -> void:
+	$UI/Bottom/BottomBar/QueueBar.add(troop_type)
 
 # Starts the Round Timer in the TimeBox  with a message 
 # And the signal which should get emitted at the end

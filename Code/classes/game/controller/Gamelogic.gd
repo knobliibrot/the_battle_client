@@ -6,7 +6,7 @@ class_name Gamelogic
 signal castle_set
 signal turn_finished
 
-const SCENE_FIELDSET: PackedScene = preload("res://classes/tools/FieldPositionSet.tscn")
+const FIELD_DISTANCE_SET_SCENE: PackedScene = preload("res://classes/tools/FieldDistanceSet.tscn")
 
 var battlefield_map: Array 
 var selected_field: Field
@@ -122,7 +122,7 @@ func _on_Battlefield_troop_selected(pos: Vector2) -> void:
 # Run a djikstra algorithm over all fields to check with are in the distance of the selected troop
 # And change the fields to Disability regarding on the distance
 func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2) -> void:	
-	var field_set = SCENE_FIELDSET.instance()
+	var field_set = FIELD_DISTANCE_SET_SCENE.instance()
 	var max_travel_distance = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.movement_left
 	
 	# Add all fields to the set with max distance
@@ -135,9 +135,8 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	# Set troop position to distance 0
 	field_set.change_existing(0, battlefield_map[troop_pos.y][troop_pos.x])
 	
-	while !field_set.is_empty():
-		# Get field with lowest distance
-		var act_field : Field = field_set.pop_first()
+	var act_field : Field = field_set.pop_first_field()
+	while act_field != null:
 		act_field.dijk_visited = true
 		# Depending on the distance set it's status
 		if max_travel_distance >= act_field.dijk_distance:
@@ -155,6 +154,8 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 					if new_dist < act_field.connections[key].dijk_distance:
 						act_field.connections[key].dijk_previous = act_field
 						field_set.change_existing(new_dist, act_field.connections[key])
+		# Get field with lowest distance
+		act_field = field_set.pop_first_field()
 
 func _on_Battlefield_selection_released() -> void:
 	self.selected_field = null

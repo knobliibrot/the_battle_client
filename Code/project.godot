@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://classes/enums/FieldConnectionType.gd"
 }, {
 "base": "Node",
+"class": "FieldMapPerDistance",
+"language": "GDScript",
+"path": "res://classes/tools/FieldMapPerDistance.gd"
+}, {
+"base": "Node",
 "class": "FieldParameters",
 "language": "GDScript",
 "path": "res://classes/game/controller/parameters/FieldParameters.gd"
@@ -120,6 +125,7 @@ _global_script_class_icons={
 "CreateTroopButton": "",
 "Field": "",
 "FieldConnectionType": "",
+"FieldMapPerDistance": "",
 "FieldParameters": "",
 "FieldState": "",
 "FieldType": "",

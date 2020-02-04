@@ -12,6 +12,9 @@
 margin_right = 600.0
 script = ExtResource( 2 )
 
+[node name="Background" parent="." index="0"]
+margin_right = 340.0
+
 [node name="Symbol" parent="Background" index="0"]
 margin_right = 81.0
 texture = ExtResource( 3 )
