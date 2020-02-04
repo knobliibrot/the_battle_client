@@ -1,11 +1,13 @@
 extends Node
 
-const GAME_SCENE = "res://classes/scenes/GameScene.tscn"
-const MENU_SCENE = "res://classes/scenes/MenuScene.tscn"
+class_name MainController
 
-var act_scene: Node 
+const GAME_SCENE: PackedScene = preload("res://classes/scenes/GameScene.tscn")
+const MENU_SCENE: PackedScene = preload("res://classes/scenes/MenuScene.tscn")
 
-func _ready():	
+var act_scene: ScreenScene 
+
+func _ready():
 	act_scene = get_node("ActualScene")
 	call_deferred("change_to_menu_scene")
 
@@ -19,11 +21,10 @@ func change_to_open_game_scene() -> void:
 
 # Changes the actual Scene to given scene
 func change_scene(new_scene) -> void:
-	var scene = load(new_scene) 
-	var node = scene.instance()
+	var new_node: ScreenScene = new_scene.instance()
 	remove_child(act_scene)
-	add_child(node)
-	act_scene = node
+	add_child(new_node)
+	act_scene = new_node
 
 func on_MenuScene_start_open_game() -> void:
 	change_to_open_game_scene()

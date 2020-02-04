@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "ApplicationSettings",
+"language": "GDScript",
+"path": "res://classes/controller/ApplicationSettings.gd"
+}, {
+"base": "Node",
+"class": "Battlefield",
+"language": "GDScript",
+"path": "res://classes/game/model/Battelfield.gd"
+}, {
 "base": "MarginContainer",
 "class": "CreateTroopButton",
 "language": "GDScript",
@@ -17,42 +27,52 @@ _global_script_classes=[ {
 "base": "TextureButton",
 "class": "Field",
 "language": "GDScript",
-"path": "res://classes/game/view/fields/Field.gd"
+"path": "res://classes/game/model/fields/Field.gd"
 }, {
 "base": "Node",
-"class": "FieldConnection",
+"class": "FieldConnectionType",
 "language": "GDScript",
-"path": "res://classes/game/model/FieldConnection.gd"
+"path": "res://classes/enums/FieldConnectionType.gd"
 }, {
 "base": "Node",
-"class": "FieldConnectionTypeEnum",
+"class": "FieldParameters",
 "language": "GDScript",
-"path": "res://classes/enums/FieldConnectionTypeEnum.gd"
+"path": "res://classes/game/controller/parameters/FieldParameters.gd"
 }, {
 "base": "Node",
-"class": "FieldStateEnum",
+"class": "FieldState",
 "language": "GDScript",
-"path": "res://classes/enums/FieldStateEnum.gd"
+"path": "res://classes/enums/FieldState.gd"
 }, {
 "base": "Node",
-"class": "FieldTypeEnum",
+"class": "FieldType",
 "language": "GDScript",
-"path": "res://classes/enums/FieldTypeEnum.gd"
+"path": "res://classes/enums/FieldType.gd"
 }, {
 "base": "Node",
 "class": "GameParameters",
 "language": "GDScript",
-"path": "res://classes/game/model/Rulebook/GameParameters.gd"
+"path": "res://classes/game/controller/parameters/GameParameters.gd"
 }, {
 "base": "Node",
-"class": "GameSettings",
+"class": "Gamelogic",
 "language": "GDScript",
-"path": "res://classes/controller/GameSettings.gd"
+"path": "res://classes/game/controller/Gamelogic.gd"
 }, {
 "base": "Node",
-"class": "MovementTypeEnum",
+"class": "Group",
 "language": "GDScript",
-"path": "res://classes/enums/MovementTypeEnum.gd"
+"path": "res://classes/game/controller/parameters/Group.gd"
+}, {
+"base": "Node",
+"class": "MainController",
+"language": "GDScript",
+"path": "res://classes/controller/MainController.gd"
+}, {
+"base": "Node",
+"class": "MovementType",
+"language": "GDScript",
+"path": "res://classes/enums/MovementType.gd"
 }, {
 "base": "Node",
 "class": "Player",
@@ -60,46 +80,62 @@ _global_script_classes=[ {
 "path": "res://classes/game/model/Player.gd"
 }, {
 "base": "Node",
-"class": "PlayerTypeEnum",
+"class": "PlayerType",
 "language": "GDScript",
-"path": "res://classes/enums/PlayerTypeEnum.gd"
+"path": "res://classes/enums/PlayerType.gd"
+}, {
+"base": "Node",
+"class": "Playground",
+"language": "GDScript",
+"path": "res://classes/game/view/Playground.gd"
 }, {
 "base": "MarginContainer",
 "class": "QueueButton",
 "language": "GDScript",
 "path": "res://classes/game/view/buttons/queue/QueueButton.gd"
 }, {
+"base": "Node",
+"class": "ScreenScene",
+"language": "GDScript",
+"path": "res://classes/scenes/ScreenScene.gd"
+}, {
 "base": "MarginContainer",
 "class": "Troop",
 "language": "GDScript",
-"path": "res://classes/game/view/troops/Troop.gd"
+"path": "res://classes/game/model/troops/Troop.gd"
+}, {
+"base": "Node",
+"class": "TroopParameters",
+"language": "GDScript",
+"path": "res://classes/game/controller/parameters/TroopParameters.gd"
 }, {
 "base": "Node",
 "class": "TroopType",
 "language": "GDScript",
-"path": "res://classes/game/model/TroopType.gd"
-}, {
-"base": "Node",
-"class": "TroopTypeEnum",
-"language": "GDScript",
-"path": "res://classes/enums/TroopTypeEnum.gd"
+"path": "res://classes/enums/TroopType.gd"
 } ]
 _global_script_class_icons={
+"ApplicationSettings": "",
+"Battlefield": "",
 "CreateTroopButton": "",
 "Field": "",
-"FieldConnection": "",
-"FieldConnectionTypeEnum": "",
-"FieldStateEnum": "",
-"FieldTypeEnum": "",
+"FieldConnectionType": "",
+"FieldParameters": "",
+"FieldState": "",
+"FieldType": "",
 "GameParameters": "",
-"GameSettings": "",
-"MovementTypeEnum": "",
+"Gamelogic": "",
+"Group": "",
+"MainController": "",
+"MovementType": "",
 "Player": "",
-"PlayerTypeEnum": "",
+"PlayerType": "",
+"Playground": "",
 "QueueButton": "",
+"ScreenScene": "",
 "Troop": "",
-"TroopType": "",
-"TroopTypeEnum": ""
+"TroopParameters": "",
+"TroopType": ""
 }
 
 [application]
@@ -110,7 +146,9 @@ config/icon="res://artifacts/icon.png"
 
 [autoload]
 
-GameSettings="*res://classes/controller/GameSettings.gd"
+GameSettings="*res://classes/game/controller/parameters/GameSettings.gd"
+FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
+TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
 
 [display]
 

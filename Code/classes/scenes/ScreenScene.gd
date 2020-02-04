@@ -1,5 +1,7 @@
 extends Node
 
+class_name ScreenScene
+
 signal start_open_game
 
 func _on_StartOpenGameButton_pressed():

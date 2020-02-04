@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://artifacts/graphics/fields/forest.png" type="Texture" id=1]
+[ext_resource path="res://artifacts/graphics/fields/castle_placeholder.png" type="Texture" id=2]
+[ext_resource path="res://classes/game/model/fields/Field.gd" type="Script" id=3]
+
+
+[node name="Field" type="TextureButton" groups=[
+"fields",
+]]
+margin_right = 80.0
+margin_bottom = 91.0
+rect_min_size = Vector2( 80, 91 )
+rect_pivot_offset = Vector2( 40.5101, 42.6054 )
+disabled = true
+toggle_mode = true
+texture_normal = ExtResource( 1 )
+texture_hover = ExtResource( 2 )
+script = ExtResource( 3 )
+[connection signal="toggled" from="." to="." method="_on_Field_toggled"]
