@@ -4,7 +4,6 @@
 [ext_resource path="res://artifacts/graphics/fields/castle_placeholder.png" type="Texture" id=2]
 [ext_resource path="res://classes/game/model/fields/Field.gd" type="Script" id=3]
 
-
 [node name="Field" type="TextureButton" groups=[
 "fields",
 ]]
@@ -17,4 +16,7 @@ toggle_mode = true
 texture_normal = ExtResource( 1 )
 texture_hover = ExtResource( 2 )
 script = ExtResource( 3 )
-[connection signal="toggled" from="." to="." method="_on_Field_toggled"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="." to="." method="_on_Field_pressed"]

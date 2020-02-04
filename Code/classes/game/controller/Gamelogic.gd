@@ -126,10 +126,11 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	var max_travel_distance = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.movement_left
 	
 	# Add all fields to the set with max distance
-	for field in get_playground().get_tree().get_nodes_in_group("fields"):
+	for field in get_playground().get_tree().get_nodes_in_group(Group.FIELDS):
+		field.active = false
 		field.dijk_distance = ApplicationSettings.MAX_INT
 		field.dijk_previous = null
-		field.dijk_visited = false		
+		field.dijk_visited = false
 		field_set.add_new(ApplicationSettings.MAX_INT, field)
 	
 	# Set troop position to distance 0
@@ -268,8 +269,8 @@ func move_troop(troop: Troop, target: Field) -> void:
 		group_name = "troops_stationed_player1"
 	else:
 		group_name = "troops_stationed_player2"
-	troop.get_parent().stationed_troop = null		
-	troop.get_parent().remove_from_group(group_name)	
+	troop.get_parent().stationed_troop = null
+	troop.get_parent().remove_from_group(group_name)
 	troop.get_parent().remove_child(troop)
 	troop.movement_left = troop.movement_left - target.dijk_distance
 	target.add_child(troop)

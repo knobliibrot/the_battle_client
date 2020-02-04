@@ -36,6 +36,7 @@ func activate_turn_mode(is_player1: bool, player: Player) -> void:
 	
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
+		field.active = false
 
 	for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
 		if field.stationed_troop.movement_left > 0:

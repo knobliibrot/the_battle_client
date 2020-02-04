@@ -17,6 +17,11 @@ var dijk_distance: int
 var dijk_previous: Field
 var dijk_visited: bool
 
+var active = false
+
+func _ready() -> void:
+	self.set_toggle_mode(true)
+
 # Removes all connections from and to this field
 func cut_connections() -> void:
 	for connection_type in self.connections:
@@ -56,7 +61,7 @@ func create_troop(troop_type: int, is_player1: bool) -> Troop:
 func force_troop_move(is_player1: bool, troop: Troop) -> bool:
 	#TODO: Replace with BFS
 	var forced: bool = false
-	remove_child(self.stationed_troop)
+	remove_child(self.stationed_troop) # TODO is null
 	if self.stationed_troop != null:		
 		if is_player1:
 			if connections.has(FieldConnectionType.LEFT_UP) && connections[FieldConnectionType.LEFT_UP].check_and_set_troop(self.stationed_troop, is_player1):
@@ -153,8 +158,9 @@ func _on_EmptyField_pressed() -> void:
 	pass
 
 # Emits signal depending on the field state
-func _on_Field_toggled(button_pressed: bool) -> void:
-	if button_pressed:
+func _on_Field_pressed() -> void:
+	self.active = !self.active
+	if self.active:
 		match self.field_state:
 			FieldState.TROOP_SELECTION:
 				if self.stationed_troop != null:
@@ -162,7 +168,7 @@ func _on_Field_toggled(button_pressed: bool) -> void:
 			FieldState.TARGET_SELECTION:
 				emit_signal("target_selected", field_position)
 	else:
-		emit_signal("selection_released")
+		emit_signal("selection_released")	
 
 # Set position and size
 func set_rect(rect: Rect2) -> void:
