@@ -19,6 +19,12 @@ func stop_timer() -> void:
 	$Timer.stop()
 	$NinePatchRect/Label.text = ""
 
+func pause_timer() -> void:
+	$Timer.set_paused(true)
+
+func resume_timer() -> void:
+	$Timer.set_paused(false)
+
 func _on_Timer_timeout() -> void:
 	if actual_time < time:
 		actual_time += 1

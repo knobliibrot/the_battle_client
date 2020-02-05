@@ -81,5 +81,14 @@ func show_message(message: String, seconds: float) -> void:
 func stop_timer() -> void:
 	$UI/Top/TopBar/TimeBox.stop_timer()
 
-func _on_SettingsButton_pressed():
-	add_child(SETTINGS_SCENE.instance())
+# Pause the time and instance the Settings Window
+func _on_SettingsButton_pressed() -> void:
+	$UI/Top/TopBar/TimeBox.pause_timer()
+	var settings: Node = SETTINGS_SCENE.instance()
+	settings.connect("close", self, "_on_SettingsWindow_close")
+	add_child(settings)
+
+# Remove the Settings Window and resume the Timer
+func _on_SettingsWindow_close(window: Node) -> void:
+	remove_child(window)
+	$UI/Top/TopBar/TimeBox.resume_timer()

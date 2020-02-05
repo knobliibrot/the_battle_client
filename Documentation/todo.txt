@@ -1,6 +1,5 @@
 - animation
 - hover-info
-- change game settings
 - new graphics
 - balancing
 - BFS for creting troops

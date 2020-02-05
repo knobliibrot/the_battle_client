@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://classes/game/controller/settings/SettingBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://classes/game/controller/settings/SettingsWindow.gd" type="Script" id=2]
+[ext_resource path="res://classes/game/controller/settings/DoubleMapSettingBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://classes/game/controller/settings/MapSettingBox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://artifacts/fonts/notosans_settings_title.tres" type="DynamicFont" id=5]
 
 [node name="SettingsWindow" type="MarginContainer"]
 anchor_right = 1.0
@@ -44,39 +47,54 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 1180, 600 )
 tab_align = 0
 
-[node name="GameSettingsTab" type="Tabs" parent="MarginContainer/Content/TabContainer"]
+[node name="Game" type="Tabs" parent="MarginContainer/Content/TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 32.0
 margin_right = -4.0
 margin_bottom = -4.0
-drag_to_rearrange_enabled = true
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/TabContainer/GameSettingsTab"]
-margin_right = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/TabContainer/Game"]
+margin_right = 1172.0
 margin_bottom = 40.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 1156.0
-margin_bottom = 74.0
-rect_min_size = Vector2( 1142, 0 )
-custom_constants/hseparation = 198
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Game/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1167.0
+margin_bottom = 104.0
+custom_constants/hseparation = 202
 columns = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="CastleHealth" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+[node name="Label" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer"]
+margin_right = 250.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Game Settings"
+
+[node name="Label2" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 8.0
+margin_right = 702.0
+margin_bottom = 22.0
+
+[node name="Label3" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 8.0
+margin_right = 1154.0
+margin_bottom = 22.0
+
+[node name="CastleHealth" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 35.0
+margin_bottom = 65.0
 label = "Castle Health"
 class_param = "GameParameters"
 value_param = "CASTLE_HEALTH"
@@ -84,9 +102,11 @@ class_sett = "GameSettings"
 value_sett = "castle_health"
 datatype = "int"
 
-[node name="StartGold" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-margin_left = 448.0
-margin_right = 698.0
+[node name="StartGold" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 452.0
+margin_top = 35.0
+margin_right = 702.0
+margin_bottom = 65.0
 label = "Start Gold"
 class_param = "GameParameters"
 value_param = "START_GOLD"
@@ -94,9 +114,11 @@ class_sett = "GameSettings"
 value_sett = "start_gold"
 datatype = "int"
 
-[node name="BasicIncome" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-margin_left = 896.0
-margin_right = 1146.0
+[node name="BasicIncome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 904.0
+margin_top = 35.0
+margin_right = 1154.0
+margin_bottom = 65.0
 label = "Basic Income"
 class_param = "GameParameters"
 value_param = "BASIC_INCOME"
@@ -104,9 +126,9 @@ class_sett = "GameSettings"
 value_sett = "basic_income"
 datatype = "int"
 
-[node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-margin_top = 34.0
-margin_bottom = 64.0
+[node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 69.0
+margin_bottom = 99.0
 label = "Message Show Time"
 class_param = "GameParameters"
 value_param = "MESSAGE_SHOW_TIME"
@@ -114,11 +136,23 @@ class_sett = "GameSettings"
 value_sett = "message_show_time"
 datatype = "int"
 
-[node name="RoundTime" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-margin_left = 448.0
-margin_top = 34.0
-margin_right = 698.0
-margin_bottom = 64.0
+[node name="QueueSize" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 452.0
+margin_top = 69.0
+margin_right = 702.0
+margin_bottom = 99.0
+label = "Queue Size"
+class_param = "GameParameters"
+value_param = "QUEUE_SIZE"
+class_sett = "GameSettings"
+value_sett = "queue_size"
+datatype = "int"
+
+[node name="RoundTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 904.0
+margin_top = 69.0
+margin_right = 1154.0
+margin_bottom = 99.0
 label = "Round Time"
 class_param = "GameParameters"
 value_param = "ROUND_TIME"
@@ -126,17 +160,1730 @@ class_sett = "GameSettings"
 value_sett = "round_time"
 datatype = "int"
 
-[node name="QueueSize" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
-margin_left = 896.0
-margin_top = 34.0
-margin_right = 1146.0
-margin_bottom = 64.0
-label = "Queue Size"
-class_param = "GameParameters"
-value_param = "QUEUE_SIZE"
-class_sett = "GameSettings"
-value_sett = "queue_size"
+[node name="Field" type="Tabs" parent="MarginContainer/Content/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/TabContainer/Field"]
+margin_right = 1172.0
+margin_bottom = 40.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Content/TabContainer/Field/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1167.0
+margin_bottom = 565.0
+rect_min_size = Vector2( 1162, 560 )
+scroll_horizontal_enabled = false
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer"]
+margin_right = 1162.0
+margin_bottom = 1129.0
+rect_min_size = Vector2( 1162, 560 )
+custom_constants/hseparation = 202
+columns = 3
+
+[node name="FieldSpeed" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_right = 250.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Field Speed"
+
+[node name="Space" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 8.0
+margin_right = 702.0
+margin_bottom = 22.0
+
+[node name="Space2" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 8.0
+margin_right = 1154.0
+margin_bottom = 22.0
+
+[node name="SpeedGrass" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 35.0
+margin_bottom = 65.0
+label = "Speed Grass"
+class_param = "FieldParameters"
+value_param = "SPEED"
+class_sett = "FieldSettings"
+value_sett = "speed"
 datatype = "int"
+map_key = "GRASS"
+
+[node name="SpeedForrest" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 452.0
+margin_top = 35.0
+margin_right = 702.0
+margin_bottom = 65.0
+label = "Speed Forest"
+class_param = "FieldParameters"
+value_param = "SPEED"
+class_sett = "FieldSettings"
+value_sett = "speed"
+datatype = "int"
+map_key = "FOREST"
+
+[node name="SpeedMountain" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 904.0
+margin_top = 35.0
+margin_right = 1154.0
+margin_bottom = 65.0
+label = "Speed Mountain"
+class_param = "FieldParameters"
+value_param = "SPEED"
+class_sett = "FieldSettings"
+value_sett = "speed"
+datatype = "int"
+map_key = "MOUNTAIN"
+
+[node name="SpeedVillage" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 69.0
+margin_bottom = 99.0
+label = "Speed Village"
+class_param = "FieldParameters"
+value_param = "SPEED"
+class_sett = "FieldSettings"
+value_sett = "speed"
+datatype = "int"
+map_key = "VILLAGE"
+
+[node name="SpeedCastle" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 452.0
+margin_top = 69.0
+margin_right = 702.0
+margin_bottom = 99.0
+label = "Speed Castle"
+class_param = "FieldParameters"
+value_param = "SPEED"
+class_sett = "FieldSettings"
+value_sett = "speed"
+datatype = "int"
+map_key = "FCASTLE"
+
+[node name="Space3" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 77.0
+margin_right = 1154.0
+margin_bottom = 91.0
+
+[node name="AttGrass" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 103.0
+margin_right = 250.0
+margin_bottom = 134.0
+custom_fonts/font = ExtResource( 5 )
+text = "Att Damage Grass"
+
+[node name="Space4" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 111.0
+margin_right = 702.0
+margin_bottom = 125.0
+
+[node name="Space5" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 111.0
+margin_right = 1154.0
+margin_bottom = 125.0
+
+[node name="AttGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 138.0
+margin_bottom = 168.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "SPEARMAN"
+
+[node name="AttGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 138.0
+margin_right = 702.0
+margin_bottom = 168.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "SWORDSMAN"
+
+[node name="AttGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 138.0
+margin_right = 1154.0
+margin_bottom = 168.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "ARCHER"
+
+[node name="AttGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 172.0
+margin_bottom = 202.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "KNIGHT"
+
+[node name="AttGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 172.0
+margin_right = 702.0
+margin_bottom = 202.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "CATAPULT"
+
+[node name="Space6" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 180.0
+margin_right = 1154.0
+margin_bottom = 194.0
+
+[node name="AttForest" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 206.0
+margin_right = 250.0
+margin_bottom = 237.0
+custom_fonts/font = ExtResource( 5 )
+text = "Att Damage Forest"
+
+[node name="Space9" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 214.0
+margin_right = 702.0
+margin_bottom = 228.0
+
+[node name="Space8" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 214.0
+margin_right = 1154.0
+margin_bottom = 228.0
+
+[node name="AttForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 241.0
+margin_bottom = 271.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "SPEARMAN"
+
+[node name="AttForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 241.0
+margin_right = 702.0
+margin_bottom = 271.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "SWORDSMAN"
+
+[node name="AttForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 241.0
+margin_right = 1154.0
+margin_bottom = 271.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "ARCHER"
+
+[node name="AttForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 275.0
+margin_bottom = 305.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "KNIGHT"
+
+[node name="AttForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 275.0
+margin_right = 702.0
+margin_bottom = 305.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "CATAPULT"
+
+[node name="Space7" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 283.0
+margin_right = 1154.0
+margin_bottom = 297.0
+
+[node name="AttMountain" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 309.0
+margin_right = 250.0
+margin_bottom = 340.0
+custom_fonts/font = ExtResource( 5 )
+text = "Att Damage Mountain"
+
+[node name="Space12" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 317.0
+margin_right = 702.0
+margin_bottom = 331.0
+
+[node name="Space11" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 317.0
+margin_right = 1154.0
+margin_bottom = 331.0
+
+[node name="AttMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 344.0
+margin_bottom = 374.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "SPEARMAN"
+
+[node name="AttMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 344.0
+margin_right = 702.0
+margin_bottom = 374.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "SWORDSMAN"
+
+[node name="AttMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 344.0
+margin_right = 1154.0
+margin_bottom = 374.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "ARCHER"
+
+[node name="AttMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 378.0
+margin_bottom = 408.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "KNIGHT"
+
+[node name="AttMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 378.0
+margin_right = 702.0
+margin_bottom = 408.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "CATAPULT"
+
+[node name="Space10" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 386.0
+margin_right = 1154.0
+margin_bottom = 400.0
+
+[node name="AttVillage" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 412.0
+margin_right = 250.0
+margin_bottom = 443.0
+custom_fonts/font = ExtResource( 5 )
+text = "Att Damage Village"
+
+[node name="Space15" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 420.0
+margin_right = 702.0
+margin_bottom = 434.0
+
+[node name="Space14" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 420.0
+margin_right = 1154.0
+margin_bottom = 434.0
+
+[node name="AttVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 447.0
+margin_bottom = 477.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "SPEARMAN"
+
+[node name="AttVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 447.0
+margin_right = 702.0
+margin_bottom = 477.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "SWORDSMAN"
+
+[node name="AttVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 447.0
+margin_right = 1154.0
+margin_bottom = 477.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "ARCHER"
+
+[node name="AttVillageKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 481.0
+margin_bottom = 511.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "KNIGHT"
+
+[node name="AttVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 481.0
+margin_right = 702.0
+margin_bottom = 511.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "CATAPULT"
+
+[node name="Space13" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 489.0
+margin_right = 1154.0
+margin_bottom = 503.0
+
+[node name="AttCastle" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 515.0
+margin_right = 250.0
+margin_bottom = 546.0
+custom_fonts/font = ExtResource( 5 )
+text = "Att Damage Forest"
+
+[node name="Space18" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 523.0
+margin_right = 702.0
+margin_bottom = 537.0
+
+[node name="Space17" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 523.0
+margin_right = 1154.0
+margin_bottom = 537.0
+
+[node name="AttCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 550.0
+margin_bottom = 580.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "SPEARMAN"
+
+[node name="AttCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 550.0
+margin_right = 702.0
+margin_bottom = 580.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "SWORDSMAN"
+
+[node name="AttCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 550.0
+margin_right = 1154.0
+margin_bottom = 580.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "ARCHER"
+
+[node name="AttCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 584.0
+margin_bottom = 614.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "KNIGHT"
+
+[node name="AttCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 584.0
+margin_right = 702.0
+margin_bottom = 614.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "ATT_DMG"
+class_sett = "FieldSettings"
+value_sett = "att_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "CATAPULT"
+
+[node name="Space16" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 592.0
+margin_right = 1154.0
+margin_bottom = 606.0
+
+[node name="DefGrass" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 618.0
+margin_right = 250.0
+margin_bottom = 649.0
+custom_fonts/font = ExtResource( 5 )
+text = "Def Damage Grass"
+
+[node name="Space33" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 626.0
+margin_right = 702.0
+margin_bottom = 640.0
+
+[node name="Space32" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 626.0
+margin_right = 1154.0
+margin_bottom = 640.0
+
+[node name="DefGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 653.0
+margin_bottom = 683.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "SPEARMAN"
+
+[node name="DefGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 653.0
+margin_right = 702.0
+margin_bottom = 683.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "SWORDSMAN"
+
+[node name="DefGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 653.0
+margin_right = 1154.0
+margin_bottom = 683.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "ARCHER"
+
+[node name="DefGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 687.0
+margin_bottom = 717.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "KNIGHT"
+
+[node name="DefGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 687.0
+margin_right = 702.0
+margin_bottom = 717.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "GRASS"
+second_map_key = "CATAPULT"
+
+[node name="Space31" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 695.0
+margin_right = 1154.0
+margin_bottom = 709.0
+
+[node name="DefForest" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 721.0
+margin_right = 250.0
+margin_bottom = 752.0
+custom_fonts/font = ExtResource( 5 )
+text = "Def Damage Forest"
+
+[node name="Space30" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 729.0
+margin_right = 702.0
+margin_bottom = 743.0
+
+[node name="Space29" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 729.0
+margin_right = 1154.0
+margin_bottom = 743.0
+
+[node name="DefForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 756.0
+margin_bottom = 786.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "SPEARMAN"
+
+[node name="DefForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 756.0
+margin_right = 702.0
+margin_bottom = 786.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "SWORDSMAN"
+
+[node name="DefForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 756.0
+margin_right = 1154.0
+margin_bottom = 786.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "ARCHER"
+
+[node name="DefForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 790.0
+margin_bottom = 820.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "KNIGHT"
+
+[node name="DefForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 790.0
+margin_right = 702.0
+margin_bottom = 820.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FOREST"
+second_map_key = "CATAPULT"
+
+[node name="Space28" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 798.0
+margin_right = 1154.0
+margin_bottom = 812.0
+
+[node name="DefMountain" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 824.0
+margin_right = 250.0
+margin_bottom = 855.0
+custom_fonts/font = ExtResource( 5 )
+text = "Def Damage Mountain"
+
+[node name="Space27" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 832.0
+margin_right = 702.0
+margin_bottom = 846.0
+
+[node name="Space26" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 832.0
+margin_right = 1154.0
+margin_bottom = 846.0
+
+[node name="DefMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 859.0
+margin_bottom = 889.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "SPEARMAN"
+
+[node name="DefMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 859.0
+margin_right = 702.0
+margin_bottom = 889.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "SWORDSMAN"
+
+[node name="DefMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 859.0
+margin_right = 1154.0
+margin_bottom = 889.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "ARCHER"
+
+[node name="DefMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 893.0
+margin_bottom = 923.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "KNIGHT"
+
+[node name="DefMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 893.0
+margin_right = 702.0
+margin_bottom = 923.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "MOUNTAIN"
+second_map_key = "CATAPULT"
+
+[node name="Space25" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 901.0
+margin_right = 1154.0
+margin_bottom = 915.0
+
+[node name="DefVillage" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 927.0
+margin_right = 250.0
+margin_bottom = 958.0
+custom_fonts/font = ExtResource( 5 )
+text = "Def Damage Village"
+
+[node name="Space24" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 935.0
+margin_right = 702.0
+margin_bottom = 949.0
+
+[node name="Space23" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 935.0
+margin_right = 1154.0
+margin_bottom = 949.0
+
+[node name="DefVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 962.0
+margin_bottom = 992.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "SPEARMAN"
+
+[node name="DefVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 962.0
+margin_right = 702.0
+margin_bottom = 992.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "SWORDSMAN"
+
+[node name="DefVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 962.0
+margin_right = 1154.0
+margin_bottom = 992.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "ARCHER"
+
+[node name="DefVillageKnightDef" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 996.0
+margin_bottom = 1026.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "KNIGHT"
+
+[node name="DefVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 996.0
+margin_right = 702.0
+margin_bottom = 1026.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "VILLAGE"
+second_map_key = "CATAPULT"
+
+[node name="Space22" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 1004.0
+margin_right = 1154.0
+margin_bottom = 1018.0
+
+[node name="DefCastle" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 1030.0
+margin_right = 250.0
+margin_bottom = 1061.0
+custom_fonts/font = ExtResource( 5 )
+text = "Def Damage Forest"
+
+[node name="Space21" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 452.0
+margin_top = 1038.0
+margin_right = 702.0
+margin_bottom = 1052.0
+
+[node name="Space20" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 1038.0
+margin_right = 1154.0
+margin_bottom = 1052.0
+
+[node name="DefCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 1065.0
+margin_bottom = 1095.0
+label = "Spearman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "SPEARMAN"
+
+[node name="DefCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 1065.0
+margin_right = 702.0
+margin_bottom = 1095.0
+label = "Swordsman"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "SWORDSMAN"
+
+[node name="DefCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 904.0
+margin_top = 1065.0
+margin_right = 1154.0
+margin_bottom = 1095.0
+label = "Archer"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "ARCHER"
+
+[node name="DefCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 1099.0
+margin_bottom = 1129.0
+label = "Knight"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "KNIGHT"
+
+[node name="DefCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 452.0
+margin_top = 1099.0
+margin_right = 702.0
+margin_bottom = 1129.0
+label = "Catapult"
+class_param = "Fieldparameters"
+value_param = "DEF_DMG"
+class_sett = "FieldSettings"
+value_sett = "def_dmg"
+datatype = "float"
+map_key = "FCASTLE"
+second_map_key = "CATAPULT"
+
+[node name="Space19" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 904.0
+margin_top = 1107.0
+margin_right = 1154.0
+margin_bottom = 1121.0
+
+[node name="Troops" type="Tabs" parent="MarginContainer/Content/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/TabContainer/Troops"]
+margin_right = 1172.0
+margin_bottom = 40.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1167.0
+margin_bottom = 565.0
+rect_min_size = Vector2( 1162, 560 )
+scroll_horizontal_enabled = false
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer"]
+margin_right = 1162.0
+margin_bottom = 786.0
+rect_min_size = Vector2( 1162, 560 )
+custom_constants/hseparation = 202
+columns = 3
+
+[node name="Price" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_right = 250.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 5 )
+text = "Price"
+
+[node name="Space" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 3.0
+margin_right = 706.0
+margin_bottom = 17.0
+
+[node name="Space2" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 3.0
+margin_right = 1162.0
+margin_bottom = 17.0
+
+[node name="PriceSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 25.0
+margin_bottom = 55.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "PRICE"
+class_sett = "TroopSettings"
+value_sett = "price"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="PriceSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 25.0
+margin_right = 706.0
+margin_bottom = 55.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "PRICE"
+class_sett = "TroopSettings"
+value_sett = "price"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="PriceArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 25.0
+margin_right = 1162.0
+margin_bottom = 55.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "PRICE"
+class_sett = "TroopSettings"
+value_sett = "price"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="PriceKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 59.0
+margin_bottom = 89.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "PRICE"
+class_sett = "TroopSettings"
+value_sett = "price"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="PriceCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 59.0
+margin_right = 706.0
+margin_bottom = 89.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "PRICE"
+class_sett = "TroopSettings"
+value_sett = "price"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space3" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 67.0
+margin_right = 1162.0
+margin_bottom = 81.0
+
+[node name="Build Time" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 93.0
+margin_right = 250.0
+margin_bottom = 114.0
+custom_fonts/font = ExtResource( 5 )
+text = "Build Time"
+
+[node name="Space6" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 96.0
+margin_right = 706.0
+margin_bottom = 110.0
+
+[node name="Space5" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 96.0
+margin_right = 1162.0
+margin_bottom = 110.0
+
+[node name="BuildTimeSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 118.0
+margin_bottom = 148.0
+label = "Build Time Spearman"
+class_param = "TroopParameters"
+value_param = "BUILD_TIME"
+class_sett = "TroopSettings"
+value_sett = "build_time"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="BuildTimeSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 118.0
+margin_right = 706.0
+margin_bottom = 148.0
+label = "Build Time Swordsman"
+class_param = "TroopParameters"
+value_param = "BUILD_TIME"
+class_sett = "TroopSettings"
+value_sett = "build_time"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="BuildTimeArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 118.0
+margin_right = 1162.0
+margin_bottom = 148.0
+label = "Build Time Archer"
+class_param = "TroopParameters"
+value_param = "BUILD_TIME"
+class_sett = "TroopSettings"
+value_sett = "build_time"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="BuildTimeKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 152.0
+margin_bottom = 182.0
+label = "Build Time Knight"
+class_param = "TroopParameters"
+value_param = "BUILD_TIME"
+class_sett = "TroopSettings"
+value_sett = "build_time"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="BuildTimeCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 152.0
+margin_right = 706.0
+margin_bottom = 182.0
+label = "Build Time Catapult"
+class_param = "TroopParameters"
+value_param = "BUILD_TIME"
+class_sett = "TroopSettings"
+value_sett = "build_time"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space4" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 160.0
+margin_right = 1162.0
+margin_bottom = 174.0
+
+[node name="Salary" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 186.0
+margin_right = 250.0
+margin_bottom = 207.0
+custom_fonts/font = ExtResource( 5 )
+text = "Salary"
+
+[node name="Space9" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 189.0
+margin_right = 706.0
+margin_bottom = 203.0
+
+[node name="Space8" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 189.0
+margin_right = 1162.0
+margin_bottom = 203.0
+
+[node name="SalarySpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 211.0
+margin_bottom = 241.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "SALARY"
+class_sett = "TroopSettings"
+value_sett = "salary"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="SalarySwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 211.0
+margin_right = 706.0
+margin_bottom = 241.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "SALARY"
+class_sett = "TroopSettings"
+value_sett = "salary"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="SalaryArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 211.0
+margin_right = 1162.0
+margin_bottom = 241.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "SALARY"
+class_sett = "TroopSettings"
+value_sett = "salary"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="SalaryKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 245.0
+margin_bottom = 275.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "SALARY"
+class_sett = "TroopSettings"
+value_sett = "salary"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="SalaryCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 245.0
+margin_right = 706.0
+margin_bottom = 275.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "SALARY"
+class_sett = "TroopSettings"
+value_sett = "salary"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space7" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 253.0
+margin_right = 1162.0
+margin_bottom = 267.0
+
+[node name="FieldsPerRound" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 279.0
+margin_right = 250.0
+margin_bottom = 300.0
+custom_fonts/font = ExtResource( 5 )
+text = "Fields per Round"
+
+[node name="Space12" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 282.0
+margin_right = 706.0
+margin_bottom = 296.0
+
+[node name="Space11" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 282.0
+margin_right = 1162.0
+margin_bottom = 296.0
+
+[node name="FPRSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 304.0
+margin_bottom = 334.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "FPR"
+class_sett = "TroopSettings"
+value_sett = "fpr"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="FPRSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 304.0
+margin_right = 706.0
+margin_bottom = 334.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "FPR"
+class_sett = "TroopSettings"
+value_sett = "fpr"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="FPRArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 304.0
+margin_right = 1162.0
+margin_bottom = 334.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "FPR"
+class_sett = "TroopSettings"
+value_sett = "fpr"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="FPRKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 338.0
+margin_bottom = 368.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "FPR"
+class_sett = "TroopSettings"
+value_sett = "fpr"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="FPRCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 338.0
+margin_right = 706.0
+margin_bottom = 368.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "FPR"
+class_sett = "TroopSettings"
+value_sett = "fpr"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space10" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 346.0
+margin_right = 1162.0
+margin_bottom = 360.0
+
+[node name="StartHealth" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 372.0
+margin_right = 250.0
+margin_bottom = 393.0
+custom_fonts/font = ExtResource( 5 )
+text = "Start Health"
+
+[node name="Space15" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 375.0
+margin_right = 706.0
+margin_bottom = 389.0
+
+[node name="Space14" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 375.0
+margin_right = 1162.0
+margin_bottom = 389.0
+
+[node name="StartHealthSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 397.0
+margin_bottom = 427.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "START_HEALTH"
+class_sett = "TroopSettings"
+value_sett = "start_health"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="StartHealthSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 397.0
+margin_right = 706.0
+margin_bottom = 427.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "START_HEALTH"
+class_sett = "TroopSettings"
+value_sett = "start_health"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="StartHealthArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 397.0
+margin_right = 1162.0
+margin_bottom = 427.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "START_HEALTH"
+class_sett = "TroopSettings"
+value_sett = "start_health"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="StartHealthKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 431.0
+margin_bottom = 461.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "START_HEALTH"
+class_sett = "TroopSettings"
+value_sett = "start_health"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="StartHealthCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 431.0
+margin_right = 706.0
+margin_bottom = 461.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "START_HEALTH"
+class_sett = "TroopSettings"
+value_sett = "start_health"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space13" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 439.0
+margin_right = 1162.0
+margin_bottom = 453.0
+
+[node name="AttackDamage" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 465.0
+margin_right = 250.0
+margin_bottom = 486.0
+custom_fonts/font = ExtResource( 5 )
+text = "Attack Damage"
+
+[node name="Space18" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 468.0
+margin_right = 706.0
+margin_bottom = 482.0
+
+[node name="Space17" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 468.0
+margin_right = 1162.0
+margin_bottom = 482.0
+
+[node name="AttSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 490.0
+margin_bottom = 520.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "ATT_DMG"
+class_sett = "TroopSettings"
+value_sett = "att_dmg"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="AttSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 490.0
+margin_right = 706.0
+margin_bottom = 520.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "ATT_DMG"
+class_sett = "TroopSettings"
+value_sett = "att_dmg"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="AttArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 490.0
+margin_right = 1162.0
+margin_bottom = 520.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "ATT_DMG"
+class_sett = "TroopSettings"
+value_sett = "att_dmg"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="AttKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 524.0
+margin_bottom = 554.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "ATT_DMG"
+class_sett = "TroopSettings"
+value_sett = "att_dmg"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="AttCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 524.0
+margin_right = 706.0
+margin_bottom = 554.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "ATT_DMG"
+class_sett = "TroopSettings"
+value_sett = "att_dmg"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space16" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 532.0
+margin_right = 1162.0
+margin_bottom = 546.0
+
+[node name="DefenceDamage" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 558.0
+margin_right = 250.0
+margin_bottom = 579.0
+custom_fonts/font = ExtResource( 5 )
+text = "Defence Damage"
+
+[node name="Space21" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 561.0
+margin_right = 706.0
+margin_bottom = 575.0
+
+[node name="Space20" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 561.0
+margin_right = 1162.0
+margin_bottom = 575.0
+
+[node name="DefSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 583.0
+margin_bottom = 613.0
+label = "Price Spearman"
+class_param = "TroopParameters"
+value_param = "DEF_DMG"
+class_sett = "TroopSettings"
+value_sett = "def_dmg"
+datatype = "int"
+map_key = "SPEARMAN"
+
+[node name="DefSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 583.0
+margin_right = 706.0
+margin_bottom = 613.0
+label = "Price Swordsman"
+class_param = "TroopParameters"
+value_param = "DEF_DMG"
+class_sett = "TroopSettings"
+value_sett = "def_dmg"
+datatype = "int"
+map_key = "SWORDSMAN"
+
+[node name="DefArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 912.0
+margin_top = 583.0
+margin_right = 1162.0
+margin_bottom = 613.0
+label = "Price Archer"
+class_param = "TroopParameters"
+value_param = "DEF_DMG"
+class_sett = "TroopSettings"
+value_sett = "def_dmg"
+datatype = "int"
+map_key = "ARCHER"
+
+[node name="DefKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_top = 617.0
+margin_bottom = 647.0
+label = "Price Knight"
+class_param = "TroopParameters"
+value_param = "DEF_DMG"
+class_sett = "TroopSettings"
+value_sett = "def_dmg"
+datatype = "int"
+map_key = "KNIGHT"
+
+[node name="DefCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 456.0
+margin_top = 617.0
+margin_right = 706.0
+margin_bottom = 647.0
+label = "Price Catapult"
+class_param = "TroopParameters"
+value_param = "DEF_DMG"
+class_sett = "TroopSettings"
+value_sett = "def_dmg"
+datatype = "int"
+map_key = "CATAPULT"
+
+[node name="Space19" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 625.0
+margin_right = 1162.0
+margin_bottom = 639.0
+
+[node name="SpecialDamage" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_top = 651.0
+margin_right = 250.0
+margin_bottom = 672.0
+custom_fonts/font = ExtResource( 5 )
+text = "Special  Damage"
+
+[node name="Space23" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 456.0
+margin_top = 654.0
+margin_right = 706.0
+margin_bottom = 668.0
+
+[node name="Space22" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
+margin_left = 912.0
+margin_top = 654.0
+margin_right = 1162.0
+margin_bottom = 668.0
+
+[node name="SwordsmanVsSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_top = 676.0
+margin_bottom = 706.0
+label = "Swordsman vs Spearman"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "SWORDSMAN"
+second_map_key = "SPEARMAN"
+
+[node name="SpearmanVsKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 456.0
+margin_top = 676.0
+margin_right = 706.0
+margin_bottom = 706.0
+label = "Spearman vs Knight"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "SPEARMAN"
+second_map_key = "KNIGHT"
+
+[node name="CatapultVsCastle" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 912.0
+margin_top = 676.0
+margin_right = 1162.0
+margin_bottom = 706.0
+label = "Catapult vs Castle"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "CATAPULT"
+second_map_key = "TCASTLE"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/Content"]
 margin_top = 604.0
