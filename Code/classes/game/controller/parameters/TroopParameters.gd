@@ -1,7 +1,5 @@
 extends Node
 
-class_name TroopParameters
-
 const PRICE: Dictionary = { 
 	TroopType.SWORDSMAN : 10, 
 	TroopType.SPEARMAN : 7,

@@ -1,8 +1,8 @@
 - animation
 - hover-info
+- change game settings
 - new graphics
 - balancing
-- dokumentation
 - BFS for creting troops
 - troop specific FPR
 - GameScene to OpenGameScene

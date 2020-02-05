@@ -1,7 +1,5 @@
 extends Node
 
-class_name GameParameters
-
 # Battelfield Generation Parameters
 const TRIPLET_SAME_CHANCE: int = 45
 const TRIPLET_GRASS_CHANCE: int = 21

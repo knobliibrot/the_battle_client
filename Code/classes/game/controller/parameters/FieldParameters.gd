@@ -1,7 +1,5 @@
 extends Node
 
-class_name FieldParameters
-
 const CONNECTION_PAIRS: Dictionary = {
 	FieldConnectionType.LEFT : FieldConnectionType.RIGHT,
 	FieldConnectionType.RIGHT : FieldConnectionType.LEFT,

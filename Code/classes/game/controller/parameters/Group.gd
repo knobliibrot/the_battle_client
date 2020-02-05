@@ -12,6 +12,8 @@ const FIELDS: String = "fields"
 const CREATE_TROOP_BUTTON: String = "create_troop_button"
 const QUEUE_BUTTON: String = "qeueue_button"
 
+const SETTINGS: String = "settings"
+
 static func stationed_troop(is_player1: bool) -> String:
 	if is_player1:
 		return TROOPS_1

@@ -4,6 +4,7 @@ class_name Playground
 
 const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
+const SETTINGS_SCENE = preload("res://classes/game/controller/settings/SettingsWindow.tscn")
 
 # Updates the info-, castlehealth- and queue boxes
 func update_gui_with_player(player1: Player, player2: Player, is_player1: bool) -> void:
@@ -79,4 +80,6 @@ func show_message(message: String, seconds: float) -> void:
 	
 func stop_timer() -> void:
 	$UI/Top/TopBar/TimeBox.stop_timer()
-	
+
+func _on_SettingsButton_pressed():
+	add_child(SETTINGS_SCENE.instance())

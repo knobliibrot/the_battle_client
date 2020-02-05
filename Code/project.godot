@@ -40,11 +40,6 @@ _global_script_classes=[ {
 "path": "res://classes/tools/FieldMapPerDistance.gd"
 }, {
 "base": "Node",
-"class": "FieldParameters",
-"language": "GDScript",
-"path": "res://classes/game/controller/parameters/FieldParameters.gd"
-}, {
-"base": "Node",
 "class": "FieldState",
 "language": "GDScript",
 "path": "res://classes/enums/FieldState.gd"
@@ -53,11 +48,6 @@ _global_script_classes=[ {
 "class": "FieldType",
 "language": "GDScript",
 "path": "res://classes/enums/FieldType.gd"
-}, {
-"base": "Node",
-"class": "GameParameters",
-"language": "GDScript",
-"path": "res://classes/game/controller/parameters/GameParameters.gd"
 }, {
 "base": "Node",
 "class": "Gamelogic",
@@ -110,11 +100,6 @@ _global_script_classes=[ {
 "path": "res://classes/game/model/troops/Troop.gd"
 }, {
 "base": "Node",
-"class": "TroopParameters",
-"language": "GDScript",
-"path": "res://classes/game/controller/parameters/TroopParameters.gd"
-}, {
-"base": "Node",
 "class": "TroopType",
 "language": "GDScript",
 "path": "res://classes/enums/TroopType.gd"
@@ -126,10 +111,8 @@ _global_script_class_icons={
 "Field": "",
 "FieldConnectionType": "",
 "FieldMapPerDistance": "",
-"FieldParameters": "",
 "FieldState": "",
 "FieldType": "",
-"GameParameters": "",
 "Gamelogic": "",
 "Group": "",
 "MainController": "",
@@ -140,7 +123,6 @@ _global_script_class_icons={
 "QueueButton": "",
 "ScreenScene": "",
 "Troop": "",
-"TroopParameters": "",
 "TroopType": ""
 }
 
@@ -152,8 +134,11 @@ config/icon="res://artifacts/icon.png"
 
 [autoload]
 
+GameParameters="*res://classes/game/controller/parameters/GameParameters.gd"
 GameSettings="*res://classes/game/controller/parameters/GameSettings.gd"
+FieldParameters="*res://classes/game/controller/parameters/FieldParameters.gd"
 FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
+TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
 TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
 
 [display]

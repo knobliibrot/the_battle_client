@@ -1,0 +1,170 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://classes/game/controller/settings/SettingBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/controller/settings/SettingsWindow.gd" type="Script" id=2]
+
+[node name="SettingsWindow" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1240.0
+margin_bottom = 684.0
+color = Color( 0.235294, 0.227451, 0.266667, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1240.0
+margin_bottom = 684.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1185.0
+margin_bottom = 629.0
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/Content"]
+margin_right = 1180.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1180, 600 )
+tab_align = 0
+
+[node name="GameSettingsTab" type="Tabs" parent="MarginContainer/Content/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+drag_to_rearrange_enabled = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/TabContainer/GameSettingsTab"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1156.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 1142, 0 )
+custom_constants/hseparation = 198
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CastleHealth" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+label = "Castle Health"
+class_param = "GameParameters"
+value_param = "CASTLE_HEALTH"
+class_sett = "GameSettings"
+value_sett = "castle_health"
+datatype = "int"
+
+[node name="StartGold" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 448.0
+margin_right = 698.0
+label = "Start Gold"
+class_param = "GameParameters"
+value_param = "START_GOLD"
+class_sett = "GameSettings"
+value_sett = "start_gold"
+datatype = "int"
+
+[node name="BasicIncome" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 896.0
+margin_right = 1146.0
+label = "Basic Income"
+class_param = "GameParameters"
+value_param = "BASIC_INCOME"
+class_sett = "GameSettings"
+value_sett = "basic_income"
+datatype = "int"
+
+[node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 34.0
+margin_bottom = 64.0
+label = "Message Show Time"
+class_param = "GameParameters"
+value_param = "MESSAGE_SHOW_TIME"
+class_sett = "GameSettings"
+value_sett = "message_show_time"
+datatype = "int"
+
+[node name="RoundTime" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 448.0
+margin_top = 34.0
+margin_right = 698.0
+margin_bottom = 64.0
+label = "Round Time"
+class_param = "GameParameters"
+value_param = "ROUND_TIME"
+class_sett = "GameSettings"
+value_sett = "round_time"
+datatype = "int"
+
+[node name="QueueSize" parent="MarginContainer/Content/TabContainer/GameSettingsTab/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 896.0
+margin_top = 34.0
+margin_right = 1146.0
+margin_bottom = 64.0
+label = "Queue Size"
+class_param = "GameParameters"
+value_param = "QUEUE_SIZE"
+class_sett = "GameSettings"
+value_sett = "queue_size"
+datatype = "int"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/Content"]
+margin_top = 604.0
+margin_right = 1180.0
+margin_bottom = 624.0
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SaveButton" type="Button" parent="MarginContainer/Content/ButtonContainer"]
+margin_left = 485.0
+margin_right = 579.0
+margin_bottom = 20.0
+text = "Save & Close"
+
+[node name="ResetButton" type="Button" parent="MarginContainer/Content/ButtonContainer"]
+margin_left = 589.0
+margin_right = 637.0
+margin_bottom = 20.0
+text = "Reset"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/Content/ButtonContainer"]
+margin_left = 647.0
+margin_right = 694.0
+margin_bottom = 20.0
+text = "Close"
+[connection signal="pressed" from="MarginContainer/Content/ButtonContainer/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/ButtonContainer/ResetButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/ButtonContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
