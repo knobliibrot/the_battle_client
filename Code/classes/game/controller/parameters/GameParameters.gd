@@ -25,6 +25,9 @@ const START_OTHER_CHANCE: int = 20
 const BATTLEFIELD_WIDTH: int = 21
 const BATTLEFIELD_HEIGHT: int = 7
 
+const MOVEMENT_X: int = 40
+const MOVEMENT_Y: int = 69
+
 const CASTLE_START_HEIGHT: int = 3
 
 # Gaming Values

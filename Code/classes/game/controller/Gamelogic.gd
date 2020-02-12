@@ -5,6 +5,7 @@ class_name Gamelogic
 
 signal castle_set
 signal turn_finished
+signal animation_finished
 
 const FIELD_DISTANCE_SET_SCENE: PackedScene = preload("res://classes/tools/FieldDistanceSet.tscn")
 
@@ -18,6 +19,7 @@ var act_opponent: Player
 var is_player1: bool
 
 var game_over: bool = false
+var animation_running: bool = false
 
 # Initialize the players with the given player types
 func initialize_game(player1_type: int, player2_type: int) -> void: 
@@ -243,39 +245,49 @@ func attack_castle(attacker: Troop, castle: Field) -> int:
 
 # TODO
 func show_movement(attacker: Troop, defender: Troop, target_field: Field, movement_type: int) -> void:
+	self.animation_running = true
+	var start_field: Field = attacker.get_parent()
+	get_playground().disable_battlefield()
+	var path: Array = target_field.get_dijk_path()
+	attacker.move(path)
+	yield(attacker, "move_finished")
+	move_troop(attacker, target_field.dijk_previous)
+	get_battlefield().move_child(target_field.dijk_previous, get_battlefield().get_children().size() - 1)
 	var final_target: Field = target_field
-	if MovementType.ATT_DIE == movement_type:
-		act_player.remove_troop(attacker)
-	elif MovementType.FRIEND == movement_type:
+	if MovementType.FRIEND == movement_type or MovementType.NO_FIGHT == movement_type:
 		pass
 	else:
+		attacker.start_attack_animation(target_field.get_attack_direction())
+		defender.start_defend_animation(target_field.get_attack_direction())
+		yield(attacker, "animation_finished")
+		yield(defender, "animation_finished")
+		yield(get_tree().create_timer(3), "timeout")
+		
+		defender.update_helathpoints()
 		if MovementType.DEF_DIE == movement_type:
-			if is_player1:
-				player2.remove_troop(defender)
-			else:
-				player1.remove_troop(defender)
+			pass
+		else:
+			if MovementType.ATT_DIE == movement_type:
+				pass
 		if MovementType.NOBODY_DIE == movement_type or (MovementType.DEF_DIE == movement_type and target_field.field_type == FieldType.CASTLE):
 			final_target = target_field.dijk_previous
 			while final_target.stationed_troop != null and final_target != attacker.get_parent():
 				final_target = final_target.dijk_previous
 			attacker.movement_left  -= target_field.dijk_distance + (target_field.dijk_distance - final_target.dijk_distance * 2)
-		
-		move_troop(attacker, final_target)
+	move_troop(attacker, final_target)
+	self.animation_running = false
 
 # TODO
 func move_troop(troop: Troop, target: Field) -> void:
-	var group_name: String
-	if is_player1:
-		group_name = "troops_stationed_player1"
-	else:
-		group_name = "troops_stationed_player2"
 	troop.get_parent().stationed_troop = null
-	troop.get_parent().remove_from_group(group_name)
+	troop.get_parent().remove_from_group(Group.stationed_troop(self.is_player1))
 	troop.get_parent().remove_child(troop)
 	troop.movement_left = troop.movement_left - target.dijk_distance
+	troop.set_position(Vector2(0,0))
+	troop.set_scale(Vector2(1,1))
 	target.add_child(troop)
 	target.stationed_troop = troop
-	target.add_to_group(group_name)
+	target.add_to_group(Group.stationed_troop(self.is_player1))
 
 # Stops Round, show Game Over and finish the game
 func game_over() -> void:
@@ -288,6 +300,8 @@ func game_over() -> void:
 	emit_signal("turn_finished", true)
 
 func _on_TimeBox_turn_finished() -> void:
+	if self.animation_running:
+		yield(self, "animation_finished")
 	emit_signal("turn_finished", false)
 
 # Sets the actual player and opponent for this round

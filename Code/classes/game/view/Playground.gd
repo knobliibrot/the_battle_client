@@ -50,10 +50,14 @@ func disable_all() -> void:
 	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
 		button.set_disabled(true)
 	
-	for field in get_tree().get_nodes_in_group(Group.FIELDS):
-		field.set_disabled(true)
+	disable_battlefield()
 	
 	for field in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
+		field.set_disabled(true)
+
+# Disables all fields
+func disable_battlefield() -> void:
+	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
 
 # Add given TroopType to queue
@@ -92,3 +96,4 @@ func _on_SettingsButton_pressed() -> void:
 func _on_SettingsWindow_close(window: Node) -> void:
 	remove_child(window)
 	$UI/Top/TopBar/TimeBox.resume_timer()
+

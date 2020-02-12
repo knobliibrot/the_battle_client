@@ -1,4 +1,6 @@
 - animation
+- enums
+- check dijk_direction
 - hover-info
 - new graphics
 - balancing

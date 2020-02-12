@@ -31,6 +31,29 @@ func cut_connections() -> void:
 func delete_connection(direction: int) -> void:
 	connections.erase(direction)
 
+# Returns an array with the connetion types from the start field to the current
+func get_dijk_path() -> Array:
+	var path: Array = []
+	if(dijk_previous != null):
+		var field_before: Field = dijk_previous
+		var act_field: Field = dijk_previous.dijk_previous
+		while act_field != null:
+			for connection_type in act_field.connections.keys():
+				if act_field.connections[connection_type] == field_before:
+					path.insert(0, connection_type)
+					field_before = act_field
+					act_field = field_before.dijk_previous
+					break
+	return path
+
+# Returns the connection type of the dijk_previous
+# If it's not found (should never happen) returns -1
+func get_attack_direction() -> int:
+	for connection_type in self.connections.keys():
+		if self.connections[connection_type] == dijk_previous:
+			return FieldParameters.CONNECTION_PAIRS[connection_type]
+	return -1
+
 # Remove stationed troop from field
 func remove_stationed_troop() -> void:
 	remove_child(stationed_troop)
