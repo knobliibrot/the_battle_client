@@ -55,13 +55,13 @@ func get_attack_direction() -> int:
 	return -1
 
 # Remove stationed troop from field
-func remove_stationed_troop() -> void:
-	remove_child(stationed_troop)
-	stationed_troop = null
-	if is_in_group(Group.TROOPS_1):
-		remove_from_group(Group.TROOPS_1)
+func remove_stationed_troop(troop: Troop) -> void:
+	remove_child(troop)
+	troop.parent_field.stationed_troop = null
+	if troop.parent_field.is_in_group(Group.TROOPS_1):
+		troop.parent_field.remove_from_group(Group.TROOPS_1)
 	else:
-		remove_from_group(Group.TROOPS_2)
+		troop.parent_field.remove_from_group(Group.TROOPS_2)
 
 # Initializes a red or blue troop and positiones it on the battlefield
 func create_troop(troop_type: int, is_player1: bool) -> Troop:
@@ -69,10 +69,11 @@ func create_troop(troop_type: int, is_player1: bool) -> Troop:
 	if is_player1:
 		troop = load(TroopParameters.SCENE_BLUE[troop_type]).instance()
 	else:
-		troop = load(TroopParameters.SCENE_RED[troop_type]).instance()		
+		troop = load(TroopParameters.SCENE_RED[troop_type]).instance()
 	troop.troop_type = troop_type
 	troop.is_player1 = is_player1
 	troop.set_start_healthpoints(TroopSettings.start_health[troop_type])
+	troop.parent_field = self
 	self.add_to_group(Group.stationed_troop(is_player1))
 	
 	if force_troop_move(is_player1, troop):
@@ -160,6 +161,7 @@ func check_and_set_troop(troop: Troop, is_player1: bool) -> bool:
 # Sets the troop to the field and adds the regarding group to it
 func set_troop(troop: Troop, is_player1: bool) -> void:
 	self.stationed_troop = troop
+	troop.parent_field = self
 	add_child(troop)
 	self.add_to_group(Group.stationed_troop(is_player1))
 

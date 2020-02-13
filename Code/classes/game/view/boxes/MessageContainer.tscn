@@ -8,6 +8,9 @@ mouse_filter = 2
 custom_constants/margin_right = 320
 custom_constants/margin_top = 150
 custom_constants/margin_left = 160
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Background" type="ColorRect" parent="."]
 light_mask = 8265
@@ -34,5 +37,6 @@ margin_left = 20.0
 margin_top = 20.0
 margin_right = 780.0
 margin_bottom = 68.0
+rect_min_size = Vector2( 760, 0 )
 custom_fonts/font = ExtResource( 1 )
 align = 1

@@ -20,6 +20,8 @@ var is_player1: bool
 
 var game_over: bool = false
 var animation_running: bool = false
+var att_animation_finished: bool = false
+var def_animation_finished: bool = false
 
 # Initialize the players with the given player types
 func initialize_game(player1_type: int, player2_type: int) -> void: 
@@ -142,7 +144,7 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	while act_field != null:
 		act_field.dijk_visited = true
 		# Depending on the distance set it's status
-		if max_travel_distance >= act_field.dijk_distance:
+		if max_travel_distance >= act_field.dijk_distance and !act_player.troops.has(act_field.stationed_troop):
 			act_field.set_disabled(false)
 			act_field.field_state = FieldState.TARGET_SELECTION
 			act_field.set_pressed(false)
@@ -174,7 +176,7 @@ func _on_Battlefield_target_selected(position: Vector2):
 	else:
 		movement_type = MovementType.NO_FIGHT
 	show_movement(self.selected_field.stationed_troop, target.stationed_troop, target, movement_type)
-	
+	yield(self, "animation_finished")
 	self.selected_field = null
 	if self.game_over:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
@@ -246,45 +248,100 @@ func attack_castle(attacker: Troop, castle: Field) -> int:
 # TODO
 func show_movement(attacker: Troop, defender: Troop, target_field: Field, movement_type: int) -> void:
 	self.animation_running = true
-	var start_field: Field = attacker.get_parent()
+	var start_field: Field = attacker.parent_field
 	get_playground().disable_battlefield()
 	var path: Array = target_field.get_dijk_path()
-	attacker.move(path)
-	yield(attacker, "move_finished")
-	move_troop(attacker, target_field.dijk_previous)
-	get_battlefield().move_child(target_field.dijk_previous, get_battlefield().get_children().size() - 1)
+	if path.size() > 0:
+		attacker.move(path)
+		yield(attacker, "move_finished")
+		move_troop_temp(attacker, target_field.dijk_previous)
+	
 	var final_target: Field = target_field
-	if MovementType.FRIEND == movement_type or MovementType.NO_FIGHT == movement_type:
-		pass
-	else:
-		attacker.start_attack_animation(target_field.get_attack_direction())
-		defender.start_defend_animation(target_field.get_attack_direction())
+	path = [final_target.get_attack_direction()]
+	attacker.connect("animation_finished", self, "_on_Attacker_animation_finished")
+	if defender != null:
+		defender.connect("animation_finished", self, "_on_Defender_animation_finished")
+	
+	if !MovementType.FRIEND == movement_type and !MovementType.NO_FIGHT == movement_type:
+		var direction: int = target_field.get_attack_direction()
+		reset_ani_finished()
+		attacker.start_attack_animation(direction)
+		defender.start_defend_animation(direction)
 		yield(attacker, "animation_finished")
-		yield(defender, "animation_finished")
-		yield(get_tree().create_timer(3), "timeout")
+		if !self.def_animation_finished:
+			yield(defender, "animation_finished")
 		
+		attacker.attack_animation(direction)
+		yield(attacker, "animation_finished")
 		defender.update_helathpoints()
 		if MovementType.DEF_DIE == movement_type:
-			pass
+			defender.die_animation()
+			yield(defender, "animation_finished")
+			act_opponent.remove_troop(defender)
+			attacker.win_attack_animation(direction)
+			yield(attacker, "animation_finished")
+			path = []
 		else:
+			defender.defend_animation(direction)
+			yield(defender, "animation_finished")
+			attacker.update_helathpoints()
 			if MovementType.ATT_DIE == movement_type:
-				pass
+				attacker.die_animation()
+				yield(attacker, "animation_finished")
+				act_player.remove_troop(attacker)
+				defender.end_defend_animation(direction)
+				yield(defender, "animation_finished")
+				path = []
+				attacker = null
+			else:
+				reset_ani_finished()
+				attacker.end_attack_animation(direction)
+				defender.end_defend_animation(direction)
+				yield(attacker, "animation_finished")
+				if !self.def_animation_finished:
+					yield(defender, "animation_finished")
 		if MovementType.NOBODY_DIE == movement_type or (MovementType.DEF_DIE == movement_type and target_field.field_type == FieldType.CASTLE):
 			final_target = target_field.dijk_previous
-			while final_target.stationed_troop != null and final_target != attacker.get_parent():
+			path = []
+			while final_target.stationed_troop != null and final_target != start_field:
+				path.append(FieldParameters.CONNECTION_PAIRS[final_target.get_attack_direction()])
 				final_target = final_target.dijk_previous
 			attacker.movement_left  -= target_field.dijk_distance + (target_field.dijk_distance - final_target.dijk_distance * 2)
-	move_troop(attacker, final_target)
+	if path.size() > 0:
+		attacker.move(path)
+		yield(attacker, "move_finished")
+	if attacker != null:
+		move_troop(attacker, start_field, final_target)
+		attacker.disconnect("animation_finished", self, "_on_Attacker_animation_finished")	
+	
+	if defender != null:
+		defender.disconnect("animation_finished", self, "_on_Defender_animation_finished")
 	self.animation_running = false
+	emit_signal("animation_finished")
 
-# TODO
-func move_troop(troop: Troop, target: Field) -> void:
-	troop.get_parent().stationed_troop = null
-	troop.get_parent().remove_from_group(Group.stationed_troop(self.is_player1))
+func reset_ani_finished() -> void:
+	self.att_animation_finished = false
+	self.def_animation_finished = false
+
+func _on_Attacker_animation_finished() -> void:
+	self.att_animation_finished = true
+
+func _on_Defender_animation_finished() -> void:
+	self.def_animation_finished = true
+
+func move_troop_temp(troop: Troop, target: Field) -> void:
 	troop.get_parent().remove_child(troop)
 	troop.movement_left = troop.movement_left - target.dijk_distance
 	troop.set_position(Vector2(0,0))
-	troop.set_scale(Vector2(1,1))
+	target.add_child(troop)
+
+# TODO
+func move_troop(troop: Troop, start: Field, target: Field) -> void:
+	start.stationed_troop = null
+	start.remove_from_group(Group.stationed_troop(self.is_player1))
+	troop.get_parent().remove_child(troop)
+	troop.set_position(Vector2(0,0))
+	troop.parent_field = target
 	target.add_child(troop)
 	target.stationed_troop = troop
 	target.add_to_group(Group.stationed_troop(self.is_player1))

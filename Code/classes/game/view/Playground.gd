@@ -59,6 +59,7 @@ func disable_all() -> void:
 func disable_battlefield() -> void:
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
+		field.active = false
 
 # Add given TroopType to queue
 func add_to_queue(troop_type: int) -> void:
@@ -72,15 +73,15 @@ func start_timer_with_message(message: String, seconds: float, finish_signal: St
 
 # Shows a message for the given time 
 func show_message(message: String, seconds: float) -> void:
-	if self.has_node("MessageContainer"):
-		self.remove_child(get_node("MessageContainer"))
+	if $Overlay.has_node("MessageContainer"):
+		$Overlay.remove_child($Overlay.get_node("MessageContainer"))
 		
 	var msg_container = MESSAGE_CONTAINER.instance()
-	add_child(msg_container)
+	$Overlay.add_child(msg_container)
 	msg_container.get_node("MarginContainer/Label").text = message
 	yield(get_tree().create_timer(seconds), "timeout")
-	if has_node("MessageContainer"):
-		remove_child(get_node("MessageContainer"))
+	if $Overlay.has_node("MessageContainer"):
+		$Overlay.remove_child($Overlay.get_node("MessageContainer"))
 	
 func stop_timer() -> void:
 	$UI/Top/TopBar/TimeBox.stop_timer()
@@ -90,10 +91,10 @@ func _on_SettingsButton_pressed() -> void:
 	$UI/Top/TopBar/TimeBox.pause_timer()
 	var settings: Node = SETTINGS_SCENE.instance()
 	settings.connect("close", self, "_on_SettingsWindow_close")
-	add_child(settings)
+	$Overlay.add_child(settings)
 
 # Remove the Settings Window and resume the Timer
 func _on_SettingsWindow_close(window: Node) -> void:
-	remove_child(window)
+	$Overlay.remove_child(window)
 	$UI/Top/TopBar/TimeBox.resume_timer()
 

@@ -53,7 +53,7 @@ func remove_troop(troop: Troop) -> void:
 	troops.remove(troops.find(troop))
 	salary -= TroopSettings.salary[troop.troop_type]
 	income += TroopSettings.salary[troop.troop_type]
-	troop.get_parent().remove_stationed_troop()
+	troop.get_parent().remove_stationed_troop(troop)
 
 # If a troop in the queue is ready it returns their troop type.
 # Otherwise -1

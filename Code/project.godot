@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/scenes/ScreenScene.gd"
 }, {
-"base": "MarginContainer",
+"base": "Node2D",
 "class": "Troop",
 "language": "GDScript",
 "path": "res://classes/game/model/troops/Troop.gd"
