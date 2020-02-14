@@ -71,10 +71,10 @@ func count_field_as_neighbour(x: int, y: int) -> void:
 # Set the percentages and retun the choosen field type based on a random number
 func define_field_type_randomly() -> int:
 	# Set Percentages based on neighbours
-	set_percentage_grass(neigbour_counter_map[FieldType.GRASS])
-	set_percentage_forest(neigbour_counter_map[FieldType.FOREST])
-	set_percentage_mountain(neigbour_counter_map[FieldType.MOUNTAIN])
-	set_percentage_village(neigbour_counter_map[FieldType.VILLAGE])
+	set_percentage(GameSettings.chances_grass, neigbour_counter_map[FieldType.GRASS])
+	set_percentage(GameSettings.chances_forest, neigbour_counter_map[FieldType.FOREST])
+	set_percentage(GameSettings.chances_mountain, neigbour_counter_map[FieldType.MOUNTAIN])
+	set_percentage(GameSettings.chances_village, neigbour_counter_map[FieldType.VILLAGE])
 	
 	# Pick a random number
 	var total: int = field_percantage_map[FieldType.GRASS]  + field_percantage_map[FieldType.FOREST] + field_percantage_map[FieldType.MOUNTAIN] + field_percantage_map[FieldType.VILLAGE]
@@ -103,79 +103,20 @@ func define_field_type_randomly() -> int:
 	else:
 		return FieldType.VILLAGE		
 
+# Sets percentages for the first Field
 func set_percentage_start() -> void:
 	self.field_percantage_map[FieldType.GRASS] = GameSettings.start_grass_chance
 	self.field_percantage_map[FieldType.FOREST] = GameSettings.start_other_chance
 	self.field_percantage_map[FieldType.MOUNTAIN] = GameSettings.start_other_chance
 	self.field_percantage_map[FieldType.VILLAGE] = GameSettings.start_other_chance
 
-func set_percentage_grass(field_amount: int) -> void:
-	if field_amount == 1:
-		self.field_percantage_map[FieldType.GRASS] += GameSettings.grass_same_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.grass_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.grass_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] +=GameSettings.grass_other_chance - 2
-	elif field_amount == 2:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.grasstwins_same_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.grasstwins_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.grasstwins_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.grasstwins_other_chance - 6
-	elif field_amount == 3:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.grasstriplet_same_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.grasstriplet_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.grasstriplet_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.grasstriplet_other_chance - 10
-
-func set_percentage_forest(field_amount: int) -> void:
-	if field_amount == 1:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.grass_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.same_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.other_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.other_chance - 2
-	elif field_amount == 2:
-		self.field_percantage_map[FieldType.GRASS] += GameSettings.twins_grass_chance
-		self.field_percantage_map[FieldType.FOREST] +=GameSettings.twins_same_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.twins_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] +=GameSettings.twins_other_chance - 6
-	elif field_amount == 3:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.triplet_grass_chance
-		self.field_percantage_map[FieldType.FOREST] +=GameSettings.triplet_same_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.triplet_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] +=GameSettings.triplet_other_chance - 10
-
-func set_percentage_mountain(field_amount: int) -> void:
-	if field_amount == 1:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.grass_chance
-		self.field_percantage_map[FieldType.FOREST] +=GameSettings.other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] +=GameSettings.same_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.other_chance - 2
-	elif field_amount == 2:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.twins_grass_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.twins_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] +=GameSettings.twins_same_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.twins_other_chance - 6
-	elif field_amount == 3:
-		self.field_percantage_map[FieldType.GRASS] +=GameSettings.triplet_grass_chance
-		self.field_percantage_map[FieldType.FOREST] +=GameSettings.triplet_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.triplet_same_chance
-		self.field_percantage_map[FieldType.VILLAGE] +=GameSettings.triplet_other_chance - 10
-
-func set_percentage_village(field_amount: int) -> void:
-	if field_amount == 1:
-		self.field_percantage_map[FieldType.GRASS] += GameSettings.grass_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.other_chance
-		self.field_percantage_map[FieldType.VILLAGE] +=GameSettings.same_chance - 5
-	elif field_amount == 2:
-		self.field_percantage_map[FieldType.GRASS] += GameSettings.twins_grass_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.twins_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.twins_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.twins_same_chance - 10
-	elif field_amount == 3:
-		self.field_percantage_map[FieldType.GRASS] += GameSettings.triplet_grass_chance
-		self.field_percantage_map[FieldType.FOREST] += GameSettings.triplet_other_chance
-		self.field_percantage_map[FieldType.MOUNTAIN] += GameSettings.triplet_other_chance
-		self.field_percantage_map[FieldType.VILLAGE] += GameSettings.triplet_same_chance - 30
+# Set pecentages for the given field respective to the field amount
+func set_percentage(percentage_map: Dictionary, field_amount: int) -> void:
+	if field_amount > 0:
+		self.field_percantage_map[FieldType.GRASS] += percentage_map[FieldType.GRASS][field_amount]
+		self.field_percantage_map[FieldType.FOREST] += percentage_map[FieldType.FOREST][field_amount]
+		self.field_percantage_map[FieldType.MOUNTAIN] += percentage_map[FieldType.MOUNTAIN][field_amount]
+		self.field_percantage_map[FieldType.VILLAGE] += percentage_map[FieldType.VILLAGE][field_amount]
 
 # Sets the connections for a field
 func initalize_connections(field: Field, x: int, y: int) -> void:

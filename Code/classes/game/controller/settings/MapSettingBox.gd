@@ -42,4 +42,10 @@ func get_enum_value(map_key_2: String) -> int:
 			return TroopType.CATAPULT
 		"TCASTLE":
 			return TroopType.CASTLE
+		"1":
+			return 1
+		"2":
+			return 2
+		"3":
+			return 3
 	return -1

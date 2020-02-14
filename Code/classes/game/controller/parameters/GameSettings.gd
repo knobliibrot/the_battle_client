@@ -1,26 +1,13 @@
 extends Node
 
 # Battelfield Generation Parameters
-var triplet_same_chance: int = GameParameters.TRIPLET_SAME_CHANCE
-var triplet_grass_chance: int = GameParameters.TRIPLET_GRASS_CHANCE
-var triplet_other_chance: int = GameParameters.TRIPLET_OTHER_CHANCE
-var grasstriplet_same_chance: int = GameParameters.GRASSTRIPLET_SAME_CHANCE
-var grasstriplet_other_chance: int = GameParameters.GRASSTRIPLET_OTHER_CHANCE
-
-var twins_same_chance: int = GameParameters.TWINS_SAME_CHANCE
-var twins_grass_chance: int = GameParameters.TWINS_GRASS_CHANCE
-var twins_other_chance: int = GameParameters.TWINS_OTHER_CHANCE
-var grasstwins_same_chance: int = GameParameters.GRASSTWINS_SAME_CHANCE
-var grasstwins_other_chance: int = GameParameters.GRASSTWINS_OTHER_CHANCE
-
-var same_chance: int = GameParameters.SAME_CHANCE
-var grass_chance: int = GameParameters.GRASS_CHANCE
-var other_chance: int = GameParameters.OTHER_CHANCE
-var grass_same_chance: int = GameParameters.GRASS_SAME_CHANCE
-var grass_other_chance: int = GameParameters.GRASS_OTHER_CHANCE
-
 var start_grass_chance: int = GameParameters.START_GRASS_CHANCE
 var start_other_chance: int = GameParameters.START_OTHER_CHANCE
+
+var chances_grass: Dictionary = GameParameters.CHANCES_GRASS
+var chances_forest: Dictionary = GameParameters.CHANCES_FOREST
+var chances_mountain: Dictionary = GameParameters.CHANCES_MOUNTAIN
+var chances_village: Dictionary = GameParameters.CHANCES_VILLAGE
 
 var battlefield_width: int = GameParameters.BATTLEFIELD_WIDTH
 var battlefield_height: int = GameParameters.BATTLEFIELD_HEIGHT

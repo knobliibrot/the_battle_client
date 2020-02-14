@@ -1,23 +1,97 @@
 extends Node
 
 # Battelfield Generation Parameters
-const TRIPLET_SAME_CHANCE: int = 45
-const TRIPLET_GRASS_CHANCE: int = 21
-const TRIPLET_OTHER_CHANCE: int = 12
-const GRASSTRIPLET_SAME_CHANCE: int = 45
-const GRASSTRIPLET_OTHER_CHANCE: int = 16
+const CHANCES_GRASS: Dictionary =  {
+	FieldType.GRASS: {
+		1 : 15,
+		2 : 25,
+		3 : 50
+	},
+	FieldType.FOREST: {
+		1 : 6,
+		2 : 23,
+		3 : 16 
+	},
+	FieldType.MOUNTAIN: {
+		1 : 6,
+		2 : 6,
+		3 : 16 
+	},
+	FieldType.VILLAGE: {
+		1 : 2,
+		2 : 3,
+		3 : 6
+	}
+}
 
-const TWINS_SAME_CHANCE: int = 20
-const TWINS_GRASS_CHANCE: int = 12
-const TWINS_OTHER_CHANCE: int = 6
-const GRASSTWINS_SAME_CHANCE: int = 23
-const GRASSTWINS_OTHER_CHANCE: int = 8
+const CHANCES_FOREST: Dictionary =  {
+	FieldType.GRASS: {
+		1 : 8,
+		2 : 12,
+		3 : 21 
+	},
+	FieldType.FOREST: {
+		1 : 8,
+		2 : 25,
+		3 : 45
+	},
+	FieldType.MOUNTAIN: {
+		1 : 6,
+		2 : 6,
+		3 : 12 
+	},
+	FieldType.VILLAGE: {
+		1 : 2,
+		2 : 3,
+		3 : 6
+	}
+}
 
-const SAME_CHANCE: int = 6
-const GRASS_CHANCE: int = 6
-const OTHER_CHANCE: int = 4
-const GRASS_SAME_CHANCE: int = 15
-const GRASS_OTHER_CHANCE: int = 4
+const CHANCES_MOUNTAIN: Dictionary =  {
+	FieldType.GRASS: {
+		1 : 8,
+		2 : 12,
+		3 : 21 
+	},
+	FieldType.FOREST: {
+		1 : 6,
+		2 : 6,
+		3 : 12 
+	},
+	FieldType.MOUNTAIN: {
+		1 : 10,
+		2 : 20,
+		3 : 25 
+	},
+	FieldType.VILLAGE: {
+		1 : 2,
+		2 : 3,
+		3 : 6
+	}
+}
+
+const CHANCES_VILLAGE: Dictionary =  {
+	FieldType.GRASS: {
+		1 : 8,
+		2 : 12,
+		3 : 21 
+	},
+	FieldType.FOREST: {
+		1 : 6,
+		2 : 6,
+		3 : 12 
+	},
+	FieldType.MOUNTAIN: {
+		1 : 6,
+		2 : 6,
+		3 : 12 
+	},
+	FieldType.VILLAGE: {
+		1 : 8,
+		2 : 8,
+		3 : 15
+	}
+}
 
 const START_GRASS_CHANCE: int = 40
 const START_OTHER_CHANCE: int = 20
