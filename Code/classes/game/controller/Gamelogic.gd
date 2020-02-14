@@ -100,6 +100,7 @@ func pay_and_trainingday() -> void:
 	
 	for troop in self.act_player.troops:
 		troop.movement_left = TroopSettings.fpr[troop.troop_type]
+		troop.attack_done = false
 
 func _on_QueueBar_remove_from_queue(position: int) -> void:
 	self.act_player.remove_from_queue(position)
@@ -128,10 +129,10 @@ func _on_Battlefield_troop_selected(pos: Vector2) -> void:
 func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2) -> void:	
 	var field_set = FIELD_DISTANCE_SET_SCENE.instance()
 	var max_travel_distance = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.movement_left
+	var attack_done = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.attack_done
 	
 	# Add all fields to the set with max distance
 	for field in get_playground().get_tree().get_nodes_in_group(Group.FIELDS):
-		field.active = false
 		field.dijk_distance = ApplicationSettings.MAX_INT
 		field.dijk_previous = null
 		field.dijk_visited = false
@@ -144,7 +145,10 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	while act_field != null:
 		act_field.dijk_visited = true
 		# Depending on the distance set it's status
-		if max_travel_distance >= act_field.dijk_distance and !act_player.troops.has(act_field.stationed_troop):
+		if ((max_travel_distance >= act_field.dijk_distance and 
+		!act_player.troops.has(act_field.stationed_troop) and 
+		!(act_field.stationed_troop != null and attack_done)) or
+		act_field == battlefield_map[troop_pos.y][troop_pos.x]):
 			act_field.set_disabled(false)
 			act_field.field_state = FieldState.TARGET_SELECTION
 			act_field.set_pressed(false)
@@ -157,26 +161,26 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 				if !act_field.connections[key].dijk_visited:
 					var new_dist: int = act_field.dijk_distance + FieldSettings.speed[act_field.connections[key].field_type]
 					if new_dist < act_field.connections[key].dijk_distance:
+						act_field.connections[key].dijk_direction = key
 						act_field.connections[key].dijk_previous = act_field
 						field_set.change_existing(new_dist, act_field.connections[key])
 		# Get field with lowest distance
 		act_field = field_set.pop_first_field()
 
-func _on_Battlefield_selection_released() -> void:
-	self.selected_field = null
-	get_playground().activate_turn_mode(is_player1, act_player)
-
 func _on_Battlefield_target_selected(position: Vector2):
 	var target: Field = battlefield_map[position.y][position.x]
+	var troop: Troop = self.selected_field.stationed_troop
+	troop.movement_left = troop.movement_left - target.dijk_distance
 	var movement_type: int
 	if target.stationed_troop != null:
-		movement_type = fight(self.selected_field.stationed_troop, target.stationed_troop)
+		movement_type = fight(troop, target.stationed_troop)
 	elif target.field_position == self.act_opponent.castle_position:
-		movement_type = attack_castle(self.selected_field.stationed_troop, target)
+		movement_type = attack_castle(troop, target)
 	else:
 		movement_type = MovementType.NO_FIGHT
-	show_movement(self.selected_field.stationed_troop, target.stationed_troop, target, movement_type)
-	yield(self, "animation_finished")
+	if target.dijk_distance > 0:
+		show_movement(troop, target.stationed_troop, target, movement_type)
+		yield(self, "animation_finished")
 	self.selected_field = null
 	if self.game_over:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
@@ -187,6 +191,7 @@ func _on_Battlefield_target_selected(position: Vector2):
 
 # Calculates the fight and returns the resulting movement type
 func fight(attacker: Troop, defender: Troop) -> int:
+	attacker.attack_done = true
 	if self.act_player.troops.has(defender):
 		return MovementType.FRIEND
 	else:
@@ -237,6 +242,7 @@ func get_field_bonus_att(attacker: Troop, defender: Troop) -> int:
 
 # Calculate castle attack, set game over flag and return movement type "NOBODY_DIE"
 func attack_castle(attacker: Troop, castle: Field) -> int:
+	attacker.attack_done = true
 	var troop_bonus: float = get_troop_bonus(attacker, TroopType.CASTLE)
 	
 	self.act_opponent.castle_health = int(self.act_opponent.castle_health - TroopSettings.att_dmg[attacker.troop_type] * troop_bonus)
@@ -257,54 +263,64 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 		move_troop_temp(attacker, target_field.dijk_previous)
 	
 	var final_target: Field = target_field
-	path = [final_target.get_attack_direction()]
+	path = [final_target.dijk_direction]
 	attacker.connect("animation_finished", self, "_on_Attacker_animation_finished")
 	if defender != null:
 		defender.connect("animation_finished", self, "_on_Defender_animation_finished")
 	
 	if !MovementType.FRIEND == movement_type and !MovementType.NO_FIGHT == movement_type:
-		var direction: int = target_field.get_attack_direction()
-		reset_ani_finished()
-		attacker.start_attack_animation(direction)
-		defender.start_defend_animation(direction)
-		yield(attacker, "animation_finished")
-		if !self.def_animation_finished:
-			yield(defender, "animation_finished")
-		
-		attacker.attack_animation(direction)
-		yield(attacker, "animation_finished")
-		defender.update_helathpoints()
-		if MovementType.DEF_DIE == movement_type:
-			defender.die_animation()
-			yield(defender, "animation_finished")
-			act_opponent.remove_troop(defender)
-			attacker.win_attack_animation(direction)
+		var direction: int = target_field.dijk_direction
+		if defender == null:
+			attacker.start_attack_animation(direction)
 			yield(attacker, "animation_finished")
-			path = []
+			
+			attacker.attack_animation(direction)
+			yield(attacker, "animation_finished")
+			
+			attacker.end_attack_animation(direction)
+			yield(attacker, "animation_finished")
 		else:
-			defender.defend_animation(direction)
-			yield(defender, "animation_finished")
-			attacker.update_helathpoints()
-			if MovementType.ATT_DIE == movement_type:
-				attacker.die_animation()
-				yield(attacker, "animation_finished")
-				act_player.remove_troop(attacker)
-				defender.end_defend_animation(direction)
+			reset_ani_finished()
+			attacker.start_attack_animation(direction)
+			defender.start_defend_animation(direction)
+			yield(attacker, "animation_finished")
+			if !self.def_animation_finished:
 				yield(defender, "animation_finished")
-				path = []
-				attacker = null
-			else:
-				reset_ani_finished()
-				attacker.end_attack_animation(direction)
-				defender.end_defend_animation(direction)
+			
+			attacker.attack_animation(direction)
+			yield(attacker, "animation_finished")
+			defender.update_helathpoints()
+			if MovementType.DEF_DIE == movement_type:
+				defender.die_animation()
+				yield(defender, "animation_finished")
+				act_opponent.remove_troop(defender)
+				attacker.win_attack_animation(direction)
 				yield(attacker, "animation_finished")
-				if !self.def_animation_finished:
+				path = []
+			else:
+				defender.defend_animation(direction)
+				yield(defender, "animation_finished")
+				attacker.update_helathpoints()
+				if MovementType.ATT_DIE == movement_type:
+					attacker.die_animation()
+					yield(attacker, "animation_finished")
+					act_player.remove_troop(attacker)
+					defender.end_defend_animation(direction)
 					yield(defender, "animation_finished")
+					path = []
+					attacker = null
+				else:
+					reset_ani_finished()
+					attacker.end_attack_animation(direction)
+					defender.end_defend_animation(direction)
+					yield(attacker, "animation_finished")
+					if !self.def_animation_finished:
+						yield(defender, "animation_finished")
 		if MovementType.NOBODY_DIE == movement_type or (MovementType.DEF_DIE == movement_type and target_field.field_type == FieldType.CASTLE):
 			final_target = target_field.dijk_previous
 			path = []
 			while final_target.stationed_troop != null and final_target != start_field:
-				path.append(FieldParameters.CONNECTION_PAIRS[final_target.get_attack_direction()])
+				path.append(FieldParameters.CONNECTION_PAIRS[final_target.dijk_direction])
 				final_target = final_target.dijk_previous
 			attacker.movement_left  -= target_field.dijk_distance + (target_field.dijk_distance - final_target.dijk_distance * 2)
 	if path.size() > 0:
@@ -331,7 +347,6 @@ func _on_Defender_animation_finished() -> void:
 
 func move_troop_temp(troop: Troop, target: Field) -> void:
 	troop.get_parent().remove_child(troop)
-	troop.movement_left = troop.movement_left - target.dijk_distance
 	troop.set_position(Vector2(0,0))
 	target.add_child(troop)
 

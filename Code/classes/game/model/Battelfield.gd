@@ -5,7 +5,6 @@ class_name Battlefield
 signal castle_choosen
 signal target_selected
 signal troop_selected
-signal selection_released
 
 const SCENE_MAP: Dictionary = { 
 	FieldType.GRASS : "res://classes/game/model/fields/GrassField.tscn",
@@ -34,7 +33,6 @@ func initalize_given_field(old_field: Field, field_type: int) -> Field:
 	new_field.connect("castle_choosen", self, "_on_Field_castle_choosen")
 	new_field.connect("target_selected", self, "_on_Field_target_selected")
 	new_field.connect("troop_selected", self, "_on_Field_troop_selected")
-	new_field.connect("selection_released", self, "_on_Field_selection_released")
 	old_field.replace_by(new_field,false)
 	return new_field
 
@@ -54,8 +52,4 @@ func _on_Field_target_selected(position :Vector2) -> void:
 	
 func _on_Field_troop_selected(position :Vector2) -> void:
 	emit_signal("troop_selected", position)
-	
-func _on_Field_selection_released() -> void:
-	emit_signal("selection_released")
-	
 

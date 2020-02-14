@@ -664,6 +664,5 @@ z_index = 2
 [connection signal="remove_from_queue" from="UI/Bottom/BottomBar/QueueBar" to="Gamelogic" method="_on_QueueBar_remove_from_queue"]
 [connection signal="pressed" from="UI/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="castle_choosen" from="Battlefield" to="Gamelogic" method="_on_Battlefield_castle_choosen"]
-[connection signal="selection_released" from="Battlefield" to="Gamelogic" method="_on_Battlefield_selection_released"]
 [connection signal="target_selected" from="Battlefield" to="Gamelogic" method="_on_Battlefield_target_selected"]
 [connection signal="troop_selected" from="Battlefield" to="Gamelogic" method="_on_Battlefield_troop_selected"]

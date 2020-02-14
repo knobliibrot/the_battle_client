@@ -9,6 +9,7 @@ signal animation_finished
 var troop_type: int
 var healthpoints: int
 var movement_left: int
+var attack_done: bool
 var is_player1: bool
 var parent_field
 

@@ -33,7 +33,7 @@ const CASTLE_START_HEIGHT: int = 3
 # Gaming Values
 const CASTLE_HEALTH: int = 300
 const START_GOLD: int = 30
-const BASIC_INCOME: int = 15
+const BASIC_INCOME: int = 10
 
 const MESSAGE_SHOW_TIME: int = 2
 const ROUND_TIME: int = 4

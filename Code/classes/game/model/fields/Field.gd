@@ -5,7 +5,6 @@ class_name Field
 signal castle_choosen
 signal troop_selected
 signal target_selected
-signal selection_released
 
 var field_position: Vector2
 var field_type: int 
@@ -15,9 +14,8 @@ var connections: Dictionary = {}
 
 var dijk_distance: int
 var dijk_previous: Field
+var dijk_direction: int
 var dijk_visited: bool
-
-var active = false
 
 func _ready() -> void:
 	self.set_toggle_mode(true)
@@ -35,24 +33,11 @@ func delete_connection(direction: int) -> void:
 func get_dijk_path() -> Array:
 	var path: Array = []
 	if(dijk_previous != null):
-		var field_before: Field = dijk_previous
-		var act_field: Field = dijk_previous.dijk_previous
-		while act_field != null:
-			for connection_type in act_field.connections.keys():
-				if act_field.connections[connection_type] == field_before:
-					path.insert(0, connection_type)
-					field_before = act_field
-					act_field = field_before.dijk_previous
-					break
+		var act_field: Field = dijk_previous
+		while act_field.dijk_previous != null:
+			path.insert(0, act_field.dijk_direction)
+			act_field = act_field.dijk_previous
 	return path
-
-# Returns the connection type of the dijk_previous
-# If it's not found (should never happen) returns -1
-func get_attack_direction() -> int:
-	for connection_type in self.connections.keys():
-		if self.connections[connection_type] == dijk_previous:
-			return FieldParameters.CONNECTION_PAIRS[connection_type]
-	return -1
 
 # Remove stationed troop from field
 func remove_stationed_troop(troop: Troop) -> void:
@@ -184,16 +169,12 @@ func _on_EmptyField_pressed() -> void:
 
 # Emits signal depending on the field state
 func _on_Field_pressed() -> void:
-	self.active = !self.active
-	if self.active:
-		match self.field_state:
-			FieldState.TROOP_SELECTION:
-				if self.stationed_troop != null:
-					emit_signal("troop_selected", field_position)
-			FieldState.TARGET_SELECTION:
-				emit_signal("target_selected", field_position)
-	else:
-		emit_signal("selection_released")	
+	match self.field_state:
+		FieldState.TROOP_SELECTION:
+			if self.stationed_troop != null:
+				emit_signal("troop_selected", field_position)
+		FieldState.TARGET_SELECTION:
+			emit_signal("target_selected", field_position)
 
 # Set position and size
 func set_rect(rect: Rect2) -> void:

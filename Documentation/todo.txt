@@ -1,8 +1,4 @@
-- animation
-- movement left
-- deactivate selection
 - enums
-- check dijk_direction
 - hover-info
 - new graphics
 - balancing

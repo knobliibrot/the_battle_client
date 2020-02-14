@@ -1,11 +1,11 @@
 extends Node
 
 const PRICE: Dictionary = { 
-	TroopType.SWORDSMAN : 10, 
-	TroopType.SPEARMAN : 7,
-	TroopType.ARCHER : 10,
-	TroopType.KNIGHT : 25,
-	TroopType.CATAPULT : 10
+	TroopType.SWORDSMAN : 20, 
+	TroopType.SPEARMAN : 15,
+	TroopType.ARCHER : 20,
+	TroopType.KNIGHT : 40,
+	TroopType.CATAPULT : 20
 }
 
 const BUILD_TIME: Dictionary = { 
@@ -26,10 +26,10 @@ const SALARY: Dictionary = {
 
 const FPR: Dictionary = { 
 	TroopType.SWORDSMAN : 4,
-	TroopType.SPEARMAN : 5,
-	TroopType.ARCHER : 5,
+	TroopType.SPEARMAN : 6,
+	TroopType.ARCHER : 6,
 	TroopType.KNIGHT : 8,
-	TroopType.CATAPULT : 2
+	TroopType.CATAPULT : 3
 }
 
 const START_HEALTH: Dictionary = { 

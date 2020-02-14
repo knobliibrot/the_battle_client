@@ -14,7 +14,7 @@ const SPEED: Dictionary = {
 	FieldType.GRASS : 1,
 	FieldType.MOUNTAIN : 4,
 	FieldType.VILLAGE : 2,
-	FieldType.FOREST : 3
+	FieldType.FOREST : 2
 }
 
 const ATT_DMG: Dictionary = {
