@@ -14,19 +14,37 @@ var is_player1: bool
 var parent_field
 
 var movement: Vector2
-var pixel_left: Vector2
 var final_pos: Vector2
-var move = false
+var moving: bool = false
 
-func _process(delta):
-	if move and abs_pos(self.pixel_left) <= Vector2(10,10):
-		move = false
+# Moves the field if ther is a movement on going until the final_pos is reached
+func _process(delta: float):
+	if moving and is_final_pos_reached():
+		moving = false
 		self.set_position(self.final_pos)
 		emit_signal("target_pos_reached")
-	elif move:
-		self.set_position(self.get_position() + (self.movement * delta / 0.2))
-		self.pixel_left -= (self.movement * delta / 0.2)
+	elif moving:
+		self.set_position(self.get_position() + (self.movement * delta / GameSettings.animation_speed_per_field))
 
+# Checkes if the final pos is reached with a bit of tolerance
+func is_final_pos_reached() -> bool:
+	var reached: bool = false
+	var act_pos: Vector2 = self.get_position()
+	if movement.x > 0:
+		if act_pos.x > self.final_pos.x - GameSettings.animation_tolerance:
+			reached = true
+	elif movement.x < 0:
+		if act_pos.x < self.final_pos.x + GameSettings.animation_tolerance:
+			reached = true
+	if movement.y > 0:
+		if act_pos.y > self.final_pos.y - GameSettings.animation_tolerance:
+			reached = true
+	elif movement.y < 0:
+		if act_pos.y < self.final_pos.y + GameSettings.animation_tolerance:
+			reached = true
+	return reached
+
+# Goes through the path and makes together with _process the movement
 func move(path: Array) -> void:
 	for movement in path:
 		match movement:
@@ -48,18 +66,30 @@ func move(path: Array) -> void:
 			FieldConnectionType.RIGHT_DOWN:
 				self.movement.y = 1 * GameParameters.MOVEMENT_Y
 				self.movement.x = 1 * GameParameters.MOVEMENT_X
-		self.move = true
+		self.moving = true
 		self.final_pos = self.get_position() + self.movement
-		self.pixel_left = self.movement
 		yield(self, "target_pos_reached")
 	emit_signal("move_finished")
 
-func abs_pos(pos: Vector2) -> Vector2:
-	if pos.x < 0:
-		pos.x = pos.x * -1
-	if pos.y < 0:
-		pos.y = pos.y * -1
-	return pos 
+# Displays the healthpoints in the healthbar
+func update_helathpoints() -> void:
+	$Container/MarginContainer/TextureProgress.value = self.healthpoints
+	$Container/MarginContainer/TextureProgress/Label.text = str(self.healthpoints) + " / " + str($Container/MarginContainer/TextureProgress.max_value)
+
+# Healthpoints are saved in TextureProgress.value
+func get_healthpoints() -> int:
+	return self.healthpoints
+
+# Healthpoints are saved in TextureProgress.value
+func set_healthpoints(value: int) -> void:
+	self.healthpoints = value
+
+# Healthpoints are saved in TextureProgress.value
+func set_start_healthpoints(value: int) -> void:
+	self.healthpoints = value
+	$Container/MarginContainer/TextureProgress.value = value
+	$Container/MarginContainer/TextureProgress.max_value = value
+	$Container/MarginContainer/TextureProgress/Label.text = str(value) + " / " + str(value)
 
 func start_attack_animation(direction: int) -> void:
 	match direction:
@@ -169,24 +199,5 @@ func end_defend_animation(direction: int) -> void:
 		FieldConnectionType.RIGHT_UP:
 			$TroopAnimation.play("defender_end_right_up")
 
-func _on_TroopAnimation_animation_finished(anim_name: String) -> void:
+func _on_TroopAnimation_animation_finished(_anim_name: String) -> void:
 	emit_signal("animation_finished")
-
-func update_helathpoints() -> void:
-	$Container/MarginContainer/TextureProgress.value = self.healthpoints
-	$Container/MarginContainer/TextureProgress/Label.text = str(self.healthpoints) + " / " + str($Container/MarginContainer/TextureProgress.max_value)
-
-# Healthpoints are saved in TextureProgress.value
-func get_healthpoints() -> int:
-	return self.healthpoints
-
-# Healthpoints are saved in TextureProgress.value
-func set_healthpoints(value: int) -> void:
-	self.healthpoints = value
-
-# Healthpoints are saved in TextureProgress.value
-func set_start_healthpoints(value: int) -> void:
-	self.healthpoints = value
-	$Container/MarginContainer/TextureProgress.value = value
-	$Container/MarginContainer/TextureProgress.max_value = value
-	$Container/MarginContainer/TextureProgress/Label.text = str(value) + " / " + str(value)

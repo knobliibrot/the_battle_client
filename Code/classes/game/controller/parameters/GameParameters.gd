@@ -38,3 +38,6 @@ const BASIC_INCOME: int = 10
 const MESSAGE_SHOW_TIME: int = 2
 const ROUND_TIME: int = 4
 const QUEUE_SIZE: int = 3
+
+const ANIMATION_SPEED_PER_FIELD: float = 0.15
+const ANIMATION_TOLERANCE: float = 5.0

@@ -20,6 +20,16 @@ var dijk_visited: bool
 func _ready() -> void:
 	self.set_toggle_mode(true)
 
+# Returns an array with the connetion types from the start field to the current
+func get_dijk_path() -> Array:
+	var path: Array = []
+	if(self.dijk_previous != null):
+		var act_field: Field = self.dijk_previous
+		while act_field.dijk_previous != null:
+			path.insert(0, act_field.dijk_direction)
+			act_field = act_field.dijk_previous
+	return path
+
 # Removes all connections from and to this field
 func cut_connections() -> void:
 	for connection_type in self.connections:
@@ -27,17 +37,7 @@ func cut_connections() -> void:
 
 # Deletes the connection with the given direction from this field
 func delete_connection(direction: int) -> void:
-	connections.erase(direction)
-
-# Returns an array with the connetion types from the start field to the current
-func get_dijk_path() -> Array:
-	var path: Array = []
-	if(dijk_previous != null):
-		var act_field: Field = dijk_previous
-		while act_field.dijk_previous != null:
-			path.insert(0, act_field.dijk_direction)
-			act_field = act_field.dijk_previous
-	return path
+	var _err = connections.erase(direction)
 
 # Remove stationed troop from field
 func remove_stationed_troop(troop: Troop) -> void:

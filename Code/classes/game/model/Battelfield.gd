@@ -30,9 +30,9 @@ func initalize_given_field(old_field: Field, field_type: int) -> Field:
 			
 	new_field.copy_data(old_field)
 	new_field.field_type = field_type
-	new_field.connect("castle_choosen", self, "_on_Field_castle_choosen")
-	new_field.connect("target_selected", self, "_on_Field_target_selected")
-	new_field.connect("troop_selected", self, "_on_Field_troop_selected")
+	var _err = new_field.connect("castle_choosen", self, "_on_Field_castle_choosen")
+	_err = new_field.connect("target_selected", self, "_on_Field_target_selected")
+	_err = new_field.connect("troop_selected", self, "_on_Field_troop_selected")
 	old_field.replace_by(new_field,false)
 	return new_field
 

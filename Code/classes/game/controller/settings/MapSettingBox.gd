@@ -16,8 +16,8 @@ func set_sett_value(new_value) -> void:
 	get_node("/root/" + self.class_sett).set(self.value_sett, map)
 
 # Returns the value of the enum regarding to the given key
-func get_enum_value(map_key: String) -> int:
-	match map_key:
+func get_enum_value(map_key_2: String) -> int:
+	match map_key_2:
 		"GRASS":
 			return FieldType.GRASS
 		"FOREST":

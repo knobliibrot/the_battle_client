@@ -1,7 +1,7 @@
-- enums
-- hover-info
 - new graphics
+- hover-info
 - balancing
+- battlefield generator optimization
 - BFS for creting troops
 - troop specific FPR
 - GameScene to OpenGameScene

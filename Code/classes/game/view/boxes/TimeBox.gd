@@ -8,11 +8,11 @@ var actual_time: int
 var activity: String
 
 # Sets the final time an activity and starts a timer for one second
-func start_timer(time: int, activity  :String) -> void:
+func start_timer(timer_time: int, activity  :String) -> void:
 	self.actual_time = 0
-	self.time = time
+	self.time = timer_time
 	self.activity = activity
-	$NinePatchRect/Label.text = str(time - actual_time)
+	$NinePatchRect/Label.text = str(timer_time - actual_time)
 	$Timer.start(1)
 
 func stop_timer() -> void:

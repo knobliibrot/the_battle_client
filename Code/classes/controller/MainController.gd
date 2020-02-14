@@ -13,11 +13,11 @@ func _ready():
 
 func change_to_menu_scene() -> void:
 	change_scene(MENU_SCENE)
-	act_scene.connect("start_open_game", self, "on_MenuScene_start_open_game")
+	var _err = act_scene.connect("start_open_game", self, "on_MenuScene_start_open_game")
 
 func change_to_open_game_scene() -> void:
 	change_scene(GAME_SCENE)
-	act_scene.connect("game_over", self, "on_GameScene_game_over")
+	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
 
 # Changes the actual Scene to given scene
 func change_scene(new_scene) -> void:

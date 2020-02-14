@@ -8,8 +8,8 @@ var dict: Dictionary = {}
 
 func pop_first() -> Field:
 	var item = dict.values()[0]
-	dict.erase(item.field_position)
+	var _err = dict.erase(item.field_position)
 	return item
 
 func erase(position: Vector2) -> void:
-	dict.erase(position)
+	var _err = dict.erase(position)

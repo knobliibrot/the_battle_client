@@ -36,3 +36,5 @@ func get_sett_value():
 func set_sett_value(new_value) -> void:
 	if datatype == "int":
 		get_node("/root/" + self.class_sett).set(self.value_sett, int(new_value))
+	elif datatype == "float":
+		get_node("/root/" + self.class_sett).set(self.value_sett, float(new_value))

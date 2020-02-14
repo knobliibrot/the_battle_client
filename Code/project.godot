@@ -141,6 +141,14 @@ FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
 TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
 TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
 
+[debug]
+
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/variable_conflicts_function=false
+gdscript/warnings/function_conflicts_variable=false
+gdscript/warnings/function_conflicts_constant=false
+gdscript/warnings/unused_signal=false
+
 [display]
 
 window/size/width=1280
@@ -150,7 +158,6 @@ window/stretch/aspect="expand"
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

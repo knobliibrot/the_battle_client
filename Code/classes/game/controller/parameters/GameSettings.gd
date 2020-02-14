@@ -35,3 +35,5 @@ var basic_income: int = GameParameters.BASIC_INCOME
 var message_show_time: int = GameParameters.MESSAGE_SHOW_TIME
 var round_time: int = GameParameters.ROUND_TIME
 var queue_size: int = GameParameters.QUEUE_SIZE
+var animation_speed_per_field: float = GameParameters.ANIMATION_SPEED_PER_FIELD
+var animation_tolerance: float = GameParameters.ANIMATION_TOLERANCE

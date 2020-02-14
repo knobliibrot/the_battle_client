@@ -4,7 +4,6 @@ class_name Player
 
 var player_name: String
 var player_type: int
-var is_player1: bool
 
 var gold: int
 var income: int

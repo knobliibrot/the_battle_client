@@ -12,7 +12,7 @@ func _on_StartOpenGameButton_pressed() -> void:
 # Instance the Settings Window
 func _on_ChangeGameSettingsButton_pressed() -> void:
 	var settings: Node = SETTINGS_SCENE.instance()
-	settings.connect("close", self, "_on_SettingsWindow_close")
+	var _err = settings.connect("close", self, "_on_SettingsWindow_close")
 	add_child(settings)
 
 func _on_SettingsWindow_close(window: Node) -> void:

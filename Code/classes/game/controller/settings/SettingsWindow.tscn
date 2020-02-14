@@ -70,7 +70,7 @@ __meta__ = {
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 1167.0
-margin_bottom = 104.0
+margin_bottom = 138.0
 custom_constants/hseparation = 202
 columns = 3
 
@@ -159,6 +159,28 @@ value_param = "ROUND_TIME"
 class_sett = "GameSettings"
 value_sett = "round_time"
 datatype = "int"
+
+[node name="AnimationSpeed" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 103.0
+margin_bottom = 133.0
+label = "Animationspeed per Round"
+class_param = "GameParameters"
+value_param = "ANIMATION_SPEED_PER_FIELD"
+class_sett = "GameSettings"
+value_sett = "animation_speed_per_field"
+datatype = "float"
+
+[node name="AnimationTolerance" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 452.0
+margin_top = 103.0
+margin_right = 702.0
+margin_bottom = 133.0
+label = "Animation Tolerance"
+class_param = "GameParameters"
+value_param = "ANIMATION_TOLERANCE"
+class_sett = "GameSettings"
+value_sett = "animation_tolerance"
+datatype = "float"
 
 [node name="Field" type="Tabs" parent="MarginContainer/Content/TabContainer"]
 visible = false

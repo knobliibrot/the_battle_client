@@ -31,7 +31,7 @@ func activate_castle_mode(is_player1: bool) -> void:
 		field.set_disabled(false)
 
 # Activates create buttons and make all fields with own troops on int selectable
-func activate_turn_mode(is_player1: bool, player: Player) -> void:
+func activate_turn_mode(is_player1: bool) -> void:
 	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
 		button.set_disabled(false)
 	
@@ -88,7 +88,7 @@ func stop_timer() -> void:
 func _on_SettingsButton_pressed() -> void:
 	$UI/Top/TopBar/TimeBox.pause_timer()
 	var settings: Node = SETTINGS_SCENE.instance()
-	settings.connect("close", self, "_on_SettingsWindow_close")
+	var _err = settings.connect("close", self, "_on_SettingsWindow_close")
 	$Overlay.add_child(settings)
 
 # Remove the Settings Window and resume the Timer
