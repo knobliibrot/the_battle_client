@@ -1,0 +1,33 @@
+Basic colors
+Background: 7d7061
+Box: 473f37
+Icon: f2c712
+
+Fields:
+80x91
+border 8 - black
+Castle:
+icon : castle
+shrink: 3 -clip
+background: 
+
+Grass:
+icon : high grass
+
+Forest:
+icon : forest
+
+Mountain:
+icon : peaks
+
+Village:
+icon : village
+
+Troops
+61x61
+
+CreateButton
+120x120
+
+QueueButton
+60x65

@@ -6,7 +6,6 @@
 [ext_resource path="res://artifacts/graphics/fields/castle_placeholder.png" type="Texture" id=4]
 [ext_resource path="res://classes/game/model/fields/EmptyField.gd" type="Script" id=5]
 
-
 [node name="EmptyField" instance=ExtResource( 1 )]
 texture_normal = ExtResource( 2 )
 texture_hover = ExtResource( 3 )

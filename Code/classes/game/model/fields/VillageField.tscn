@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://classes/game/model/fields/Field.tscn" type="PackedScene" id=1]
-[ext_resource path="res://artifacts/graphics/fields/castle_placeholder.png" type="Texture" id=2]
+[ext_resource path="res://artifacts/graphics/fields/village_active.png" type="Texture" id=2]
 [ext_resource path="res://artifacts/graphics/fields/village.png" type="Texture" id=3]
 
 

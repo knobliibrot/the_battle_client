@@ -1,7 +1,8 @@
-- new graphics
-- hover-info
+- info
+- just selectable if movements possible
 - balancing
-- battlefield generator optimization
+-----
 - BFS for creting troops
 - troop specific FPR
+- multi language
 - GameScene to OpenGameScene
