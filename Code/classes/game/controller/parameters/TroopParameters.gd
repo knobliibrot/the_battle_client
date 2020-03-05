@@ -5,7 +5,7 @@ const PRICE: Dictionary = {
 	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 20,
 	TroopType.KNIGHT : 40,
-	TroopType.CATAPULT : 20
+	TroopType.CATAPULT : 25
 }
 
 const BUILD_TIME: Dictionary = { 
@@ -17,10 +17,10 @@ const BUILD_TIME: Dictionary = {
 }
 
 const SALARY: Dictionary = { 
-	TroopType.SWORDSMAN : 3, 
-	TroopType.SPEARMAN : 2,
-	TroopType.ARCHER : 3,
-	TroopType.KNIGHT : 6,
+	TroopType.SWORDSMAN : 2, 
+	TroopType.SPEARMAN : 1,
+	TroopType.ARCHER : 2,
+	TroopType.KNIGHT : 4,
 	TroopType.CATAPULT : 2
 }
 
@@ -33,35 +33,35 @@ const FPR: Dictionary = {
 }
 
 const START_HEALTH: Dictionary = { 
-	TroopType.SWORDSMAN : 40,
-	TroopType.SPEARMAN : 30,
-	TroopType.ARCHER : 20,
-	TroopType.KNIGHT : 100,
-	TroopType.CATAPULT : 60
+	TroopType.SWORDSMAN : 80,
+	TroopType.SPEARMAN : 60,
+	TroopType.ARCHER : 50,
+	TroopType.KNIGHT : 150,
+	TroopType.CATAPULT : 80
 }
 
 const ATT_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : 10,
-	TroopType.SPEARMAN : 8,
+	TroopType.SWORDSMAN : 20,
+	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 20,
-	TroopType.KNIGHT : 25,
-	TroopType.CATAPULT : 5
+	TroopType.KNIGHT : 30,
+	TroopType.CATAPULT : 15
 }
 
 const DEF_DMG: Dictionary = { 
 	TroopType.SWORDSMAN : 15,
-	TroopType.SPEARMAN : 10,
+	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 30,
-	TroopType.KNIGHT : 15,
-	TroopType.CATAPULT : 10
+	TroopType.KNIGHT : 20,
+	TroopType.CATAPULT : 25
 }
 
 const SPECIAL_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 1.3 },
-	TroopType.SPEARMAN : { TroopType.KNIGHT : 2.5 },
+	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 1.5 },
+	TroopType.SPEARMAN : { TroopType.KNIGHT : 3 },
 	TroopType.ARCHER : {},
 	TroopType.KNIGHT : {},
-	TroopType.CATAPULT : { TroopType.CASTLE : 20}
+	TroopType.CATAPULT : { TroopType.CASTLE : 7}
 }
 
 const SCENE_BLUE: Dictionary = { 

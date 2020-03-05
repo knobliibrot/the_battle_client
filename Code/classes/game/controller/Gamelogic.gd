@@ -128,8 +128,10 @@ func _on_Battlefield_troop_selected(pos: Vector2) -> void:
 # And change the fields to Disability regarding on the distance
 func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2) -> void:	
 	var field_set = FIELD_DISTANCE_SET_SCENE.instance()
-	var max_travel_distance = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.movement_left
-	var attack_done = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop.attack_done
+	var stationed_troop: Troop = battlefield_map[troop_pos.y][troop_pos.x].stationed_troop
+	var max_travel_distance: int = stationed_troop.movement_left
+	var attack_done: bool = stationed_troop.attack_done
+	var first_move: bool = max_travel_distance == TroopSettings.fpr[stationed_troop.troop_type]
 	
 	# Add all fields to the set with max distance
 	for field in get_playground().get_tree().get_nodes_in_group(Group.FIELDS):
@@ -145,9 +147,13 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	while act_field != null:
 		act_field.dijk_visited = true
 		# Depending on the distance set it's status
-		if ((max_travel_distance >= act_field.dijk_distance and 
-		!act_player.troops.has(act_field.stationed_troop) and 
-		!(act_field.stationed_troop != null and attack_done)) or
+		if ((
+			(max_travel_distance >= act_field.dijk_distance or
+				(act_field.dijk_previous.dijk_distance == 0 and first_move)
+			) and 
+			!act_player.troops.has(act_field.stationed_troop) and 
+			!(act_field.stationed_troop != null and attack_done)
+		) or
 		act_field == battlefield_map[troop_pos.y][troop_pos.x]):
 			act_field.set_disabled(false)
 			act_field.field_state = FieldState.TARGET_SELECTION
@@ -195,20 +201,20 @@ func _on_Battlefield_target_selected(position: Vector2):
 
 # Calculates the fight and returns the resulting movement type
 func fight(attacker: Troop, defender: Troop) -> int:
-	attacker.attack_done = true
 	if self.act_player.troops.has(defender):
 		return MovementType.FRIEND
 	else:
+		attacker.attack_done = true
 		# Attacker attacks Defender
 		var field_bonus: float = get_field_bonus_att(attacker, defender)
 		var troop_bonus: float = get_troop_bonus(attacker, defender.troop_type)
-		defender.set_healthpoints(defender.get_healthpoints() - (TroopSettings.att_dmg[attacker.troop_type] * field_bonus * troop_bonus))
+		defender.set_healthpoints(defender.get_healthpoints() - int((float(TroopSettings.att_dmg[attacker.troop_type]) * field_bonus * troop_bonus)))
 		
 		if defender.get_healthpoints() > 0:
 			# Defender attacks Attacker
 			field_bonus = get_field_bonus_def(defender)
 			troop_bonus = get_troop_bonus(defender, attacker.troop_type)
-			attacker.set_healthpoints(attacker.get_healthpoints() - (TroopSettings.def_dmg[defender.troop_type] * field_bonus * troop_bonus))
+			attacker.set_healthpoints(attacker.get_healthpoints() - int((float(TroopSettings.def_dmg[defender.troop_type]) * field_bonus * troop_bonus)))
 			
 			if attacker.get_healthpoints() > 0:
 				return MovementType.NOBODY_DIE
@@ -218,37 +224,36 @@ func fight(attacker: Troop, defender: Troop) -> int:
 			return MovementType.DEF_DIE
 
 # Get troop bonus from the attacker against the defender
-func get_troop_bonus(attacker: Troop, defender_troop_type: int) -> int:
+func get_troop_bonus(attacker: Troop, defender_troop_type: int) -> float:
 	var troop_bonus: float = 1
 	for troop_type in TroopSettings.special_dmg[attacker.troop_type]:
 			if troop_type == defender_troop_type:
 				troop_bonus = TroopSettings.special_dmg[attacker.troop_type][troop_type]
 				break
-	return int(troop_bonus)
+	return float(troop_bonus)
 
 # Get field bonus for the defender
-func get_field_bonus_def(defender: Troop) -> int:
+func get_field_bonus_def(defender: Troop) -> float:
 	var field_bonus: float = 1
 	for troop_type in FieldSettings.def_dmg[defender.parent_field.field_type]:
 				if troop_type == defender.troop_type:
 					field_bonus = FieldSettings.def_dmg[defender.parent_field.field_type][troop_type]
 					break
-	return int(field_bonus)
+	return float(field_bonus)
 
 # Get field bouns for the attacker
-func get_field_bonus_att(attacker: Troop, defender: Troop) -> int:
+func get_field_bonus_att(attacker: Troop, defender: Troop) -> float:
 	var field_bonus: float = 1
 	for troop_type in FieldSettings.att_dmg[defender.parent_field.field_type]:
 		if troop_type == attacker.troop_type:
 			field_bonus = FieldSettings.att_dmg[defender.parent_field.field_type][troop_type]
 			break
-	return int(field_bonus)
+	return float(field_bonus)
 
 # Calculate castle attack, set game over flag and return movement type "NOBODY_DIE"
 func attack_castle(attacker: Troop) -> int:
-	attacker.attack_done = true
 	var troop_bonus: float = get_troop_bonus(attacker, TroopType.CASTLE)
-	self.act_opponent.castle_health = int(self.act_opponent.castle_health - TroopSettings.att_dmg[attacker.troop_type] * troop_bonus)
+	self.act_opponent.castle_health = int(float(self.act_opponent.castle_health) - float(TroopSettings.att_dmg[attacker.troop_type]) * troop_bonus)
 	if self.act_opponent.castle_health < 1:
 		self.game_over = true
 	

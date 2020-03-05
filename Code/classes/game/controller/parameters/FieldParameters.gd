@@ -10,9 +10,9 @@ const CONNECTION_PAIRS: Dictionary = {
 }
 
 const SPEED: Dictionary = {
-	FieldType.CASTLE : 2,
+	FieldType.CASTLE : 3,
 	FieldType.GRASS : 1,
-	FieldType.MOUNTAIN : 4,
+	FieldType.MOUNTAIN : 5,
 	FieldType.VILLAGE : 2,
 	FieldType.FOREST : 2
 }
@@ -23,7 +23,7 @@ const ATT_DMG: Dictionary = {
 		TroopType.SPEARMAN: 0.5,
 		TroopType.ARCHER: 0.5,
 		TroopType.KNIGHT: 0.5,
-		TroopType.CATAPULT: 0.5
+		TroopType.CATAPULT: 5
 	},
 	FieldType.GRASS : {
 		TroopType.SWORDSMAN: 1,
@@ -33,18 +33,18 @@ const ATT_DMG: Dictionary = {
 		TroopType.CATAPULT: 1
 		},
 	FieldType.MOUNTAIN : {
-		TroopType.SWORDSMAN: 1,
-		TroopType.SPEARMAN: 1,
-		TroopType.ARCHER: 1,
-		TroopType.KNIGHT: 1,
-		TroopType.CATAPULT: 1
+		TroopType.SWORDSMAN: 0.666,
+		TroopType.SPEARMAN: 2,
+		TroopType.ARCHER: 0.666,
+		TroopType.KNIGHT: 0.666,
+		TroopType.CATAPULT: 0.666
 		},
 	FieldType.VILLAGE : {
 		TroopType.SWORDSMAN: 1.5,
 		TroopType.SPEARMAN: 1,
-		TroopType.ARCHER: 1,
+		TroopType.ARCHER: 1.5,
 		TroopType.KNIGHT: 1,
-		TroopType.CATAPULT: 1
+		TroopType.CATAPULT: 1.5
 		},
 	FieldType.FOREST : {
 		TroopType.SWORDSMAN: 1,
@@ -57,28 +57,28 @@ const ATT_DMG: Dictionary = {
 
 const DEF_DMG: Dictionary = {
 	FieldType.CASTLE : {
-		TroopType.SWORDSMAN: 3,
-		TroopType.SPEARMAN: 3,
-		TroopType.ARCHER: 3,
-		TroopType.KNIGHT: 3,
-		TroopType.CATAPULT: 3
-	},
-	FieldType.GRASS : {
-		TroopType.SWORDSMAN: 1,
-		TroopType.SPEARMAN: 1,
-		TroopType.ARCHER: 1,
-		TroopType.KNIGHT: 1,
-		TroopType.CATAPULT: 1
-		},
-	FieldType.MOUNTAIN : {
 		TroopType.SWORDSMAN: 1.5,
 		TroopType.SPEARMAN: 1.5,
 		TroopType.ARCHER: 1.5,
 		TroopType.KNIGHT: 1.5,
 		TroopType.CATAPULT: 1.5
 	},
-	FieldType.VILLAGE : {
+	FieldType.GRASS : {
 		TroopType.SWORDSMAN: 1,
+		TroopType.SPEARMAN: 1.5,
+		TroopType.ARCHER: 1,
+		TroopType.KNIGHT: 1.5,
+		TroopType.CATAPULT: 1
+	},
+	FieldType.MOUNTAIN : {
+		TroopType.SWORDSMAN: 1.333,
+		TroopType.SPEARMAN: 1.333,
+		TroopType.ARCHER: 1.333,
+		TroopType.KNIGHT: 1.333,
+		TroopType.CATAPULT: 1.333
+	},
+	FieldType.VILLAGE : {
+		TroopType.SWORDSMAN: 1.5,
 		TroopType.SPEARMAN: 1,
 		TroopType.ARCHER: 1,
 		TroopType.KNIGHT: 1,
@@ -87,7 +87,7 @@ const DEF_DMG: Dictionary = {
 	FieldType.FOREST : {
 		TroopType.SWORDSMAN: 1,
 		TroopType.SPEARMAN: 1,
-		TroopType.ARCHER: 1,
+		TroopType.ARCHER: 1.5,
 		TroopType.KNIGHT: 1,
 		TroopType.CATAPULT: 1
 		}

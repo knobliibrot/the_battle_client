@@ -181,7 +181,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id=7]
 resource_name = "attacker_end_left"
 length = 0.3
 tracks/0/type = "value"
@@ -512,8 +512,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "attacker_win_left"
+[sub_resource type="Animation" id=19]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -540,7 +539,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=39]
+[sub_resource type="Animation" id=20]
 resource_name = "attacker_win_left_down"
 length = 0.3
 tracks/0/type = "value"
@@ -568,7 +567,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="Animation" id=21]
 resource_name = "attacker_win_left_up"
 length = 0.3
 tracks/0/type = "value"
@@ -596,7 +595,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=41]
+[sub_resource type="Animation" id=22]
 resource_name = "attacker_win_right"
 length = 0.3
 tracks/0/type = "value"
@@ -624,7 +623,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=42]
+[sub_resource type="Animation" id=23]
 resource_name = "attacker_win_right_down"
 length = 0.3
 tracks/0/type = "value"
@@ -652,7 +651,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=43]
+[sub_resource type="Animation" id=24]
 resource_name = "attacker_win_right_up"
 length = 0.3
 tracks/0/type = "value"
@@ -680,8 +679,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=19]
-resource_name = "defend_left"
+[sub_resource type="Animation" id=25]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -708,8 +706,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=20]
-resource_name = "defend_left_down"
+[sub_resource type="Animation" id=26]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -736,8 +733,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=21]
-resource_name = "defend_left_up"
+[sub_resource type="Animation" id=27]
 length = 0.3
 step = 0.15
 tracks/0/type = "value"
@@ -765,8 +761,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=22]
-resource_name = "defend_right"
+[sub_resource type="Animation" id=28]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -793,8 +788,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=23]
-resource_name = "defend_right_down"
+[sub_resource type="Animation" id=29]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -821,8 +815,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=24]
-resource_name = "defend_right_up"
+[sub_resource type="Animation" id=30]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -849,8 +842,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=25]
-resource_name = "defender_end_left"
+[sub_resource type="Animation" id=31]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -877,8 +869,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=26]
-resource_name = "defender_end_left_down"
+[sub_resource type="Animation" id=32]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -905,8 +896,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=27]
-resource_name = "defender_end_left_up"
+[sub_resource type="Animation" id=33]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -933,8 +923,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=28]
-resource_name = "defender_end_right"
+[sub_resource type="Animation" id=34]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -961,8 +950,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=29]
-resource_name = "defender_end_right_down"
+[sub_resource type="Animation" id=35]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -989,8 +977,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=30]
-resource_name = "defender_end_right_up"
+[sub_resource type="Animation" id=36]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1017,7 +1004,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=37]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1044,7 +1031,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=38]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1071,7 +1058,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=33]
+[sub_resource type="Animation" id=39]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1098,7 +1085,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=40]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1125,7 +1112,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=35]
+[sub_resource type="Animation" id=41]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1152,7 +1139,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=42]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -1179,7 +1166,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=43]
 length = 0.3
 step = 0.15
 tracks/0/type = "value"
@@ -1230,7 +1217,7 @@ anims/attack_left_up = SubResource( 3 )
 anims/attack_right = SubResource( 4 )
 anims/attack_right_down = SubResource( 5 )
 anims/attack_right_up = SubResource( 6 )
-anims/attacker_end_left = SubResource( 38 )
+anims/attacker_end_left = SubResource( 7 )
 anims/attacker_end_left_down = SubResource( 8 )
 anims/attacker_end_left_up = SubResource( 9 )
 anims/attacker_end_right = SubResource( 10 )
@@ -1242,31 +1229,31 @@ anims/attacker_start_left_up = SubResource( 15 )
 anims/attacker_start_right = SubResource( 16 )
 anims/attacker_start_right_down = SubResource( 17 )
 anims/attacker_start_right_up = SubResource( 18 )
-anims/attacker_win_left = SubResource( 7 )
-anims/attacker_win_left_down = SubResource( 39 )
-anims/attacker_win_left_up = SubResource( 40 )
-anims/attacker_win_right = SubResource( 41 )
-anims/attacker_win_right_down = SubResource( 42 )
-anims/attacker_win_right_up = SubResource( 43 )
-anims/defend_left = SubResource( 19 )
-anims/defend_left_down = SubResource( 20 )
-anims/defend_left_up = SubResource( 21 )
-anims/defend_right = SubResource( 22 )
-anims/defend_right_down = SubResource( 23 )
-anims/defend_right_up = SubResource( 24 )
-anims/defender_end_left = SubResource( 25 )
-anims/defender_end_left_down = SubResource( 26 )
-anims/defender_end_left_up = SubResource( 27 )
-anims/defender_end_right = SubResource( 28 )
-anims/defender_end_right_down = SubResource( 29 )
-anims/defender_end_right_up = SubResource( 30 )
-anims/defender_start_left = SubResource( 31 )
-anims/defender_start_left_down = SubResource( 32 )
-anims/defender_start_left_up = SubResource( 33 )
-anims/defender_start_right = SubResource( 34 )
-anims/defender_start_right_down = SubResource( 35 )
-anims/defender_start_right_up = SubResource( 36 )
-anims/die = SubResource( 37 )
+anims/attacker_win_left = SubResource( 19 )
+anims/attacker_win_left_down = SubResource( 20 )
+anims/attacker_win_left_up = SubResource( 21 )
+anims/attacker_win_right = SubResource( 22 )
+anims/attacker_win_right_down = SubResource( 23 )
+anims/attacker_win_right_up = SubResource( 24 )
+anims/defend_left = SubResource( 25 )
+anims/defend_left_down = SubResource( 26 )
+anims/defend_left_up = SubResource( 27 )
+anims/defend_right = SubResource( 28 )
+anims/defend_right_down = SubResource( 29 )
+anims/defend_right_up = SubResource( 30 )
+anims/defender_end_left = SubResource( 31 )
+anims/defender_end_left_down = SubResource( 32 )
+anims/defender_end_left_up = SubResource( 33 )
+anims/defender_end_right = SubResource( 34 )
+anims/defender_end_right_down = SubResource( 35 )
+anims/defender_end_right_up = SubResource( 36 )
+anims/defender_start_left = SubResource( 37 )
+anims/defender_start_left_down = SubResource( 38 )
+anims/defender_start_left_up = SubResource( 39 )
+anims/defender_start_right = SubResource( 40 )
+anims/defender_start_right_down = SubResource( 41 )
+anims/defender_start_right_up = SubResource( 42 )
+anims/die = SubResource( 43 )
 
 [node name="Container" type="MarginContainer" parent="."]
 margin_right = 81.0
@@ -1304,6 +1291,7 @@ margin_top = 45.0
 margin_right = 61.0
 margin_bottom = 61.0
 mouse_filter = 2
+max_value = 150.0
 value = 80.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
@@ -1316,4 +1304,7 @@ custom_fonts/font = ExtResource( 5 )
 text = "100 / 100"
 align = 1
 valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="animation_finished" from="TroopAnimation" to="." method="_on_TroopAnimation_animation_finished"]

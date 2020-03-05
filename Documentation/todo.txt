@@ -1,8 +1,8 @@
 - info
-- just selectable if movements possible
 - balancing
 -----
 - BFS for creting troops
+- just selectable if movements possible
 - troop specific FPR
 - multi language
 - GameScene to OpenGameScene

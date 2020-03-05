@@ -106,12 +106,12 @@ const CASTLE_START_HEIGHT: int = 3
 
 # Gaming Values
 const CASTLE_HEALTH: int = 300
-const START_GOLD: int = 30
-const BASIC_INCOME: int = 10
+const START_GOLD: int = 150
+const BASIC_INCOME: int = 15
 
 const MESSAGE_SHOW_TIME: int = 2
-const ROUND_TIME: int = 4
+const ROUND_TIME: int = 15
 const QUEUE_SIZE: int = 3
 
-const ANIMATION_SPEED_PER_FIELD: float = 0.15
+const ANIMATION_SPEED_PER_FIELD: float = 0.1
 const ANIMATION_TOLERANCE: float = 5.0

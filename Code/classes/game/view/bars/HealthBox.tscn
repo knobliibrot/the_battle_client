@@ -19,6 +19,9 @@ custom_constants/margin_top = 13
 custom_constants/margin_left = 13
 custom_constants/margin_bottom = 13
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Health" type="TextureProgress" parent="."]
 margin_left = 13.0
