@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://classes/game/view/Playground.gd" type="Script" id=1]
 [ext_resource path="res://classes/game/view/boxes/TimeBox.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://classes/game/controller/Gamelogic.gd" type="Script" id=19]
 [ext_resource path="res://classes/game/controller/BattlefieldGenerator.gd" type="Script" id=20]
 [ext_resource path="res://artifacts/graphics/gui/buttons/settings.png" type="Texture" id=21]
+[ext_resource path="res://classes/game/view/boxes/DoneBox.tscn" type="PackedScene" id=22]
 
 [node name="Playground" type="Node"]
 script = ExtResource( 1 )
@@ -52,27 +53,30 @@ margin_top = 10.0
 margin_right = 1110.0
 margin_bottom = 90.0
 rect_min_size = Vector2( 1100, 80 )
-custom_constants/separation = 24
+custom_constants/separation = 15
 alignment = 1
 
 [node name="TimeBox" parent="UI/Top/TopBar" instance=ExtResource( 2 )]
-margin_left = 34.0
-margin_right = 274.0
+margin_right = 240.0
 margin_bottom = 80.0
 
+[node name="DoneBox" parent="UI/Top/TopBar" instance=ExtResource( 22 )]
+margin_left = 255.0
+margin_right = 335.0
+
 [node name="SalaryBox" parent="UI/Top/TopBar" instance=ExtResource( 3 )]
-margin_left = 298.0
-margin_right = 538.0
+margin_left = 350.0
+margin_right = 590.0
 margin_bottom = 80.0
 
 [node name="IncomeBox" parent="UI/Top/TopBar" instance=ExtResource( 4 )]
-margin_left = 562.0
-margin_right = 802.0
+margin_left = 605.0
+margin_right = 845.0
 margin_bottom = 80.0
 
 [node name="GoldBox" parent="UI/Top/TopBar" instance=ExtResource( 5 )]
-margin_left = 826.0
-margin_right = 1066.0
+margin_left = 860.0
+margin_right = 1100.0
 margin_bottom = 80.0
 
 [node name="Right" type="MarginContainer" parent="UI"]
@@ -83,6 +87,9 @@ custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="RightBar" type="VBoxContainer" parent="UI/Right"]
 margin_left = 10.0
@@ -92,11 +99,11 @@ margin_bottom = 710.0
 rect_min_size = Vector2( 120, 700 )
 custom_constants/separation = 0
 
-[node name="SwordsmanButton" parent="UI/Right/RightBar" instance=ExtResource( 6 )]
+[node name="SpearmanButton" parent="UI/Right/RightBar" instance=ExtResource( 7 )]
 margin_right = 140.0
 margin_bottom = 140.0
 
-[node name="SpearmanButton" parent="UI/Right/RightBar" instance=ExtResource( 7 )]
+[node name="SwordsmanButton" parent="UI/Right/RightBar" instance=ExtResource( 6 )]
 margin_top = 140.0
 margin_right = 140.0
 margin_bottom = 280.0
@@ -117,34 +124,48 @@ margin_right = 140.0
 margin_bottom = 700.0
 
 [node name="Bottom" type="MarginContainer" parent="UI"]
-margin_top = 600.0
-margin_right = 1150.0
-margin_bottom = 720.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+margin_right = 1110.0
+custom_constants/margin_right = 10
 custom_constants/margin_top = 10
+custom_constants/margin_left = 10
 custom_constants/margin_bottom = 10
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BottomBar" type="HBoxContainer" parent="UI/Bottom"]
+margin_left = 10.0
 margin_top = 10.0
-margin_right = 1150.0
-margin_bottom = 110.0
+margin_right = 1110.0
+margin_bottom = 90.0
 rect_min_size = Vector2( 1100, 80 )
-custom_constants/separation = -10
+custom_constants/separation = 15
 alignment = 1
 
 [node name="HealthBarRed" parent="UI/Bottom/BottomBar" instance=ExtResource( 11 )]
-margin_left = 10.0
-margin_right = 410.0
+margin_left = 5.0
+margin_right = 335.0
+margin_bottom = 80.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
 
 [node name="QueueBar" parent="UI/Bottom/BottomBar" instance=ExtResource( 12 )]
-margin_left = 400.0
+margin_left = 350.0
 margin_right = 750.0
 
 [node name="HealthBarBlue" parent="UI/Bottom/BottomBar" instance=ExtResource( 13 )]
-margin_left = 740.0
-margin_right = 1140.0
+margin_left = 765.0
+margin_right = 1095.0
+margin_bottom = 80.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
 
 [node name="SettingsButton" type="Button" parent="UI"]
 anchor_top = 0.5
@@ -603,10 +624,10 @@ margin_right = 400.0
 margin_bottom = 608.0
 
 [node name="7-6" parent="Battlefield" instance=ExtResource( 15 )]
-margin_left = 400.0
-margin_top = 517.0
-margin_right = 480.0
-margin_bottom = 608.0
+margin_left = 400.307
+margin_top = 517.268
+margin_right = 480.307
+margin_bottom = 608.268
 
 [node name="9-6" parent="Battlefield" instance=ExtResource( 15 )]
 margin_left = 480.0
@@ -656,11 +677,12 @@ script = ExtResource( 19 )
 script = ExtResource( 20 )
 
 [node name="Overlay" type="Node2D" parent="."]
-z_index = 2
+z_index = 20
 [connection signal="set_castle_timer_finished" from="UI/Top/TopBar/TimeBox" to="Gamelogic" method="_on_TimeBox_set_castle_timer_finished"]
 [connection signal="turn_finished" from="UI/Top/TopBar/TimeBox" to="Gamelogic" method="_on_TimeBox_turn_finished"]
-[connection signal="create_troop" from="UI/Right/RightBar/SwordsmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="done" from="UI/Top/TopBar/DoneBox" to="Gamelogic" method="_on_DoneBox_done"]
 [connection signal="create_troop" from="UI/Right/RightBar/SpearmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="UI/Right/RightBar/SwordsmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="UI/Right/RightBar/ArcherButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="UI/Right/RightBar/KnightButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="UI/Right/RightBar/CatapultButton" to="Gamelogic" method="_on_TroopButton_create_troop"]

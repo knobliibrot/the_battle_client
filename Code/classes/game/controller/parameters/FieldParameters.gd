@@ -23,7 +23,7 @@ const ATT_DMG: Dictionary = {
 		TroopType.SPEARMAN: 0.5,
 		TroopType.ARCHER: 0.5,
 		TroopType.KNIGHT: 0.5,
-		TroopType.CATAPULT: 5
+		TroopType.CATAPULT: 4
 	},
 	FieldType.GRASS : {
 		TroopType.SWORDSMAN: 1,
@@ -49,7 +49,7 @@ const ATT_DMG: Dictionary = {
 	FieldType.FOREST : {
 		TroopType.SWORDSMAN: 1,
 		TroopType.SPEARMAN: 1.5,
-		TroopType.ARCHER: 1.5,
+		TroopType.ARCHER: 1,
 		TroopType.KNIGHT: 1,
 		TroopType.CATAPULT: 1
 		}
@@ -72,7 +72,7 @@ const DEF_DMG: Dictionary = {
 	},
 	FieldType.MOUNTAIN : {
 		TroopType.SWORDSMAN: 1.333,
-		TroopType.SPEARMAN: 1.333,
+		TroopType.SPEARMAN: 2,
 		TroopType.ARCHER: 1.333,
 		TroopType.KNIGHT: 1.333,
 		TroopType.CATAPULT: 1.333

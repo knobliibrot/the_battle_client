@@ -24,7 +24,7 @@ func generate_battlefield() -> Array:
 					
 				initalize_connections(field, x, y)
 				self. battlefield_map[y][x] = field
-	
+	set_factories()
 	return self.battlefield_map
 
 # Choosse the field type based on the existing neighbours and the field percentages
@@ -134,6 +134,14 @@ func initalize_connections(field: Field, x: int, y: int) -> void:
 	if x == GameSettings.battlefield_width - 2 and y % 2 == 0 and y >0:
 		field.set_connection(self.battlefield_map[y-1][x+1], FieldConnectionType.RIGHT_UP)
 		self.battlefield_map[y-1][x+1].set_connection(field, FieldConnectionType.LEFT_DOWN)
+
+# Sets the factories at the fixed positions
+func set_factories() -> void:
+	self.battlefield_map[1][4].add_factory()
+	self.battlefield_map[1][16].add_factory()
+	self.battlefield_map[3][10].add_factory()
+	self.battlefield_map[5][4].add_factory()
+	self.battlefield_map[5][16].add_factory()
 
 func get_battlefield() -> Battlefield:
 	return get_parent().get_parent().get_node("Battlefield") as Battlefield

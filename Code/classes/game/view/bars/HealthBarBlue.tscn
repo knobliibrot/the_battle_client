@@ -5,6 +5,9 @@
 
 [node name="HealthBarBlue" instance=ExtResource( 1 )]
 
+[node name="Background" parent="." index="0"]
+margin_right = 330.0
+
 [node name="HealthBoxBlue" parent="Background" index="1" instance=ExtResource( 2 )]
-margin_left = -306.0
+margin_left = -256.0
 margin_right = 0.0

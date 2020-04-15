@@ -6,16 +6,21 @@ signal castle_choosen
 signal troop_selected
 signal target_selected
 
+const FATORY_SCENE = "res://classes/game/model/Factory.tscn"
+
 var field_position: Vector2
 var field_type: int 
 var field_state: int
 var stationed_troop: Troop
 var connections: Dictionary = {}
+var factory: Factory
 
 var dijk_distance: int
 var dijk_previous: Field
 var dijk_direction: int
 var dijk_visited: bool
+var att_dmg: int
+var def_dmg: int
 
 func _ready() -> void:
 	self.set_toggle_mode(true)
@@ -184,3 +189,28 @@ func set_rect(rect: Rect2) -> void:
 # Sets the connection in the given direction to the given field
 func set_connection(field: Field , direction: int) -> void:
 	connections[direction] = field
+
+# Creates a new factory on the field
+func add_factory() -> void:
+	self.factory = load(FATORY_SCENE).instance()
+	self.add_child(self.factory )
+
+# Changes the blur and informations if a field get activated
+func set_disabled(value: bool) -> void:
+	self.disabled = value
+	if !value:
+		if field_state == FieldState.TARGET_SELECTION and dijk_distance > 0:
+			$Node2D/MarginContainer/VBoxContainer/Distance/Label.text = str(dijk_distance)
+			$Node2D/MarginContainer/VBoxContainer/Distance.visible = true
+			if self.stationed_troop != null:
+				$Node2D/Blur.visible = true
+				$Node2D/MarginContainer/VBoxContainer/Att_Dmg/Label.text = str(att_dmg)
+				$Node2D/MarginContainer/VBoxContainer/Def_Dmg/Label.text = str(def_dmg)
+				$Node2D/MarginContainer/VBoxContainer/Att_Dmg.visible = true
+				$Node2D/MarginContainer/VBoxContainer/Def_Dmg.visible = true
+	else:
+		$Node2D/MarginContainer/VBoxContainer/Distance.visible = false
+		if self.stationed_troop != null:
+			$Node2D/Blur.visible = false
+			$Node2D/MarginContainer/VBoxContainer/Att_Dmg.visible = false
+			$Node2D/MarginContainer/VBoxContainer/Def_Dmg.visible = false

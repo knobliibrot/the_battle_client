@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://artifacts/graphics/fields/factory/factory_grass.png" type="Texture" id=1]
+[ext_resource path="res://artifacts/graphics/fields/factory/blue.png" type="Texture" id=2]
+[ext_resource path="res://artifacts/graphics/fields/factory/red.png" type="Texture" id=3]
+[ext_resource path="res://classes/game/model/Factory.gd" type="Script" id=4]
+
+[node name="Factory" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blue" type="TextureRect" parent="."]
+visible = false
+margin_right = 80.0
+margin_bottom = 91.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Red" type="TextureRect" parent="."]
+visible = false
+margin_right = 80.0
+margin_bottom = 91.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

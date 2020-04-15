@@ -24,3 +24,7 @@ var round_time: int = GameParameters.ROUND_TIME
 var queue_size: int = GameParameters.QUEUE_SIZE
 var animation_speed_per_field: float = GameParameters.ANIMATION_SPEED_PER_FIELD
 var animation_tolerance: float = GameParameters.ANIMATION_TOLERANCE
+
+var income_per_factory: int = GameParameters.INCOME_PER_FACTORY
+var factory_activation_time: int = GameParameters.FACTORY_ACTIVATION_TIME
+var buildpoints_per_round: int = GameParameters.BUILDPOINTS_PER_ROUND

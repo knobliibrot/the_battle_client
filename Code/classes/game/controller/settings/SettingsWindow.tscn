@@ -76,32 +76,32 @@ scroll_horizontal_enabled = false
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2"]
 margin_right = 1162.0
-margin_bottom = 817.0
+margin_bottom = 806.0
 rect_min_size = Vector2( 1162, 560 )
 custom_constants/hseparation = 202
 columns = 3
 
 [node name="Label" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_right = 250.0
-margin_bottom = 31.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 5 )
 text = "Game Settings"
 
 [node name="Label2" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 452.0
-margin_top = 8.0
+margin_top = 4.0
 margin_right = 702.0
-margin_bottom = 22.0
+margin_bottom = 18.0
 
 [node name="Label3" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 8.0
+margin_top = 4.0
 margin_right = 1154.0
-margin_bottom = 22.0
+margin_bottom = 18.0
 
 [node name="CastleHealth" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
-margin_top = 35.0
-margin_bottom = 65.0
+margin_top = 26.0
+margin_bottom = 56.0
 label = "Castle Health"
 class_param = "GameParameters"
 value_param = "CASTLE_HEALTH"
@@ -111,9 +111,9 @@ datatype = "int"
 
 [node name="StartGold" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
-margin_top = 35.0
+margin_top = 26.0
 margin_right = 702.0
-margin_bottom = 65.0
+margin_bottom = 56.0
 label = "Start Gold"
 class_param = "GameParameters"
 value_param = "START_GOLD"
@@ -123,9 +123,9 @@ datatype = "int"
 
 [node name="BasicIncome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
-margin_top = 35.0
+margin_top = 26.0
 margin_right = 1154.0
-margin_bottom = 65.0
+margin_bottom = 56.0
 label = "Basic Income"
 class_param = "GameParameters"
 value_param = "BASIC_INCOME"
@@ -133,9 +133,21 @@ class_sett = "GameSettings"
 value_sett = "basic_income"
 datatype = "int"
 
+[node name="Factoryincome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+margin_top = 60.0
+margin_bottom = 90.0
+label = "Income per Factory"
+class_param = "GameParameters"
+value_param = "INCOME_PER_FACTORY"
+class_sett = "GameSettings"
+value_sett = "income_per_factory"
+datatype = "int"
+
 [node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
-margin_top = 69.0
-margin_bottom = 99.0
+margin_left = 452.0
+margin_top = 60.0
+margin_right = 702.0
+margin_bottom = 90.0
 label = "Message Show Time"
 class_param = "GameParameters"
 value_param = "MESSAGE_SHOW_TIME"
@@ -144,10 +156,10 @@ value_sett = "message_show_time"
 datatype = "int"
 
 [node name="QueueSize" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
-margin_left = 452.0
-margin_top = 69.0
-margin_right = 702.0
-margin_bottom = 99.0
+margin_left = 904.0
+margin_top = 60.0
+margin_right = 1154.0
+margin_bottom = 90.0
 label = "Queue Size"
 class_param = "GameParameters"
 value_param = "QUEUE_SIZE"
@@ -155,11 +167,33 @@ class_sett = "GameSettings"
 value_sett = "queue_size"
 datatype = "int"
 
-[node name="RoundTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="Buildtime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+margin_top = 94.0
+margin_bottom = 124.0
+label = "Buildtime per Round"
+class_param = "GameParameters"
+value_param = "BUILDPOINTS_PER_ROUND"
+class_sett = "GameSettings"
+value_sett = "buildpoints_per_round"
+datatype = "int"
+
+[node name="FactoryActivationTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+margin_left = 452.0
+margin_top = 94.0
+margin_right = 702.0
+margin_bottom = 124.0
+label = "Factory Animation Time"
+class_param = "GameParameters"
+value_param = "FACTORY_ACTIVATION_TIME"
+class_sett = "GameSettings"
+value_sett = "factory_activation_time"
+datatype = "int"
+
+[node name="RoundTime4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
-margin_top = 69.0
+margin_top = 94.0
 margin_right = 1154.0
-margin_bottom = 99.0
+margin_bottom = 124.0
 label = "Round Time"
 class_param = "GameParameters"
 value_param = "ROUND_TIME"
@@ -168,8 +202,8 @@ value_sett = "round_time"
 datatype = "int"
 
 [node name="AnimationSpeed" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
-margin_top = 103.0
-margin_bottom = 133.0
+margin_top = 128.0
+margin_bottom = 158.0
 label = "Animationspeed per Round"
 class_param = "GameParameters"
 value_param = "ANIMATION_SPEED_PER_FIELD"
@@ -179,9 +213,9 @@ datatype = "float"
 
 [node name="AnimationTolerance" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
-margin_top = 103.0
+margin_top = 128.0
 margin_right = 702.0
-margin_bottom = 133.0
+margin_bottom = 158.0
 label = "Animation Tolerance"
 class_param = "GameParameters"
 value_param = "ANIMATION_TOLERANCE"
@@ -191,32 +225,32 @@ datatype = "float"
 
 [node name="Place" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 111.0
+margin_top = 136.0
 margin_right = 1154.0
-margin_bottom = 125.0
+margin_bottom = 150.0
 
 [node name="ChancesGrass" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
-margin_top = 137.0
+margin_top = 162.0
 margin_right = 250.0
-margin_bottom = 168.0
+margin_bottom = 184.0
 custom_fonts/font = ExtResource( 5 )
 text = "Chances Grass"
 
 [node name="Place3" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 452.0
-margin_top = 145.0
+margin_top = 166.0
 margin_right = 702.0
-margin_bottom = 159.0
+margin_bottom = 180.0
 
 [node name="Place2" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 145.0
+margin_top = 166.0
 margin_right = 1154.0
-margin_bottom = 159.0
+margin_bottom = 180.0
 
 [node name="GrassGrass1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 172.0
-margin_bottom = 202.0
+margin_top = 188.0
+margin_bottom = 218.0
 label = "Grass - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -228,9 +262,9 @@ second_map_key = "1"
 
 [node name="GrassGrass2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 172.0
+margin_top = 188.0
 margin_right = 702.0
-margin_bottom = 202.0
+margin_bottom = 218.0
 label = "Grass - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -242,9 +276,9 @@ second_map_key = "2"
 
 [node name="GrassGrass3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 172.0
+margin_top = 188.0
 margin_right = 1154.0
-margin_bottom = 202.0
+margin_bottom = 218.0
 label = "Grass - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -255,8 +289,8 @@ map_key = "GRASS"
 second_map_key = "3"
 
 [node name="GrassForest1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 206.0
-margin_bottom = 236.0
+margin_top = 222.0
+margin_bottom = 252.0
 label = "Forest - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -268,9 +302,9 @@ second_map_key = "1"
 
 [node name="GrassForest2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 206.0
+margin_top = 222.0
 margin_right = 702.0
-margin_bottom = 236.0
+margin_bottom = 252.0
 label = "Forest - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -282,9 +316,9 @@ second_map_key = "2"
 
 [node name="GrassForest3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 206.0
+margin_top = 222.0
 margin_right = 1154.0
-margin_bottom = 236.0
+margin_bottom = 252.0
 label = "Forest - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -295,8 +329,8 @@ map_key = "FOREST"
 second_map_key = "3"
 
 [node name="GrassMountain1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 240.0
-margin_bottom = 270.0
+margin_top = 256.0
+margin_bottom = 286.0
 label = "Mountain - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -308,9 +342,9 @@ second_map_key = "1"
 
 [node name="GrassMountain2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 240.0
+margin_top = 256.0
 margin_right = 702.0
-margin_bottom = 270.0
+margin_bottom = 286.0
 label = "Mountain - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -322,9 +356,9 @@ second_map_key = "2"
 
 [node name="GrassMountain3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 240.0
+margin_top = 256.0
 margin_right = 1154.0
-margin_bottom = 270.0
+margin_bottom = 286.0
 label = "Mountain - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -335,8 +369,8 @@ map_key = "MOUNTAIN"
 second_map_key = "3"
 
 [node name="GrassVillage1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 274.0
-margin_bottom = 304.0
+margin_top = 290.0
+margin_bottom = 320.0
 label = "Village - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -348,9 +382,9 @@ second_map_key = "1"
 
 [node name="GrassVillage2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 274.0
+margin_top = 290.0
 margin_right = 702.0
-margin_bottom = 304.0
+margin_bottom = 320.0
 label = "Village - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -362,9 +396,9 @@ second_map_key = "2"
 
 [node name="GrassVillage3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 274.0
+margin_top = 290.0
 margin_right = 1154.0
-margin_bottom = 304.0
+margin_bottom = 320.0
 label = "Village - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_GRASS"
@@ -375,27 +409,27 @@ map_key = "VILLAGE"
 second_map_key = "3"
 
 [node name="ChancesForest" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
-margin_top = 308.0
+margin_top = 324.0
 margin_right = 250.0
-margin_bottom = 339.0
+margin_bottom = 346.0
 custom_fonts/font = ExtResource( 5 )
 text = "Chances Forest"
 
 [node name="Place5" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 452.0
-margin_top = 316.0
+margin_top = 328.0
 margin_right = 702.0
-margin_bottom = 330.0
+margin_bottom = 342.0
 
 [node name="Place4" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 316.0
+margin_top = 328.0
 margin_right = 1154.0
-margin_bottom = 330.0
+margin_bottom = 342.0
 
 [node name="ForestGrass6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 343.0
-margin_bottom = 373.0
+margin_top = 350.0
+margin_bottom = 380.0
 label = "Grass - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -407,9 +441,9 @@ second_map_key = "1"
 
 [node name="ForestGrass5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 343.0
+margin_top = 350.0
 margin_right = 702.0
-margin_bottom = 373.0
+margin_bottom = 380.0
 label = "Grass - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -421,9 +455,9 @@ second_map_key = "2"
 
 [node name="ForestGrass4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 343.0
+margin_top = 350.0
 margin_right = 1154.0
-margin_bottom = 373.0
+margin_bottom = 380.0
 label = "Grass - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -434,8 +468,8 @@ map_key = "GRASS"
 second_map_key = "3"
 
 [node name="ForestForest6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 377.0
-margin_bottom = 407.0
+margin_top = 384.0
+margin_bottom = 414.0
 label = "Forest - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -447,9 +481,9 @@ second_map_key = "1"
 
 [node name="ForestForest5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 377.0
+margin_top = 384.0
 margin_right = 702.0
-margin_bottom = 407.0
+margin_bottom = 414.0
 label = "Forest - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -461,9 +495,9 @@ second_map_key = "2"
 
 [node name="ForestForest4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 377.0
+margin_top = 384.0
 margin_right = 1154.0
-margin_bottom = 407.0
+margin_bottom = 414.0
 label = "Forest - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -474,8 +508,8 @@ map_key = "FOREST"
 second_map_key = "3"
 
 [node name="ForestMountain6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 411.0
-margin_bottom = 441.0
+margin_top = 418.0
+margin_bottom = 448.0
 label = "Mountain - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -487,9 +521,9 @@ second_map_key = "1"
 
 [node name="ForestMountain5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 411.0
+margin_top = 418.0
 margin_right = 702.0
-margin_bottom = 441.0
+margin_bottom = 448.0
 label = "Mountain - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -501,9 +535,9 @@ second_map_key = "2"
 
 [node name="ForestMountain4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 411.0
+margin_top = 418.0
 margin_right = 1154.0
-margin_bottom = 441.0
+margin_bottom = 448.0
 label = "Mountain - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -514,8 +548,8 @@ map_key = "MOUNTAIN"
 second_map_key = "3"
 
 [node name="ForestVillage6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 445.0
-margin_bottom = 475.0
+margin_top = 452.0
+margin_bottom = 482.0
 label = "Village - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -527,9 +561,9 @@ second_map_key = "1"
 
 [node name="ForestVillage5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 445.0
+margin_top = 452.0
 margin_right = 702.0
-margin_bottom = 475.0
+margin_bottom = 482.0
 label = "Village - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -541,9 +575,9 @@ second_map_key = "2"
 
 [node name="ForestVillage4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 445.0
+margin_top = 452.0
 margin_right = 1154.0
-margin_bottom = 475.0
+margin_bottom = 482.0
 label = "Village - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_FOREST"
@@ -554,27 +588,27 @@ map_key = "VILLAGE"
 second_map_key = "3"
 
 [node name="ChancesMountain" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
-margin_top = 479.0
+margin_top = 486.0
 margin_right = 250.0
-margin_bottom = 510.0
+margin_bottom = 508.0
 custom_fonts/font = ExtResource( 5 )
 text = "Chances Mountain"
 
 [node name="Place7" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 452.0
-margin_top = 487.0
+margin_top = 490.0
 margin_right = 702.0
-margin_bottom = 501.0
+margin_bottom = 504.0
 
 [node name="Place6" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 487.0
+margin_top = 490.0
 margin_right = 1154.0
-margin_bottom = 501.0
+margin_bottom = 504.0
 
 [node name="MountainGrass9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 514.0
-margin_bottom = 544.0
+margin_top = 512.0
+margin_bottom = 542.0
 label = "Grass - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -586,9 +620,9 @@ second_map_key = "1"
 
 [node name="MountainGrass8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 514.0
+margin_top = 512.0
 margin_right = 702.0
-margin_bottom = 544.0
+margin_bottom = 542.0
 label = "Grass - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -600,9 +634,9 @@ second_map_key = "2"
 
 [node name="MountainGrass7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 514.0
+margin_top = 512.0
 margin_right = 1154.0
-margin_bottom = 544.0
+margin_bottom = 542.0
 label = "Grass - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -613,8 +647,8 @@ map_key = "GRASS"
 second_map_key = "3"
 
 [node name="MountainForest9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 548.0
-margin_bottom = 578.0
+margin_top = 546.0
+margin_bottom = 576.0
 label = "Forest - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -626,9 +660,9 @@ second_map_key = "1"
 
 [node name="MountainForest8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 548.0
+margin_top = 546.0
 margin_right = 702.0
-margin_bottom = 578.0
+margin_bottom = 576.0
 label = "Forest - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -640,9 +674,9 @@ second_map_key = "2"
 
 [node name="MountainForest7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 548.0
+margin_top = 546.0
 margin_right = 1154.0
-margin_bottom = 578.0
+margin_bottom = 576.0
 label = "Forest - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -653,8 +687,8 @@ map_key = "FOREST"
 second_map_key = "3"
 
 [node name="MountainMountain9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 582.0
-margin_bottom = 612.0
+margin_top = 580.0
+margin_bottom = 610.0
 label = "Mountain - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -666,9 +700,9 @@ second_map_key = "1"
 
 [node name="MountainMountain8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 582.0
+margin_top = 580.0
 margin_right = 702.0
-margin_bottom = 612.0
+margin_bottom = 610.0
 label = "Mountain - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -680,9 +714,9 @@ second_map_key = "2"
 
 [node name="MountainMountain7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 582.0
+margin_top = 580.0
 margin_right = 1154.0
-margin_bottom = 612.0
+margin_bottom = 610.0
 label = "Mountain - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -693,8 +727,8 @@ map_key = "MOUNTAIN"
 second_map_key = "3"
 
 [node name="MountainVillage9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 616.0
-margin_bottom = 646.0
+margin_top = 614.0
+margin_bottom = 644.0
 label = "Village - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -706,9 +740,9 @@ second_map_key = "1"
 
 [node name="MountainVillage8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 616.0
+margin_top = 614.0
 margin_right = 702.0
-margin_bottom = 646.0
+margin_bottom = 644.0
 label = "Village - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -720,9 +754,9 @@ second_map_key = "2"
 
 [node name="MountainVillage7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 616.0
+margin_top = 614.0
 margin_right = 1154.0
-margin_bottom = 646.0
+margin_bottom = 644.0
 label = "Village - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_MOUNTAIN"
@@ -733,27 +767,27 @@ map_key = "VILLAGE"
 second_map_key = "3"
 
 [node name="ChancesVillage" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
-margin_top = 650.0
+margin_top = 648.0
 margin_right = 250.0
-margin_bottom = 681.0
+margin_bottom = 670.0
 custom_fonts/font = ExtResource( 5 )
 text = "Chances Village"
 
 [node name="Place9" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 452.0
-margin_top = 658.0
+margin_top = 652.0
 margin_right = 702.0
-margin_bottom = 672.0
+margin_bottom = 666.0
 
 [node name="Place8" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_left = 904.0
-margin_top = 658.0
+margin_top = 652.0
 margin_right = 1154.0
-margin_bottom = 672.0
+margin_bottom = 666.0
 
 [node name="VillageGrass12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 685.0
-margin_bottom = 715.0
+margin_top = 674.0
+margin_bottom = 704.0
 label = "Grass - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -765,9 +799,9 @@ second_map_key = "1"
 
 [node name="VillageGrass11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 685.0
+margin_top = 674.0
 margin_right = 702.0
-margin_bottom = 715.0
+margin_bottom = 704.0
 label = "Grass - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -779,9 +813,9 @@ second_map_key = "2"
 
 [node name="VillageGrass10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 685.0
+margin_top = 674.0
 margin_right = 1154.0
-margin_bottom = 715.0
+margin_bottom = 704.0
 label = "Grass - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -792,8 +826,8 @@ map_key = "GRASS"
 second_map_key = "3"
 
 [node name="VillageForest11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 719.0
-margin_bottom = 749.0
+margin_top = 708.0
+margin_bottom = 738.0
 label = "Forest - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -805,9 +839,9 @@ second_map_key = "2"
 
 [node name="VillageForest12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 719.0
+margin_top = 708.0
 margin_right = 702.0
-margin_bottom = 749.0
+margin_bottom = 738.0
 label = "Forest - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -819,9 +853,9 @@ second_map_key = "1"
 
 [node name="VillageForest10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 719.0
+margin_top = 708.0
 margin_right = 1154.0
-margin_bottom = 749.0
+margin_bottom = 738.0
 label = "Forest - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -832,8 +866,8 @@ map_key = "FOREST"
 second_map_key = "3"
 
 [node name="VillageMountain12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 753.0
-margin_bottom = 783.0
+margin_top = 742.0
+margin_bottom = 772.0
 label = "Mountain - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -845,9 +879,9 @@ second_map_key = "1"
 
 [node name="VillageMountain11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 753.0
+margin_top = 742.0
 margin_right = 702.0
-margin_bottom = 783.0
+margin_bottom = 772.0
 label = "Mountain - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -859,9 +893,9 @@ second_map_key = "2"
 
 [node name="VillageMountain10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 753.0
+margin_top = 742.0
 margin_right = 1154.0
-margin_bottom = 783.0
+margin_bottom = 772.0
 label = "Mountain - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -872,8 +906,8 @@ map_key = "MOUNTAIN"
 second_map_key = "3"
 
 [node name="VillageVillage12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
-margin_top = 787.0
-margin_bottom = 817.0
+margin_top = 776.0
+margin_bottom = 806.0
 label = "Village - 1"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -885,9 +919,9 @@ second_map_key = "1"
 
 [node name="VillageVillage11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
-margin_top = 787.0
+margin_top = 776.0
 margin_right = 702.0
-margin_bottom = 817.0
+margin_bottom = 806.0
 label = "Village - 2"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -899,9 +933,9 @@ second_map_key = "2"
 
 [node name="VillageVillage10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
-margin_top = 787.0
+margin_top = 776.0
 margin_right = 1154.0
-margin_bottom = 817.0
+margin_bottom = 806.0
 label = "Village - 3"
 class_param = "GameParameters"
 value_param = "CHANCES_VILLAGE"
@@ -941,7 +975,7 @@ scroll_horizontal_enabled = false
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer"]
 margin_right = 1162.0
-margin_bottom = 1129.0
+margin_bottom = 1030.0
 rect_min_size = Vector2( 1162, 560 )
 custom_constants/hseparation = 202
 columns = 3
@@ -1400,7 +1434,7 @@ margin_top = 515.0
 margin_right = 250.0
 margin_bottom = 546.0
 custom_fonts/font = ExtResource( 5 )
-text = "Att Damage Forest"
+text = "Att Damage Castle"
 
 [node name="Space18" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
 margin_left = 452.0
@@ -1855,7 +1889,7 @@ margin_top = 1030.0
 margin_right = 250.0
 margin_bottom = 1061.0
 custom_fonts/font = ExtResource( 5 )
-text = "Def Damage Forest"
+text = "Def Damage Castle"
 
 [node name="Space21" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
 margin_left = 452.0
@@ -1971,7 +2005,7 @@ scroll_horizontal_enabled = false
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer"]
 margin_right = 1162.0
-margin_bottom = 786.0
+margin_bottom = 748.0
 rect_min_size = Vector2( 1162, 560 )
 custom_constants/hseparation = 202
 columns = 3
@@ -2596,18 +2630,6 @@ margin_top = 654.0
 margin_right = 1162.0
 margin_bottom = 668.0
 
-[node name="SwordsmanVsSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
-margin_top = 676.0
-margin_bottom = 706.0
-label = "Swordsman vs Spearman"
-class_param = "TroopParameters"
-value_param = "SPECIAL_DMG"
-class_sett = "TroopSettings"
-value_sett = "special_dmg"
-datatype = "float"
-map_key = "SWORDSMAN"
-second_map_key = "SPEARMAN"
-
 [node name="SpearmanVsKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 456.0
 margin_top = 676.0
@@ -2621,6 +2643,48 @@ value_sett = "special_dmg"
 datatype = "float"
 map_key = "SPEARMAN"
 second_map_key = "KNIGHT"
+
+[node name="KnightvsSwordman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 456.0
+margin_top = 676.0
+margin_right = 706.0
+margin_bottom = 706.0
+label = "Knight vs Swordsman"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "KNIGHT"
+second_map_key = "SWORDSMAN"
+
+[node name="SwordsmanVsArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 456.0
+margin_top = 676.0
+margin_right = 706.0
+margin_bottom = 706.0
+label = "Swordsman vs Archer"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "SWORDSMAN"
+second_map_key = "ARCHER"
+
+[node name="ArcherVsSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 456.0
+margin_top = 676.0
+margin_right = 706.0
+margin_bottom = 706.0
+label = "Archer vs Spearman"
+class_param = "TroopParameters"
+value_param = "SPECIAL_DMG"
+class_sett = "TroopSettings"
+value_sett = "special_dmg"
+datatype = "float"
+map_key = "ARCHER"
+second_map_key = "SPEARMAN"
 
 [node name="CatapultVsCastle" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 912.0

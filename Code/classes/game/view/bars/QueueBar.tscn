@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://classes/game/view/bars/InfoBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://classes/game/view/bars/QueueBar.gd" type="Script" id=2]
@@ -7,13 +7,16 @@
 [ext_resource path="res://classes/game/view/buttons/queue/ArcherQueueButton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://classes/game/view/buttons/queue/KnightQueueButton.tscn" type="PackedScene" id=6]
 [ext_resource path="res://classes/game/view/buttons/queue/SpearmanQueueButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://artifacts/graphics/gui/boxes/textures/infobox400.png" type="Texture" id=8]
 
-[node name="QueueBar" index="0" instance=ExtResource( 1 )]
-margin_right = 600.0
+[node name="QueueBar" instance=ExtResource( 1 )]
+margin_right = 700.0
 script = ExtResource( 2 )
 
 [node name="Background" parent="." index="0"]
-margin_right = 340.0
+margin_right = 400.0
+rect_min_size = Vector2( 400, 80 )
+texture = ExtResource( 8 )
 
 [node name="Symbol" parent="Background" index="0"]
 margin_right = 81.0
@@ -24,46 +27,53 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -250.0
-margin_top = -50.5
-margin_bottom = 50.5
+margin_left = -321.0
+margin_top = -40.5
+margin_bottom = 40.5
 custom_constants/margin_right = 13
-custom_constants/margin_top = 13
+custom_constants/margin_top = 3
 custom_constants/margin_left = 13
-custom_constants/margin_bottom = 13
+custom_constants/margin_bottom = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/QueueBox" index="0"]
 margin_left = 13.0
-margin_top = 13.0
-margin_right = 237.0
-margin_bottom = 88.0
-custom_constants/margin_top = 8
-custom_constants/margin_bottom = 8
+margin_top = 3.0
+margin_right = 308.0
+margin_bottom = 78.0
+custom_constants/margin_top = 12
+custom_constants/margin_bottom = 12
 
 [node name="Background" type="NinePatchRect" parent="Background/QueueBox/MarginContainer" index="0"]
-margin_top = 8.0
-margin_right = 224.0
-margin_bottom = 67.0
+margin_top = 12.0
+margin_right = 295.0
+margin_bottom = 63.0
 texture = ExtResource( 4 )
 
 [node name="MarginContainer2" type="MarginContainer" parent="Background/QueueBox" index="1"]
 margin_left = 13.0
-margin_top = 13.0
-margin_right = 237.0
-margin_bottom = 88.0
+margin_top = 3.0
+margin_right = 308.0
+margin_bottom = 78.0
 custom_constants/margin_left = 3
 
 [node name="Queue" type="HBoxContainer" parent="Background/QueueBox/MarginContainer2" index="0"]
 margin_left = 3.0
-margin_right = 224.0
+margin_right = 295.0
 margin_bottom = 75.0
 
 [node name="ArcherQueueButton" parent="Background/QueueBox/MarginContainer2/Queue" index="0" instance=ExtResource( 5 )]
 
-[node name="KnightQueueButton" parent="Background/QueueBox/MarginContainer2/Queue" index="1" instance=ExtResource( 6 )]
+[node name="ArcherQueueButton2" parent="Background/QueueBox/MarginContainer2/Queue" index="1" instance=ExtResource( 5 )]
 margin_left = 74.0
 margin_right = 144.0
 
-[node name="SpearmanQueueButton" parent="Background/QueueBox/MarginContainer2/Queue" index="2" instance=ExtResource( 7 )]
+[node name="KnightQueueButton" parent="Background/QueueBox/MarginContainer2/Queue" index="2" instance=ExtResource( 6 )]
 margin_left = 148.0
 margin_right = 218.0
+
+[node name="SpearmanQueueButton" parent="Background/QueueBox/MarginContainer2/Queue" index="3" instance=ExtResource( 7 )]
+margin_left = 222.0
+margin_right = 292.0

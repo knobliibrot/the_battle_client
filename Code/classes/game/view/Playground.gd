@@ -2,6 +2,8 @@ extends Node
 
 class_name Playground
 
+signal gui_ready
+
 const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
 const SETTINGS_SCENE = preload("res://classes/game/controller/settings/SettingsWindow.tscn")
@@ -21,6 +23,7 @@ func update_gui_with_player(player1: Player, player2: Player, is_player1: bool) 
 		$UI/Bottom/BottomBar/QueueBar.add(act_player.queue[i], i, act_player.progress_actual_troop_in_queue)
 	$UI/Bottom/BottomBar/HealthBarBlue/Background/HealthBoxBlue.update_health(player1.castle_health)
 	$UI/Bottom/BottomBar/HealthBarRed/Background/HealthBoxRed.update_health(player2.castle_health)
+	yield()
 
 # Set fields for selecting the castle for the given player
 func activate_castle_mode(is_player1: bool) -> void:
@@ -29,6 +32,7 @@ func activate_castle_mode(is_player1: bool) -> void:
 	
 	for field in castle_fields:
 		field.set_disabled(false)
+	emit_signal("gui_ready")
 
 # Activates create buttons and make all fields with own troops on int selectable
 func activate_turn_mode(is_player1: bool) -> void:
@@ -39,10 +43,14 @@ func activate_turn_mode(is_player1: bool) -> void:
 		field.set_disabled(true)
 
 	for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
-		if field.stationed_troop.movement_left > 0:
-			field.set_disabled(false)
-			field.pressed = false
-			field.field_state = FieldState.TROOP_SELECTION
+		if field.stationed_troop != null:
+			if field.stationed_troop.movement_left > 0:
+				field.field_state = FieldState.TROOP_SELECTION
+				field.set_disabled(false)
+				field.pressed = false
+		else:
+			print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
+	yield()
 
 # Disables everything 
 func disable_all() -> void:

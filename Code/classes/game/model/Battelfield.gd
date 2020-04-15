@@ -16,7 +16,7 @@ const SCENE_MAP: Dictionary = {
 }
 
 # Every Field which get initialzed exists already. So you can find it with the position
-func initalize_field(position: Vector2, field_type: int) -> Field:	
+func initalize_field(position: Vector2, field_type: int) -> Field:
 	var old_field : Field = get_field(position)
 	old_field.field_position = position
 	return initalize_given_field(old_field, field_type)

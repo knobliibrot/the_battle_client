@@ -12,6 +12,7 @@ var salary: int
 var castle_position: Vector2
 var castle_health: int
 var troops: Array = []
+var factories: Array = []
 
 var queue: Array = []
 var progress_actual_troop_in_queue: int
@@ -51,20 +52,21 @@ func remove_from_queue(pos: int) -> void:
 func remove_troop(troop: Troop) -> void:
 	troops.remove(troops.find(troop))
 	salary -= TroopSettings.salary[troop.troop_type]
-	income += TroopSettings.salary[troop.troop_type]
 	troop.get_parent().remove_stationed_troop(troop)
 
-# If a troop in the queue is ready it returns their troop type.
-# Otherwise -1
-func get_new_troop() -> int:
-	var queue_size: int = queue.size()
-	if queue_size > 0:
-		if TroopSettings.build_time[queue[0]] - progress_actual_troop_in_queue == 1:
-			var new_troop_type: int = queue.pop_front()			
+# Returns an array with the troops which are ready to build
+func get_new_troops() -> Array:
+	var new_troops: Array = []
+	var buildpoints: int = GameSettings.buildpoints_per_round
+	while buildpoints > 0 && queue.size() > 0:
+		if TroopSettings.build_time[queue[0]] - progress_actual_troop_in_queue <= buildpoints:
+			buildpoints = buildpoints - (TroopSettings.build_time[queue[0]] - progress_actual_troop_in_queue)
+			new_troops.append(queue.pop_front())
 			progress_actual_troop_in_queue = 0
-			return new_troop_type
-		progress_actual_troop_in_queue += 1
-	return -1
+		else:
+			progress_actual_troop_in_queue += buildpoints
+			buildpoints = 0
+	return new_troops
 
 func get_battlefield() -> Battlefield:
 	return get_parent() as Battlefield

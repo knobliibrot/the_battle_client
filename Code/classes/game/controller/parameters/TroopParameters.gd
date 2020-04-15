@@ -32,7 +32,7 @@ const FPR: Dictionary = {
 	TroopType.CATAPULT : 3
 }
 
-const START_HEALTH: Dictionary = { 
+const START_HEALTH: Dictionary = {
 	TroopType.SWORDSMAN : 80,
 	TroopType.SPEARMAN : 60,
 	TroopType.ARCHER : 50,
@@ -41,7 +41,7 @@ const START_HEALTH: Dictionary = {
 }
 
 const ATT_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : 20,
+	TroopType.SWORDSMAN : 22,
 	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 20,
 	TroopType.KNIGHT : 30,
@@ -57,11 +57,11 @@ const DEF_DMG: Dictionary = {
 }
 
 const SPECIAL_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 1.5 },
-	TroopType.SPEARMAN : { TroopType.KNIGHT : 3 },
-	TroopType.ARCHER : {},
-	TroopType.KNIGHT : {},
-	TroopType.CATAPULT : { TroopType.CASTLE : 7}
+	TroopType.SWORDSMAN : { TroopType.ARCHER : 1.5 },
+	TroopType.SPEARMAN : { TroopType.KNIGHT : 2.5 },
+	TroopType.ARCHER : { TroopType.SPEARMAN : 1.5 },
+	TroopType.KNIGHT : { TroopType.SWORDSMAN : 1.5 },
+	TroopType.CATAPULT : { TroopType.CASTLE : 6}
 }
 
 const SCENE_BLUE: Dictionary = { 
