@@ -21,5 +21,8 @@ margin_top = -360.0
 margin_right = 640.0
 margin_bottom = 360.0
 stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Playground" parent="Content" instance=ExtResource( 2 )]

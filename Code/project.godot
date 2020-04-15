@@ -137,6 +137,7 @@ _global_script_class_icons={
 config/name="The Battle"
 run/main_scene="res://classes/controller/MainController.tscn"
 config/icon="res://artifacts/icon.png"
+config/windows_native_icon="res://artifacts/icon.ico"
 
 [autoload]
 
