@@ -17,11 +17,11 @@ const BUILD_TIME: Dictionary = {
 }
 
 const SALARY: Dictionary = { 
-	TroopType.SWORDSMAN : 2, 
-	TroopType.SPEARMAN : 1,
-	TroopType.ARCHER : 2,
-	TroopType.KNIGHT : 4,
-	TroopType.CATAPULT : 2
+	TroopType.SWORDSMAN : 3, 
+	TroopType.SPEARMAN : 2,
+	TroopType.ARCHER : 3,
+	TroopType.KNIGHT : 5,
+	TroopType.CATAPULT : 3
 }
 
 const FPR: Dictionary = { 
@@ -36,12 +36,12 @@ const START_HEALTH: Dictionary = {
 	TroopType.SWORDSMAN : 80,
 	TroopType.SPEARMAN : 60,
 	TroopType.ARCHER : 50,
-	TroopType.KNIGHT : 150,
+	TroopType.KNIGHT : 120,
 	TroopType.CATAPULT : 80
 }
 
 const ATT_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : 22,
+	TroopType.SWORDSMAN : 25,
 	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 20,
 	TroopType.KNIGHT : 30,
@@ -57,10 +57,10 @@ const DEF_DMG: Dictionary = {
 }
 
 const SPECIAL_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : { TroopType.ARCHER : 1.5 },
+	TroopType.SWORDSMAN : { TroopType.ARCHER : 1.8 },
 	TroopType.SPEARMAN : { TroopType.KNIGHT : 2.5 },
-	TroopType.ARCHER : { TroopType.SPEARMAN : 1.5 },
-	TroopType.KNIGHT : { TroopType.SWORDSMAN : 1.5 },
+	TroopType.ARCHER : { TroopType.SPEARMAN : 1.8 },
+	TroopType.KNIGHT : { TroopType.SWORDSMAN : 1.8 },
 	TroopType.CATAPULT : { TroopType.CASTLE : 6}
 }
 

@@ -11,6 +11,7 @@ var salary: int
 
 var castle_position: Vector2
 var castle_health: int
+var food: int 
 var troops: Array = []
 var factories: Array = []
 
@@ -29,6 +30,7 @@ func init(type: int, is_player1: bool) -> void:
 	self.gold = GameSettings.start_gold
 	self.income = GameSettings.basic_income
 	self.salary = 0
+	self.food = 3
 
 # Adds troop to queue if not full
 # Returns bool if creation was possible

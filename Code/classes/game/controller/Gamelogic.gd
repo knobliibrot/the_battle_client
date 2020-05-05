@@ -6,6 +6,7 @@ class_name Gamelogic
 signal castle_set
 signal turn_finished
 signal play_finished
+signal game_finished
 
 const FIELD_DISTANCE_SET_SCENE: PackedScene = preload("res://classes/tools/FieldDistanceSet.tscn")
 
@@ -81,24 +82,30 @@ func set_castle(position: Vector2) -> void:
 # Starts a turn of the actual player
 func start_turn(is_player1: bool, round_timer: int) -> void:
 	set_actual_players(is_player1)
-	if round_timer == GameSettings.factory_activation_time && !is_player1:
+	if round_timer == GameSettings.factory_activation_time && is_player1:
 		self.factory_capture_mode_enabled = true
 		activate_factories(self.player2)
 		activate_factories(self.player1)
 	if self.act_player.player_type == PlayerType.MANUAL:
-		pay_and_trainingday()
+		var game_over = pay_and_trainingday()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
-		get_playground().activate_turn_mode(is_player1)
-		get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time, "turn_finished")
+		if !game_over:
+			get_playground().activate_turn_mode(is_player1)
+			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time, "turn_finished")
 
 func activate_factories(player: Player) -> void:
 	for troop in player.troops:
 		if (troop.parent_field.factory != null):
 			capture_factory(troop.parent_field, player)
+	if player == self.player1:
+		capture_factory(self.battlefield_map[5][16], player)
+		capture_factory(self.battlefield_map[1][16], player)
+	else:
+		capture_factory(self.battlefield_map[5][4], player)
+		capture_factory(self.battlefield_map[1][4], player)
 
 # Adds the income to the player's gold and creates a troop if there is one ready on the queue
-func pay_and_trainingday() -> void:
-	
+func pay_and_trainingday() -> bool:
 	self.act_player.gold += self.act_player.income - self.act_player.salary
 	
 	var new_troops: Array = self.act_player.get_new_troops()
@@ -114,6 +121,7 @@ func pay_and_trainingday() -> void:
 	for troop in self.act_player.troops:
 		troop.movement_left = TroopSettings.fpr[troop.troop_type]
 		troop.attack_done = false
+	return false
 
 func _on_QueueBar_remove_from_queue(position: int) -> void:
 	self.act_player.remove_from_queue(position)
@@ -432,13 +440,15 @@ func _on_Defender_animation_finished() -> void:
 
 # Stops Round, show Game Over and finish the game
 func game_over() -> void:
-	get_playground().disable_all()
 	get_playground().stop_timer()
+	get_playground().disable_all()
 	get_playground().show_message("Game Over " + self.act_opponent.player_name, 5)
-	
-	yield(get_tree().create_timer(4), "timeout")
-	
-	emit_signal("turn_finished", true)
+
+func close_game() -> void:
+	emit_signal("game_finished", act_player)
+	yield(get_tree().create_timer(0.1), "timeout")
+	emit_signal("turn_finished")
+	emit_signal("castle_set")
 
 func _on_DoneBox_done() -> void:
 	self.turn_done()
@@ -448,12 +458,24 @@ func _on_TimeBox_turn_finished() -> void:
 
 # Stops the timer, waits until the running play is finished and emits the finsih signal
 func turn_done() -> void:
+	if self.factory_capture_mode_enabled && self.act_player.factories.size() > 0:
+		if self.act_player.food < GameSettings.max_food_amount:
+			var new_food_amount = self.act_player.food + act_player.factories.size()
+			if (new_food_amount > GameSettings.max_food_amount):
+				self.act_player.food = GameSettings.max_food_amount
+			else:
+				self.act_player.food = new_food_amount 
+	else:
+		self.act_player.food = self.act_player.food - 1
+		if self.act_player.food  <= 0:
+			game_over()
+			return true
 	get_playground().stop_timer()
 	if self.play_running:
 		yield(self, "play_finished")
 	if !self.game_over:
 		print("turn finished, player1: " + str(self.is_player1))
-		emit_signal("turn_finished", false)
+		emit_signal("turn_finished")
 
 # Sets the actual player and opponent for this round
 func set_actual_players(is_player1: bool) -> void:
@@ -471,7 +493,5 @@ func get_playground() -> Playground:
 
 # Returns the Battlefield
 func get_battlefield() -> Battlefield:
-	return get_playground().get_node("Battlefield") as Battlefield
-
-
-
+	return get_playground().get_node("CentredGame/Battlefield") as Battlefield
+	

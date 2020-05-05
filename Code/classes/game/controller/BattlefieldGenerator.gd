@@ -144,4 +144,4 @@ func set_factories() -> void:
 	self.battlefield_map[5][16].add_factory()
 
 func get_battlefield() -> Battlefield:
-	return get_parent().get_parent().get_node("Battlefield") as Battlefield
+	return get_parent().get_parent().get_node("CentredGame/Battlefield") as Battlefield

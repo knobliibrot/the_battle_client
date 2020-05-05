@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://classes/game/view/bars/InfoBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/bars/FoodBox.tscn" type="PackedScene" id=2]
 
 [node name="HealthBar" instance=ExtResource( 1 )]
 margin_left = 0.0
@@ -8,3 +9,25 @@ margin_right = 400.0
 
 [node name="Background" parent="." index="0"]
 margin_right = 400.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background" index="1"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -256.0
+margin_top = -39.5
+margin_bottom = 39.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FoodBox" parent="Background/VBoxContainer" index="0" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 256.0
+margin_bottom = 79.0

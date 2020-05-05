@@ -26,3 +26,4 @@ __meta__ = {
 }
 
 [node name="Playground" parent="Content" instance=ExtResource( 2 )]
+[connection signal="game_finished" from="Content/Playground" to="." method="_on_Playground_game_finished"]
