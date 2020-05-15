@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://classes/game/view/bars/HealthBox.gd" type="Script" id=1]
-[ext_resource path="res://artifacts/graphics/gui/boxes/textures/healthbox.png" type="Texture" id=2]
-[ext_resource path="res://artifacts/graphics/gui/boxes/textures/healthbox_filling.png" type="Texture" id=3]
-[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium.tres" type="DynamicFont" id=4]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium_35.tres" type="DynamicFont" id=2]
+[ext_resource path="res://artifacts/graphics/gui/boxes/textures/healthbox_blue_s.png" type="Texture" id=3]
+[ext_resource path="res://artifacts/graphics/gui/boxes/textures/healthbox_filling_blue_s.png" type="Texture" id=4]
 
 [node name="HealthBox" type="MarginContainer"]
 anchor_left = 1.0
@@ -13,7 +13,7 @@ anchor_bottom = 0.5
 margin_left = -409.0
 margin_top = -39.5
 margin_right = -153.0
-margin_bottom = 13.5
+margin_bottom = -13.5
 custom_constants/margin_right = 13
 custom_constants/margin_left = 13
 script = ExtResource( 1 )
@@ -24,18 +24,17 @@ __meta__ = {
 [node name="Health" type="TextureProgress" parent="."]
 margin_left = 13.0
 margin_right = 243.0
-margin_bottom = 53.0
-max_value = 100.0
+margin_bottom = 26.0
 value = 30.0
-texture_under = ExtResource( 2 )
-texture_progress = ExtResource( 3 )
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 13.0
-margin_top = 9.0
+margin_top = 3.0
 margin_right = 243.0
-margin_bottom = 43.0
-custom_fonts/font = ExtResource( 4 )
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
 text = "30 / 100"
 align = 1
 valign = 1

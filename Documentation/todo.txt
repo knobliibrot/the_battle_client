@@ -1,3 +1,4 @@
+- selectable troops
 - info
 - balancing
 -----

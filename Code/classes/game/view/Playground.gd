@@ -16,9 +16,9 @@ func update_gui_with_player(player1: Player, player2: Player, is_player1: bool) 
 		act_player = player1
 	else:
 		act_player = player2
-	$CentredGame/Top/TopBar/GoldBox/NinePatchRect/Label.text = str(act_player.gold)
-	$CentredGame/Top/TopBar/IncomeBox/NinePatchRect/Label.text =  str(act_player.income)
-	$CentredGame/Top/TopBar/SalaryBox/NinePatchRect/Label.text =  str(act_player.salary)
+	$CentredGame/Top/TopBar/TopBar2/GoldBox/NinePatchRect/Label.text = str(act_player.gold)
+	$CentredGame/Top/TopBar/TopBar2/IncomeBox/NinePatchRect/Label.text =  str(act_player.income)
+	$CentredGame/Top/TopBar/TopBar2/SalaryBox/NinePatchRect/Label.text =  str(act_player.salary)
 	$CentredGame/Bottom/BottomBar/QueueBar.clear_queue()
 	for i in range(act_player.queue.size()):
 		$CentredGame/Bottom/BottomBar/QueueBar.add(act_player.queue[i], i, act_player.progress_actual_troop_in_queue)
@@ -78,34 +78,27 @@ func add_to_queue(troop_type: int) -> void:
 # And the signal which should get emitted at the end
 func start_timer_with_message(message: String, seconds: float, finish_signal: String) -> void:
 	show_message(message, GameSettings.message_show_time)
-	$CentredGame/Top/TopBar/TimeBox.start_timer(seconds, finish_signal)
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds, finish_signal)
 
 # Shows a message for the given time 
 func show_message(message: String, seconds: float) -> void:
-	if $CentredGame.has_node("MessageContainer"):
-		$CentredGame.remove_child($CentredGame.get_node("MessageContainer"))
-		
-	var msg_container = MESSAGE_CONTAINER.instance()
-	$CentredGame.add_child(msg_container)
-	msg_container.get_node("MarginContainer/Label").text = message
-	yield(get_tree().create_timer(seconds), "timeout")
-	if $CentredGame.has_node("MessageContainer"):
-		$CentredGame.remove_child($CentredGame.get_node("MessageContainer"))
+	
+	$CentredGame/Top/TopBar/MessageBox/Box/Label.text = message
 	
 func stop_timer() -> void:
-	$CentredGame/Top/TopBar/TimeBox.stop_timer()
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
 
 # Pause the time and instance the Settings Window
 func _on_SettingsButton_pressed() -> void:
-	$CentredGame/Top/TopBar/TimeBox.pause_timer()
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.pause_timer()
 	var settings: Node = SETTINGS_SCENE.instance()
 	var _err = settings.connect("close", self, "_on_SettingsWindow_close")
-	$Overlay.add_child(settings)
+	$CentredGame/Overlay.add_child(settings)
 
 # Remove the Settings Window and resume the Timer
 func _on_SettingsWindow_close(window: Node) -> void:
-	$Overlay.remove_child(window)
-	$CentredGame/Top/TopBar/TimeBox.resume_timer()
+	$CentredGame/Overlay.remove_child(window)
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.resume_timer()
 
 func _on_CloseButton_pressed():
 	$Gamelogic.close_game()

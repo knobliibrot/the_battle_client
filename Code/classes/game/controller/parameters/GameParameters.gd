@@ -106,8 +106,8 @@ const CASTLE_START_HEIGHT: int = 3
 
 # Gaming Values
 const CASTLE_HEALTH: int = 100
-const START_GOLD: int = 150
-const BASIC_INCOME: int = 20
+const START_GOLD: int = 180
+const BASIC_INCOME: int = 15
 const INCOME_PER_FACTORY: int = 5
 const FACTORY_ACTIVATION_TIME: int = 0
 const MAX_FOOD_AMOUNT: int = 3
@@ -119,3 +119,5 @@ const BUILDPOINTS_PER_ROUND: int = 2
 
 const ANIMATION_SPEED_PER_FIELD: float = 0.1
 const ANIMATION_TOLERANCE: float = 5.0
+
+const DAMGE_PER_HEALTH: bool = false

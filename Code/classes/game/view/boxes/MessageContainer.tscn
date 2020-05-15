@@ -16,7 +16,7 @@ __meta__ = {
 light_mask = 8265
 margin_left = 160.0
 margin_top = 150.0
-margin_right = 960.0
+margin_right = 1046.0
 margin_bottom = 238.0
 mouse_filter = 2
 color = Color( 0.243137, 0.196078, 0.145098, 0.768627 )
@@ -24,7 +24,7 @@ color = Color( 0.243137, 0.196078, 0.145098, 0.768627 )
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 160.0
 margin_top = 150.0
-margin_right = 960.0
+margin_right = 1046.0
 margin_bottom = 238.0
 mouse_filter = 2
 custom_constants/margin_right = 20
@@ -35,7 +35,7 @@ custom_constants/margin_bottom = 20
 [node name="Label" type="Label" parent="MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 780.0
+margin_right = 866.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 760, 0 )
 custom_fonts/font = ExtResource( 1 )

@@ -38,3 +38,8 @@ func set_sett_value(new_value) -> void:
 		get_node("/root/" + self.class_sett).set(self.value_sett, int(new_value))
 	elif datatype == "float":
 		get_node("/root/" + self.class_sett).set(self.value_sett, float(new_value))
+	elif datatype == "bool":
+		if new_value == "True":
+			get_node("/root/" + self.class_sett).set(self.value_sett, true)
+		elif new_value == "False":
+			get_node("/root/" + self.class_sett).set(self.value_sett, false)

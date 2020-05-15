@@ -29,3 +29,5 @@ var income_per_factory: int = GameParameters.INCOME_PER_FACTORY
 var factory_activation_time: int = GameParameters.FACTORY_ACTIVATION_TIME
 var buildpoints_per_round: int = GameParameters.BUILDPOINTS_PER_ROUND
 var max_food_amount: int = GameParameters.MAX_FOOD_AMOUNT
+
+var damge_per_health: bool = GameParameters.DAMGE_PER_HEALTH

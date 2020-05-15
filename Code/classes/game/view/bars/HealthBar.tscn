@@ -18,6 +18,8 @@ anchor_bottom = 0.5
 margin_left = -256.0
 margin_top = -39.5
 margin_bottom = 39.5
+custom_constants/separation = 8
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -28,6 +30,6 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 0.0
+margin_top = 27.0
 margin_right = 256.0
-margin_bottom = 79.0
+margin_bottom = 52.0

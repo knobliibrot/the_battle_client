@@ -13,6 +13,8 @@ func set_sett_value(new_value) -> void:
 	
 	if datatype == "int":
 		map[get_enum_value(self.map_key)] = int(new_value)
+	elif datatype == "bool":
+		map[get_enum_value(self.map_key)] = bool(new_value)
 	get_node("/root/" + self.class_sett).set(self.value_sett, map)
 
 # Returns the value of the enum regarding to the given key
@@ -40,6 +42,20 @@ func get_enum_value(map_key_2: String) -> int:
 			return TroopType.KNIGHT
 		"CATAPULT":
 			return TroopType.CATAPULT
+		"CAVALARY":
+			return TroopType.CAVALARY
+		"CROSSBOWMAN":
+			return TroopType.CROSSBOWMAN
+		"BATTLEAXFIGHTER":
+			return TroopType.BATTLEAXFIGHTER
+		"DOUBLEAXFIGHTER":
+			return TroopType.DOUBLEAXFIGHTER
+		"TREBUCHET":
+			return TroopType.TREBUCHET
+		"SHORTSWORDSMAN":
+			return TroopType.SHORTSWORDSMAN	
+		"HALBERDIER":
+			return TroopType.HALBERDIER
 		"TCASTLE":
 			return TroopType.CASTLE
 		"1":

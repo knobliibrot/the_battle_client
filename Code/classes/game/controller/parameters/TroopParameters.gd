@@ -1,11 +1,18 @@
 extends Node
 
 const PRICE: Dictionary = { 
-	TroopType.SWORDSMAN : 20, 
+	TroopType.SWORDSMAN : 30, 
 	TroopType.SPEARMAN : 15,
 	TroopType.ARCHER : 20,
-	TroopType.KNIGHT : 40,
-	TroopType.CATAPULT : 25
+	TroopType.KNIGHT : 45,
+	TroopType.CATAPULT : 20,
+	TroopType.BATTLEAXFIGHTER : 30,
+	TroopType.CAVALARY : 35,
+	TroopType.CROSSBOWMAN :30,
+	TroopType.DOUBLEAXFIGHTER : 20,
+	TroopType.HALBERDIER : 25,
+	TroopType.SHORTSWORDSMAN : 20,
+	TroopType.TREBUCHET : 25
 }
 
 const BUILD_TIME: Dictionary = { 
@@ -13,15 +20,29 @@ const BUILD_TIME: Dictionary = {
 	TroopType.SPEARMAN : 1,
 	TroopType.ARCHER : 1,
 	TroopType.KNIGHT : 2,
-	TroopType.CATAPULT : 2
+	TroopType.CATAPULT : 2,
+	TroopType.BATTLEAXFIGHTER : 1,
+	TroopType.CAVALARY : 2,
+	TroopType.CROSSBOWMAN : 1,
+	TroopType.DOUBLEAXFIGHTER : 1,
+	TroopType.HALBERDIER : 1,
+	TroopType.SHORTSWORDSMAN : 1,
+	TroopType.TREBUCHET : 2
 }
 
 const SALARY: Dictionary = { 
-	TroopType.SWORDSMAN : 3, 
+	TroopType.SWORDSMAN : 4, 
 	TroopType.SPEARMAN : 2,
 	TroopType.ARCHER : 3,
-	TroopType.KNIGHT : 5,
-	TroopType.CATAPULT : 3
+	TroopType.KNIGHT : 6,
+	TroopType.CATAPULT : 2,
+	TroopType.BATTLEAXFIGHTER : 4,
+	TroopType.CAVALARY : 4,
+	TroopType.CROSSBOWMAN :4,
+	TroopType.DOUBLEAXFIGHTER : 3,
+	TroopType.HALBERDIER : 3,
+	TroopType.SHORTSWORDSMAN : 3,
+	TroopType.TREBUCHET : 3
 }
 
 const FPR: Dictionary = { 
@@ -29,39 +50,74 @@ const FPR: Dictionary = {
 	TroopType.SPEARMAN : 6,
 	TroopType.ARCHER : 6,
 	TroopType.KNIGHT : 8,
-	TroopType.CATAPULT : 3
+	TroopType.CATAPULT : 5,
+	TroopType.BATTLEAXFIGHTER : 4,
+	TroopType.CAVALARY : 8,
+	TroopType.CROSSBOWMAN :4,
+	TroopType.DOUBLEAXFIGHTER : 6,
+	TroopType.HALBERDIER : 4,
+	TroopType.SHORTSWORDSMAN : 6,
+	TroopType.TREBUCHET : 3
 }
 
 const START_HEALTH: Dictionary = {
-	TroopType.SWORDSMAN : 80,
-	TroopType.SPEARMAN : 60,
-	TroopType.ARCHER : 50,
-	TroopType.KNIGHT : 120,
-	TroopType.CATAPULT : 80
+	TroopType.SWORDSMAN : 375,
+	TroopType.SPEARMAN : 125,
+	TroopType.ARCHER : 100,
+	TroopType.KNIGHT : 450,
+	TroopType.CATAPULT : 15,
+	TroopType.BATTLEAXFIGHTER : 375,
+	TroopType.CAVALARY : 200,
+	TroopType.CROSSBOWMAN : 275,
+	TroopType.DOUBLEAXFIGHTER : 150,
+	TroopType.HALBERDIER : 275,
+	TroopType.SHORTSWORDSMAN : 150,
+	TroopType.TREBUCHET : 350
 }
 
 const ATT_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : 25,
+	TroopType.SWORDSMAN : 20,
 	TroopType.SPEARMAN : 15,
-	TroopType.ARCHER : 20,
-	TroopType.KNIGHT : 30,
-	TroopType.CATAPULT : 15
+	TroopType.ARCHER : 40,
+	TroopType.KNIGHT : 50,
+	TroopType.CATAPULT : 15,
+	TroopType.BATTLEAXFIGHTER : 40,
+	TroopType.CAVALARY : 45,
+	TroopType.CROSSBOWMAN : 40,
+	TroopType.DOUBLEAXFIGHTER : 40,
+	TroopType.HALBERDIER : 20,
+	TroopType.SHORTSWORDSMAN : 20,
+	TroopType.TREBUCHET : 25
 }
 
 const DEF_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : 15,
-	TroopType.SPEARMAN : 15,
+	TroopType.SWORDSMAN : 40,
+	TroopType.SPEARMAN : 20,
 	TroopType.ARCHER : 30,
-	TroopType.KNIGHT : 20,
-	TroopType.CATAPULT : 25
+	TroopType.KNIGHT : 25,
+	TroopType.CATAPULT : 10,
+	TroopType.BATTLEAXFIGHTER : 20,
+	TroopType.CAVALARY : 20,
+	TroopType.CROSSBOWMAN : 40,
+	TroopType.DOUBLEAXFIGHTER : 20,
+	TroopType.HALBERDIER : 30,
+	TroopType.SHORTSWORDSMAN : 40,
+	TroopType.TREBUCHET : 10
 }
 
 const SPECIAL_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : { TroopType.ARCHER : 1.8 },
-	TroopType.SPEARMAN : { TroopType.KNIGHT : 2.5 },
-	TroopType.ARCHER : { TroopType.SPEARMAN : 1.8 },
-	TroopType.KNIGHT : { TroopType.SWORDSMAN : 1.8 },
-	TroopType.CATAPULT : { TroopType.CASTLE : 6}
+	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 8, TroopType.HALBERDIER : 8 },
+	TroopType.SPEARMAN : { TroopType.KNIGHT : 4, TroopType.CAVALARY : 4 },
+	TroopType.ARCHER : { TroopType.CAVALARY : 3, TroopType.SPEARMAN : 3, TroopType.ARCHER : 3, TroopType.DOUBLEAXFIGHTER : 3, TroopType.SHORTSWORDSMAN : 3 },
+	TroopType.KNIGHT : { TroopType.SWORDSMAN : 12, TroopType.SHORTSWORDSMAN : 12 },
+	TroopType.CATAPULT : { TroopType.CASTLE : 15},
+	TroopType.BATTLEAXFIGHTER : { TroopType.KNIGHT : 4, TroopType.HALBERDIER : 4, TroopType.CROSSBOWMAN : 4, TroopType.BATTLEAXFIGHTER : 4, TroopType.SWORDSMAN : 4 },
+	TroopType.CAVALARY : { TroopType.SWORDSMAN : 8, TroopType.SHORTSWORDSMAN : 8 },
+	TroopType.CROSSBOWMAN : { TroopType.CAVALARY : 4, TroopType.SPEARMAN : 4, TroopType.ARCHER : 4, TroopType.DOUBLEAXFIGHTER : 4, TroopType.SHORTSWORDSMAN : 4 },
+	TroopType.DOUBLEAXFIGHTER : { TroopType.KNIGHT : 3, TroopType.HALBERDIER : 3, TroopType.CROSSBOWMAN : 3, TroopType.BATTLEAXFIGHTER : 3, TroopType.SWORDSMAN : 3 },
+	TroopType.HALBERDIER : { TroopType.KNIGHT : 6, TroopType.CAVALARY : 6 },
+	TroopType.SHORTSWORDSMAN : { TroopType.SPEARMAN : 6, TroopType.HALBERDIER : 6 },
+	TroopType.TREBUCHET : { TroopType.CASTLE : 25}
 }
 
 const SCENE_BLUE: Dictionary = { 
@@ -69,7 +125,14 @@ const SCENE_BLUE: Dictionary = {
 	TroopType.SPEARMAN : "res://classes/game/model/troops/BlueSpearmanTroop.tscn",
 	TroopType.ARCHER : "res://classes/game/model/troops/BlueArcherTroop.tscn",
 	TroopType.KNIGHT : "res://classes/game/model/troops/BlueKnightTroop.tscn",
-	TroopType.CATAPULT : "res://classes/game/model/troops/BlueCatapultTroop.tscn"
+	TroopType.CATAPULT : "res://classes/game/model/troops/BlueCatapultTroop.tscn",
+	TroopType.BATTLEAXFIGHTER : "res://classes/game/model/troops/BlueBattleaxfighterTroop.tscn",
+	TroopType.CAVALARY : "res://classes/game/model/troops/BlueCavalaryTroop.tscn",
+	TroopType.CROSSBOWMAN : "res://classes/game/model/troops/BlueCrossbowmanTroop.tscn",
+	TroopType.DOUBLEAXFIGHTER : "res://classes/game/model/troops/BlueDoubleaxfighterTroop.tscn",
+	TroopType.HALBERDIER : "res://classes/game/model/troops/BlueHalberdierTroop.tscn",
+	TroopType.SHORTSWORDSMAN : "res://classes/game/model/troops/BlueShortswodsmanTroop.tscn",
+	TroopType.TREBUCHET : "res://classes/game/model/troops/BlueTrebuchetTroop.tscn"
 }
 
 const SCENE_RED: Dictionary = { 
@@ -77,7 +140,14 @@ const SCENE_RED: Dictionary = {
 	TroopType.SPEARMAN : "res://classes/game/model/troops/RedSpearmanTroop.tscn",
 	TroopType.ARCHER : "res://classes/game/model/troops/RedArcherTroop.tscn",
 	TroopType.KNIGHT : "res://classes/game/model/troops/RedKnightTroop.tscn",
-	TroopType.CATAPULT : "res://classes/game/model/troops/RedCatapultTroop.tscn"
+	TroopType.CATAPULT : "res://classes/game/model/troops/RedCatapultTroop.tscn",
+	TroopType.BATTLEAXFIGHTER : "res://classes/game/model/troops/RedBattleaxfighterTroop.tscn",
+	TroopType.CAVALARY : "res://classes/game/model/troops/RedCavalaryTroop.tscn",
+	TroopType.CROSSBOWMAN : "res://classes/game/model/troops/RedCrossbowmanTroop.tscn",
+	TroopType.DOUBLEAXFIGHTER : "res://classes/game/model/troops/RedDoubleaxfighterTroop.tscn",
+	TroopType.HALBERDIER : "res://classes/game/model/troops/RedHalberdierTroop.tscn",
+	TroopType.SHORTSWORDSMAN : "res://classes/game/model/troops/RedShortswodsmanTroop.tscn",
+	TroopType.TREBUCHET : "res://classes/game/model/troops/RedTrebuchetTroop.tscn"
 }
 
 const SCENE_QUEUE: Dictionary = { 
@@ -85,5 +155,12 @@ const SCENE_QUEUE: Dictionary = {
 	TroopType.SPEARMAN : "res://classes/game/view/buttons/queue/SpearmanQueueButton.tscn",
 	TroopType.ARCHER : "res://classes/game/view/buttons/queue/ArcherQueueButton.tscn",
 	TroopType.KNIGHT : "res://classes/game/view/buttons/queue/KnightQueueButton.tscn",
-	TroopType.CATAPULT : "res://classes/game/view/buttons/queue/CatapultQueueButton.tscn"
+	TroopType.CATAPULT : "res://classes/game/view/buttons/queue/CatapultQueueButton.tscn",
+	TroopType.BATTLEAXFIGHTER : "res://classes/game/view/buttons/queue/BattleaxfighterQueueButton.tscn",
+	TroopType.CAVALARY : "res://classes/game/view/buttons/queue/CavalaryQueueButton.tscn",
+	TroopType.CROSSBOWMAN : "res://classes/game/view/buttons/queue/CrossbowmanQueueButton.tscn",
+	TroopType.DOUBLEAXFIGHTER : "res://classes/game/view/buttons/queue/DoubleaxfighterQueueButton.tscn",
+	TroopType.HALBERDIER : "res://classes/game/view/buttons/queue/HalberdierQueueButton.tscn",
+	TroopType.SHORTSWORDSMAN : "res://classes/game/view/buttons/queue/ShortswordsmanQueueButton.tscn",
+	TroopType.TREBUCHET : "res://classes/game/view/buttons/queue/TrebuchetQueueButton.tscn",
 }

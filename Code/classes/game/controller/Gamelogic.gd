@@ -202,8 +202,8 @@ func set_dijk_values(act_field: Field, direction: int, stationed_troop: Troop) -
 	target_field.dijk_previous = act_field
 	# distance is changes in FieldMapPerDistance.change_existing()
 	if target_field.stationed_troop != null:
-		target_field.att_dmg = get_attacker_damage(stationed_troop, target_field.stationed_troop)
-		target_field.def_dmg = get_defender_damage(stationed_troop, target_field.stationed_troop)
+		target_field.att_dmg = get_attacker_damage(stationed_troop, target_field.stationed_troop, GameSettings.damge_per_health)
+		target_field.def_dmg = get_defender_damage(stationed_troop, target_field.stationed_troop, GameSettings.damge_per_health)
 
 # Procedure when a target is selected
 func _on_Battlefield_target_selected(position: Vector2):
@@ -242,38 +242,43 @@ func fight(attacker: Troop, defender: Troop) -> int:
 		return MovementType.FRIEND
 	else:
 		attacker.attack_done = true
-		defender.set_healthpoints(defender.get_healthpoints() - get_attacker_damage(attacker, defender))
-		
-		if defender.get_healthpoints() > 0:
-			attacker.set_healthpoints(attacker.get_healthpoints() - get_defender_damage(attacker, defender))
+		defender.set_healthpoints(defender.get_healthpoints() - get_attacker_damage(attacker, defender, GameSettings.damge_per_health))
+		attacker.set_healthpoints(attacker.get_healthpoints() - get_defender_damage(attacker, defender, GameSettings.damge_per_health))
 			
-			if attacker.get_healthpoints() > 0:
-				return MovementType.NOBODY_DIE
-			else:
-				return MovementType.ATT_DIE
-		else:
+		if attacker.get_healthpoints() <= 0 && defender.get_healthpoints() <= 0:
+			return MovementType.BOTH_DIE
+		if attacker.get_healthpoints() <= 0:
+			return MovementType.ATT_DIE
+		if defender.get_healthpoints() <= 0:
 			return MovementType.DEF_DIE
+		return MovementType.NOBODY_DIE
 
 # Returns the damage which the attacker makes against this defender
-func get_attacker_damage(attacker: Troop, defender: Troop) -> int:
+func get_attacker_damage(attacker: Troop, defender: Troop, damge_per_health: bool) -> int:
 	var field_bonus: float = get_field_bonus_att(attacker, defender)
-	var troop_bonus: float = get_troop_bonus(attacker, defender.troop_type)
-	return int(float(TroopSettings.att_dmg[attacker.troop_type]) * field_bonus * troop_bonus)
+	var troop_bonus: int = get_troop_bonus(attacker, defender.troop_type)
+	if damge_per_health:
+		return int((float(TroopSettings.att_dmg[attacker.troop_type] + troop_bonus) * field_bonus) / TroopSettings.start_health[attacker.troop_type] * attacker.healthpoints)
+	else:
+		return int(float(TroopSettings.att_dmg[attacker.troop_type] + troop_bonus) * field_bonus)
 
 # Returns the damage which the defender makes against this attacker
-func get_defender_damage(attacker: Troop, defender: Troop) -> int:
-	var field_bonus = get_field_bonus_def(defender)
-	var troop_bonus = get_troop_bonus(defender, attacker.troop_type)
-	return int(float(TroopSettings.def_dmg[defender.troop_type]) * field_bonus * troop_bonus)
+func get_defender_damage(attacker: Troop, defender: Troop, damge_per_health: bool) -> int:
+	var field_bonus: float = get_field_bonus_def(defender)
+	var troop_bonus: int = get_troop_bonus(defender, attacker.troop_type)
+	if damge_per_health:
+		return int((float(TroopSettings.def_dmg[defender.troop_type] + troop_bonus) * field_bonus) / TroopSettings.start_health[defender.troop_type] * defender.healthpoints)
+	else:
+		return int(float(TroopSettings.def_dmg[defender.troop_type] + troop_bonus) * field_bonus)
 
 # Get troop bonus from the attacker against the defender
-func get_troop_bonus(attacker: Troop, defender_troop_type: int) -> float:
-	var troop_bonus: float = 1
+func get_troop_bonus(attacker: Troop, defender_troop_type: int) -> int:
+	var troop_bonus: int = 0
 	for troop_type in TroopSettings.special_dmg[attacker.troop_type]:
 			if troop_type == defender_troop_type:
 				troop_bonus = TroopSettings.special_dmg[attacker.troop_type][troop_type]
 				break
-	return float(troop_bonus)
+	return troop_bonus
 
 # Get field bonus for the defender
 func get_field_bonus_def(defender: Troop) -> float:
@@ -297,8 +302,8 @@ func get_field_bonus_att(attacker: Troop, defender: Troop) -> float:
 func attack_castle(attacker: Troop) -> int:
 	if attacker.attack_done:
 		attacker.attack_done = true
-	var troop_bonus: float = get_troop_bonus(attacker, TroopType.CASTLE)
-	self.act_opponent.castle_health = int(float(self.act_opponent.castle_health) - float(TroopSettings.att_dmg[attacker.troop_type]) * troop_bonus)
+	var troop_bonus: int = get_troop_bonus(attacker, TroopType.CASTLE)
+	self.act_opponent.castle_health = self.act_opponent.castle_health - TroopSettings.att_dmg[attacker.troop_type] + troop_bonus
 	if self.act_opponent.castle_health < 1:
 		self.game_over = true
 	
@@ -343,8 +348,12 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 				yield(defender, "animation_finished")
 			# Attacker attacks
 			attacker.attack_animation(direction)
-			yield(attacker, "animation_finished")
+			yield(attacker, "animation_finished")			
+			# Defender attacks
+			defender.defend_animation(direction)
+			yield(defender, "animation_finished")
 			defender.update_helathpoints()
+			attacker.update_helathpoints()
 			if MovementType.DEF_DIE == movement_type:
 				# Defender dies
 				defender.die_animation()
@@ -352,27 +361,30 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 				self.act_opponent.remove_troop(defender)
 				attacker.win_attack_animation(direction)
 				yield(attacker, "animation_finished")
-				path = []
-			else:
-				# Defender attacks
-				defender.defend_animation(direction)
+			if MovementType.ATT_DIE == movement_type:
+				# Attacker dies
+				attacker.die_animation()
+				yield(attacker, "animation_finished")
+				self.act_player.remove_troop(attacker)
+				defender.end_defend_animation(direction)
 				yield(defender, "animation_finished")
-				attacker.update_helathpoints()
-				if MovementType.ATT_DIE == movement_type:
-					# Attacker dies
-					attacker.die_animation()
-					yield(attacker, "animation_finished")
-					self.act_player.remove_troop(attacker)
-					defender.end_defend_animation(direction)
+			if  MovementType.BOTH_DIE == movement_type:
+				# Both 
+				reset_ani_finished()
+				attacker.die_animation()
+				defender.die_animation()
+				yield(attacker, "animation_finished")
+				if !self.def_animation_finished:
 					yield(defender, "animation_finished")
-				else:
-					# End Fight
-					reset_ani_finished()
-					attacker.end_attack_animation(direction)
-					defender.end_defend_animation(direction)
-					yield(attacker, "animation_finished")
-					if !self.def_animation_finished:
-						yield(defender, "animation_finished")
+				self.act_opponent.remove_troop(defender)
+				self.act_player.remove_troop(attacker)
+			if MovementType.NOBODY_DIE == movement_type:
+				reset_ani_finished()
+				defender.end_defend_animation(direction)
+				attacker.end_attack_animation(direction)
+				yield(attacker, "animation_finished")
+				if !self.def_animation_finished:
+					yield(defender, "animation_finished")
 		# Find position to go back after attack
 		if MovementType.NOBODY_DIE == movement_type or (MovementType.DEF_DIE == movement_type and target_field.field_type == FieldType.CASTLE):
 			final_target = target_field.dijk_previous
@@ -380,8 +392,10 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 			while final_target.stationed_troop != null and final_target != start_field:
 				path.append(FieldParameters.CONNECTION_PAIRS[final_target.dijk_direction])
 				final_target = final_target.dijk_previous
+		else:
+			path = []
 	# Make last move
-	if MovementType.ATT_DIE != movement_type:
+	if MovementType.ATT_DIE != movement_type and MovementType.BOTH_DIE != movement_type: 
 		if path.size() > 0:
 			attacker.move(path)
 			yield(attacker, "move_finished")
