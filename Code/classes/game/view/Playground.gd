@@ -7,15 +7,10 @@ signal game_finished
 
 const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
-const SETTINGS_SCENE = preload("res://classes/game/controller/settings/SettingsWindow.tscn")
-
+const SETTINGS_SCENE = preload("res://classes/game/view/windows/settings/SettingsWindow.tscn")
 # Updates the info-, castlehealth- and queue boxes
-func update_gui_with_player(player1: Player, player2: Player, is_player1: bool) -> void:
-	var act_player
-	if is_player1:
-		act_player = player1
-	else:
-		act_player = player2
+func update_gui_with_player(player1: Player, player2: Player, act_player: Player) -> void:
+	$CentredGame/Overlay/TroopselectionWindow.set_visible(false)
 	$CentredGame/Top/TopBar/TopBar2/GoldBox/NinePatchRect/Label.text = str(act_player.gold)
 	$CentredGame/Top/TopBar/TopBar2/IncomeBox/NinePatchRect/Label.text =  str(act_player.income)
 	$CentredGame/Top/TopBar/TopBar2/SalaryBox/NinePatchRect/Label.text =  str(act_player.salary)
@@ -26,10 +21,15 @@ func update_gui_with_player(player1: Player, player2: Player, is_player1: bool) 
 	$CentredGame/Bottom/BottomBar/HealthBarBlue/Background/VBoxContainer/FoodBox.update_food(player1.food)
 	$CentredGame/Bottom/BottomBar/HealthBarRed/Background/VBoxContainer/HealthBoxRed.update_health(player2.castle_health)
 	$CentredGame/Bottom/BottomBar/HealthBarRed/Background/VBoxContainer/FoodBox.update_food(player2.food)
+	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
+		if  act_player.selected_troops.has(button.troop_type):
+			button.set_visible(true)
+		else:
+			button.set_visible(false)
 	yield()
 
 # Set fields for selecting the castle for the given player
-func activate_castle_mode(is_player1: bool) -> void:
+func activate_castle_choosing(is_player1: bool) -> void:
 	var castle_fields: Array
 	castle_fields = get_tree().get_nodes_in_group(Group.castle_field(is_player1))
 	
@@ -37,10 +37,19 @@ func activate_castle_mode(is_player1: bool) -> void:
 		field.set_disabled(false)
 	emit_signal("gui_ready")
 
+# Shows all the game ui boxes and makes the start ui boxes invisible
+func start_game_mode() -> void:
+	for ui in get_tree().get_nodes_in_group(Group.GAME_MODE_UI_NODE):
+		ui.set_visible(true)
+	
+	for ui in get_tree().get_nodes_in_group(Group.INITIAL_MODE_UI_NODE):
+		ui.set_visible(false)
+
 # Activates create buttons and make all fields with own troops on int selectable
-func activate_turn_mode(is_player1: bool) -> void:
+func activate_turn_mode(is_player1: bool, actual_player: Player) -> void:
 	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
-		button.set_disabled(false)
+		if  actual_player.selected_troops.has(button.troop_type):
+			button.get_node("TextureButton").set_disabled(false)
 	
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
@@ -76,15 +85,14 @@ func add_to_queue(troop_type: int) -> void:
 
 # Starts the Round Timer in the TimeBox  with a message 
 # And the signal which should get emitted at the end
-func start_timer_with_message(message: String, seconds: float, finish_signal: String) -> void:
-	show_message(message, GameSettings.message_show_time)
-	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds, finish_signal)
+func start_timer_with_message(message: String, seconds: float) -> void:
+	show_message(message)
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds)
 
 # Shows a message for the given time 
-func show_message(message: String, seconds: float) -> void:
-	
+func show_message(message: String) -> void:
 	$CentredGame/Top/TopBar/MessageBox/Box/Label.text = message
-	
+
 func stop_timer() -> void:
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
 
@@ -105,3 +113,19 @@ func _on_CloseButton_pressed():
 
 func _on_Gamelogic_game_finished(player: Player) -> void:
 	emit_signal("game_finished", player)
+
+func _on_SelectTroopsButton_pressed():
+	$CentredGame/Overlay/TroopselectionWindow.set_selected_troops($Gamelogic.act_player.selected_troops)
+	$CentredGame/Overlay/TroopselectionWindow.set_visible(true)
+
+func _on_TroopselectionWindow_close() -> void:
+	$CentredGame/Overlay/TroopselectionWindow.set_visible(false)
+
+func _on_TroopselectionWindow_refresh(selected_troops: Array, message: String) -> void:
+	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
+		if  selected_troops.has(button.troop_type):
+			button.set_visible(true)
+		else:
+			button.set_visible(false)
+	if !message.empty():
+		show_message(message)

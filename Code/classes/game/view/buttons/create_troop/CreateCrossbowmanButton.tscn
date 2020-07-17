@@ -9,3 +9,4 @@ script = ExtResource( 3 )
 
 [node name="TextureButton" parent="." index="0"]
 texture_normal = ExtResource( 1 )
+texture_disabled = ExtResource( 1 )

@@ -4,7 +4,7 @@ class_name ScreenScene
 
 signal start_open_game
 
-const SETTINGS_SCENE: PackedScene = preload("res://classes/game/controller/settings/SettingsWindow.tscn")
+const SETTINGS_SCENE: PackedScene = preload("res://classes/game/view/windows/settings/SettingsWindow.tscn")
 
 func _on_StartOpenGameButton_pressed() -> void:
 	emit_signal("start_open_game")

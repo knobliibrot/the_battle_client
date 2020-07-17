@@ -1,5 +1,21 @@
 extends Node
 
+const TROOP_NAME: Dictionary = { 
+	TroopType.SWORDSMAN : "Swordsman", 
+	TroopType.SPEARMAN : "Spearman",
+	TroopType.ARCHER : "Archer",
+	TroopType.KNIGHT : "Knight",
+	TroopType.CATAPULT : "Catapult",
+	TroopType.BATTLEAXFIGHTER : "Battleaxfighter",
+	TroopType.CAVALARY : "Cavalary",
+	TroopType.CROSSBOWMAN :"Crossbowman",
+	TroopType.DOUBLEAXFIGHTER : "Doubleaxfighter",
+	TroopType.HALBERDIER : "Halberdier",
+	TroopType.SHORTSWORDSMAN : "Shortswordsman",
+	TroopType.TREBUCHET : "Trebuchet",
+	TroopType.CASTLE : "Castle"
+}
+
 const PRICE: Dictionary = { 
 	TroopType.SWORDSMAN : 30, 
 	TroopType.SPEARMAN : 15,
@@ -106,18 +122,48 @@ const DEF_DMG: Dictionary = {
 }
 
 const SPECIAL_DMG: Dictionary = { 
-	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 8, TroopType.HALBERDIER : 8 },
-	TroopType.SPEARMAN : { TroopType.KNIGHT : 4, TroopType.CAVALARY : 4 },
-	TroopType.ARCHER : { TroopType.CAVALARY : 3, TroopType.SPEARMAN : 3, TroopType.ARCHER : 3, TroopType.DOUBLEAXFIGHTER : 3, TroopType.SHORTSWORDSMAN : 3 },
-	TroopType.KNIGHT : { TroopType.SWORDSMAN : 12, TroopType.SHORTSWORDSMAN : 12 },
+	TroopType.SWORDSMAN : { TroopType.SPEARMAN : 16, TroopType.HALBERDIER : 16 },
+	TroopType.SPEARMAN : { TroopType.KNIGHT : 8, TroopType.CAVALARY : 8 },
+	TroopType.ARCHER : { TroopType.CAVALARY : 5, TroopType.SPEARMAN : 5, TroopType.ARCHER : 5, TroopType.DOUBLEAXFIGHTER : 5, TroopType.SHORTSWORDSMAN : 5 },
+	TroopType.KNIGHT : { TroopType.SWORDSMAN : 24, TroopType.SHORTSWORDSMAN : 24 },
 	TroopType.CATAPULT : { TroopType.CASTLE : 15},
-	TroopType.BATTLEAXFIGHTER : { TroopType.KNIGHT : 4, TroopType.HALBERDIER : 4, TroopType.CROSSBOWMAN : 4, TroopType.BATTLEAXFIGHTER : 4, TroopType.SWORDSMAN : 4 },
-	TroopType.CAVALARY : { TroopType.SWORDSMAN : 8, TroopType.SHORTSWORDSMAN : 8 },
-	TroopType.CROSSBOWMAN : { TroopType.CAVALARY : 4, TroopType.SPEARMAN : 4, TroopType.ARCHER : 4, TroopType.DOUBLEAXFIGHTER : 4, TroopType.SHORTSWORDSMAN : 4 },
-	TroopType.DOUBLEAXFIGHTER : { TroopType.KNIGHT : 3, TroopType.HALBERDIER : 3, TroopType.CROSSBOWMAN : 3, TroopType.BATTLEAXFIGHTER : 3, TroopType.SWORDSMAN : 3 },
-	TroopType.HALBERDIER : { TroopType.KNIGHT : 6, TroopType.CAVALARY : 6 },
-	TroopType.SHORTSWORDSMAN : { TroopType.SPEARMAN : 6, TroopType.HALBERDIER : 6 },
+	TroopType.BATTLEAXFIGHTER : { TroopType.KNIGHT : 7, TroopType.HALBERDIER : 7, TroopType.CROSSBOWMAN : 7, TroopType.BATTLEAXFIGHTER : 7, TroopType.SWORDSMAN : 7 },
+	TroopType.CAVALARY : { TroopType.SWORDSMAN : 16, TroopType.SHORTSWORDSMAN : 16 },
+	TroopType.CROSSBOWMAN : { TroopType.CAVALARY : 7, TroopType.SPEARMAN : 7, TroopType.ARCHER : 7, TroopType.DOUBLEAXFIGHTER : 7, TroopType.SHORTSWORDSMAN : 7 },
+	TroopType.DOUBLEAXFIGHTER : { TroopType.KNIGHT : 5, TroopType.HALBERDIER : 5, TroopType.CROSSBOWMAN : 5, TroopType.BATTLEAXFIGHTER : 5, TroopType.SWORDSMAN : 5 },
+	TroopType.HALBERDIER : { TroopType.KNIGHT : 12, TroopType.CAVALARY : 12 },
+	TroopType.SHORTSWORDSMAN : { TroopType.SPEARMAN : 12, TroopType.HALBERDIER : 12 },
 	TroopType.TREBUCHET : { TroopType.CASTLE : 25}
+}
+
+const FIELD_ATT_DMG: Dictionary = { 
+	TroopType.SWORDSMAN : { FieldType.CASTLE : -16, FieldType.MOUNTAIN : -8, FieldType.VILLAGE: 16 },
+	TroopType.SPEARMAN : { FieldType.CASTLE : -8, FieldType.MOUNTAIN : 12 },
+	TroopType.ARCHER : { FieldType.CASTLE : -12, FieldType.MOUNTAIN : -6, FieldType.VILLAGE: 12  },
+	TroopType.KNIGHT : { FieldType.CASTLE : -24, FieldType.MOUNTAIN : -12, FieldType.GRASS: 48  },
+	TroopType.CATAPULT : { FieldType.CASTLE : 0, FieldType.MOUNTAIN : -4 },
+	TroopType.BATTLEAXFIGHTER : { FieldType.CASTLE : -16, FieldType.MOUNTAIN : -8, FieldType.VILLAGE: 32  },
+	TroopType.CAVALARY : { FieldType.CASTLE : -16, FieldType.MOUNTAIN : -8, FieldType.GRASS: 16  },
+	TroopType.CROSSBOWMAN : { FieldType.CASTLE : -16, FieldType.MOUNTAIN : -8 },
+	TroopType.DOUBLEAXFIGHTER : { FieldType.CASTLE : -12, FieldType.MOUNTAIN : -6, FieldType.FOREST: 12 },
+	TroopType.HALBERDIER : { FieldType.CASTLE : -12, FieldType.MOUNTAIN : 6 },
+	TroopType.SHORTSWORDSMAN : { FieldType.CASTLE : -12, FieldType.MOUNTAIN : -6, FieldType.VILLAGE: 12, FieldType.FOREST: 12 },
+	TroopType.TREBUCHET : { FieldType.CASTLE : 0, FieldType.MOUNTAIN : -6 }
+}
+
+const FIELD_DEF_DMG: Dictionary = { 
+	TroopType.SWORDSMAN : { FieldType.CASTLE : 16, FieldType.MOUNTAIN : 8, FieldType.VILLAGE: 16 },
+	TroopType.SPEARMAN : { FieldType.CASTLE : 8, FieldType.MOUNTAIN : 4 },
+	TroopType.ARCHER : { FieldType.CASTLE : 12, FieldType.MOUNTAIN : 6, FieldType.FOREST: 12  },
+	TroopType.KNIGHT : { FieldType.CASTLE : 24, FieldType.MOUNTAIN : 12 },
+	TroopType.CATAPULT : { FieldType.CASTLE : 8, FieldType.MOUNTAIN : 4 },
+	TroopType.BATTLEAXFIGHTER : { FieldType.CASTLE : 16, FieldType.MOUNTAIN : 8 },
+	TroopType.CAVALARY : { FieldType.CASTLE : 16, FieldType.MOUNTAIN : 8, FieldType.GRASS: 16  },
+	TroopType.CROSSBOWMAN : { FieldType.CASTLE : 16, FieldType.MOUNTAIN : 8, FieldType.VILLAGE : 32 },
+	TroopType.DOUBLEAXFIGHTER : { FieldType.CASTLE : 12, FieldType.MOUNTAIN : 6, FieldType.FOREST: 12 },
+	TroopType.HALBERDIER : { FieldType.CASTLE : 12, FieldType.MOUNTAIN : 6, FieldType.GRASS : 12 },
+	TroopType.SHORTSWORDSMAN : { FieldType.CASTLE : 12, FieldType.MOUNTAIN : 6 },
+	TroopType.TREBUCHET : { FieldType.CASTLE : 12, FieldType.MOUNTAIN : 6 }
 }
 
 const SCENE_BLUE: Dictionary = { 

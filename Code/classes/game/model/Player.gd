@@ -9,7 +9,8 @@ var gold: int
 var income: int
 var salary: int
 
-var castle_position: Vector2
+var castle_position: Vector2 = Vector2(-1,-1)
+var selected_troops: Array = []
 var castle_health: int
 var food: int 
 var troops: Array = []

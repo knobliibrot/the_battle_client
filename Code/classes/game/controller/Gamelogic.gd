@@ -3,7 +3,7 @@ extends Node
 # This class controls everything what happens in the playground and emits signal to the GameScene
 class_name Gamelogic
 
-signal castle_set
+signal initial_done
 signal turn_finished
 signal play_finished
 signal game_finished
@@ -21,6 +21,7 @@ var is_player1: bool
 
 var factory_capture_mode_enabled: bool
 
+var actual_mode: int
 var game_over: bool
 var att_animation_finished: bool = false
 var def_animation_finished: bool = false
@@ -42,22 +43,17 @@ func generate_battelfield() -> void:
 	self.battlefield_map = $BattlefieldGenerator.generate_battlefield()
 
 # Starts the castle choosing process for the given player
-func start_castel_choosing(is_player1: bool) -> void:
+func start_initial_mode(is_player1: bool) -> void:
+	self.actual_mode = Mode.INITIAL_MODE
 	set_actual_players(is_player1)
 	
 	if self.act_player.player_type == PlayerType.MANUAL:
-		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
-		get_playground().activate_castle_mode(is_player1)
-		get_playground().start_timer_with_message("Place your Castle " + self.act_player.player_name + "!", GameSettings.round_time, "set_castle_timer_finished")	
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
+		get_playground().activate_castle_choosing(is_player1)
+		get_playground().start_timer_with_message("Place your Castle and select your Troops" + self.act_player.player_name + "!", GameSettings.round_time)
 
 func _on_Battlefield_castle_choosen(position: Vector2) -> void:
 	set_castle(position)
-
-func _on_TimeBox_set_castle_timer_finished() -> void:
-	if self.is_player1:
-		set_castle(Vector2(GameSettings.battlefield_width - 1, GameSettings.castle_start_height))
-	else:
-		set_castle(Vector2(0, GameSettings.castle_start_height))
 
 # Sets the castle at the given position. 
 # If it's called through a timout it will take the CASTLE_START_HEIGHT
@@ -75,9 +71,15 @@ func set_castle(position: Vector2) -> void:
 			empty_field.cut_connections()
 			get_battlefield().remove_child(empty_field)
 			battlefield_map[empty_field.field_position.y][empty_field.field_position.x] = null
-	
-	get_playground().stop_timer()
-	emit_signal("castle_set")
+
+func set_troops(selected_troops: Array) -> void:
+	self.act_player.selected_troops = selected_troops
+	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
+
+# Changes the UI from the start mode to the game mode
+func start_game_mode() -> void:
+	self.actual_mode = Mode.GAME_MODE
+	get_playground().start_game_mode()
 
 # Starts a turn of the actual player
 func start_turn(is_player1: bool, round_timer: int) -> void:
@@ -88,10 +90,10 @@ func start_turn(is_player1: bool, round_timer: int) -> void:
 		activate_factories(self.player1)
 	if self.act_player.player_type == PlayerType.MANUAL:
 		var game_over = pay_and_trainingday()
-		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		if !game_over:
-			get_playground().activate_turn_mode(is_player1)
-			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time, "turn_finished")
+			get_playground().activate_turn_mode(self.is_player1, self.act_player)
+			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 
 func activate_factories(player: Player) -> void:
 	for troop in player.troops:
@@ -114,7 +116,7 @@ func pay_and_trainingday() -> bool:
 		var castle_pos: Vector2 = self.act_player.castle_position
 		var troop: Troop = battlefield_map[castle_pos.y][castle_pos.x].create_troop(new_troop_type, self.is_player1)
 		if troop == null :
-			get_playground().show_message("WTF the Battelfield is full !!!",3)
+			get_playground().show_message("WTF the Battelfield is full !!!")
 		else:
 			self.act_player.troops.append((troop))
 	
@@ -125,7 +127,7 @@ func pay_and_trainingday() -> bool:
 
 func _on_QueueBar_remove_from_queue(position: int) -> void:
 	self.act_player.remove_from_queue(position)
-	get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
+	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 
 func _on_TroopButton_create_troop(troop_type: int) -> void:
 	add_troop_to_queue(troop_type)
@@ -134,12 +136,12 @@ func _on_TroopButton_create_troop(troop_type: int) -> void:
 func add_troop_to_queue(troop_type: int) -> void:
 	if self.act_player.gold >= TroopSettings.price[troop_type]:
 		if !self.act_player.add_troop_to_queue(troop_type):
-			get_playground().show_message("The queue is full!", 1)
+			get_playground().show_message("The queue is full!")
 		else:
 			self.act_player.gold -= TroopSettings.price[troop_type]
-		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 	else:
-		get_playground().show_message("You don't have enaugh money!", 1)
+		get_playground().show_message("You don't have enaugh money!")
 
 func _on_Battlefield_troop_selected(pos: Vector2) -> void:
 	self.selected_field = battlefield_map[pos.y][pos.x]
@@ -225,13 +227,13 @@ func _on_Battlefield_target_selected(position: Vector2):
 	# Cleanup
 	self.selected_field = null
 	if self.game_over:
-		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		game_over()
 	else:
-		var state = get_playground().activate_turn_mode(is_player1)
+		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player)
 		state.resume()
-		get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
-		state = get_playground().update_gui_with_player(self.player1, self.player2, self.is_player1)
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
+		state = get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		state.resume()
 	self.play_running = false
 	emit_signal("play_finished")
@@ -255,54 +257,67 @@ func fight(attacker: Troop, defender: Troop) -> int:
 
 # Returns the damage which the attacker makes against this defender
 func get_attacker_damage(attacker: Troop, defender: Troop, damge_per_health: bool) -> int:
-	var field_bonus: float = get_field_bonus_att(attacker, defender)
-	var troop_bonus: int = get_troop_bonus(attacker, defender.troop_type)
+	var field_bonus: int = get_field_bonus_att(attacker, defender)
+	var troop_bonus: int = get_troop_bonus_att(attacker.troop_type, defender.troop_type)
 	if damge_per_health:
-		return int((float(TroopSettings.att_dmg[attacker.troop_type] + troop_bonus) * field_bonus) / TroopSettings.start_health[attacker.troop_type] * attacker.healthpoints)
+		return int(TroopSettings.att_dmg[attacker.troop_type] + troop_bonus + field_bonus / TroopSettings.start_health[attacker.troop_type] * attacker.healthpoints)
 	else:
-		return int(float(TroopSettings.att_dmg[attacker.troop_type] + troop_bonus) * field_bonus)
+		return TroopSettings.att_dmg[attacker.troop_type] + troop_bonus + field_bonus
 
 # Returns the damage which the defender makes against this attacker
 func get_defender_damage(attacker: Troop, defender: Troop, damge_per_health: bool) -> int:
-	var field_bonus: float = get_field_bonus_def(defender)
-	var troop_bonus: int = get_troop_bonus(defender, attacker.troop_type)
+	var field_bonus: int = get_field_bonus_def(defender)
+	var troop_bonus: int = get_troop_bonus_def(defender.troop_type, attacker.troop_type)
 	if damge_per_health:
-		return int((float(TroopSettings.def_dmg[defender.troop_type] + troop_bonus) * field_bonus) / TroopSettings.start_health[defender.troop_type] * defender.healthpoints)
+		return int(TroopSettings.def_dmg[defender.troop_type] + troop_bonus + field_bonus / TroopSettings.start_health[defender.troop_type] * defender.healthpoints)
 	else:
-		return int(float(TroopSettings.def_dmg[defender.troop_type] + troop_bonus) * field_bonus)
+		return TroopSettings.def_dmg[defender.troop_type] + troop_bonus + field_bonus
 
 # Get troop bonus from the attacker against the defender
-func get_troop_bonus(attacker: Troop, defender_troop_type: int) -> int:
+func get_troop_bonus_att(attacker_troop_type: int, defender_troop_type: int) -> int:
 	var troop_bonus: int = 0
-	for troop_type in TroopSettings.special_dmg[attacker.troop_type]:
+	for troop_type in TroopSettings.special_dmg[attacker_troop_type]:
 			if troop_type == defender_troop_type:
-				troop_bonus = TroopSettings.special_dmg[attacker.troop_type][troop_type]
+				troop_bonus = TroopSettings.special_dmg[attacker_troop_type][troop_type]
+				break
+	return troop_bonus
+	
+# Get troop bonus from the defender against the attacker
+func get_troop_bonus_def(attacker_troop_type: int, defender_troop_type: int) -> int:
+	var troop_bonus: int = 0
+	for troop_type in TroopSettings.special_dmg[defender_troop_type]:
+			if troop_type == attacker_troop_type:
+				troop_bonus = TroopSettings.special_dmg[defender_troop_type][troop_type]
 				break
 	return troop_bonus
 
 # Get field bonus for the defender
-func get_field_bonus_def(defender: Troop) -> float:
-	var field_bonus: float = 1
-	for troop_type in FieldSettings.def_dmg[defender.parent_field.field_type]:
-				if troop_type == defender.troop_type:
-					field_bonus = FieldSettings.def_dmg[defender.parent_field.field_type][troop_type]
-					break
-	return float(field_bonus)
+func get_field_bonus_def(defender: Troop) -> int:
+	var field_bonus: int = 0
+	for troop_type in TroopSettings.field_def_dmg[defender.troop_type]:
+			if  troop_type == defender.troop_type:
+				field_bonus = TroopSettings.field_def_dmg[defender.troop_type].get(defender.parent_field.field_type)
+				if field_bonus == null:
+					return 0
+				break
+	return field_bonus
 
 # Get field bouns for the attacker
-func get_field_bonus_att(attacker: Troop, defender: Troop) -> float:
-	var field_bonus: float = 1
-	for troop_type in FieldSettings.att_dmg[defender.parent_field.field_type]:
-		if troop_type == attacker.troop_type:
-			field_bonus = FieldSettings.att_dmg[defender.parent_field.field_type][troop_type]
-			break
-	return float(field_bonus)
+func get_field_bonus_att(attacker: Troop, defender: Troop) -> int:
+	var field_bonus: int = 0
+	for troop_type in TroopSettings.field_def_dmg[attacker.troop_type]:
+			if  troop_type == attacker.troop_type:
+				field_bonus = TroopSettings.field_def_dmg[attacker.troop_type].get(defender.parent_field.field_type)
+				if field_bonus == null:
+					return 0
+				break
+	return field_bonus
 
 # Calculate castle attack, set game over flag and return movement type "NOBODY_DIE"
 func attack_castle(attacker: Troop) -> int:
 	if attacker.attack_done:
 		attacker.attack_done = true
-	var troop_bonus: int = get_troop_bonus(attacker, TroopType.CASTLE)
+	var troop_bonus: int = get_troop_bonus_att(attacker.troop_type, TroopType.CASTLE)
 	self.act_opponent.castle_health = self.act_opponent.castle_health - TroopSettings.att_dmg[attacker.troop_type] + troop_bonus
 	if self.act_opponent.castle_health < 1:
 		self.game_over = true
@@ -452,26 +467,40 @@ func _on_Attacker_animation_finished() -> void:
 func _on_Defender_animation_finished() -> void:
 	self.def_animation_finished = true
 
-# Stops Round, show Game Over and finish the game
-func game_over() -> void:
-	get_playground().stop_timer()
-	get_playground().disable_all()
-	get_playground().show_message("Game Over " + self.act_opponent.player_name, 5)
 
-func close_game() -> void:
-	emit_signal("game_finished", act_player)
-	yield(get_tree().create_timer(0.1), "timeout")
-	emit_signal("turn_finished")
-	emit_signal("castle_set")
+# Sets the actual player and opponent for this round
+func set_actual_players(is_player1: bool) -> void:
+	self.is_player1 = is_player1
+	if is_player1:
+		self.act_player = self.player1
+		self.act_opponent = self.player2
+	else:
+		self.act_player = self.player2
+		self.act_opponent = self.player1
 
 func _on_DoneBox_done() -> void:
+	get_playground().stop_timer()
 	self.turn_done()
 
-func _on_TimeBox_turn_finished() -> void:
+func _on_TimeBox_timer_finished():
 	self.turn_done()
+
+func turn_done() -> void:
+	if actual_mode == Mode.INITIAL_MODE:
+		self.initial_turn_done()
+	elif actual_mode == Mode.GAME_MODE:
+		self.game_turn_done()
+
+func initial_turn_done() -> void:
+	if self.act_player.castle_position == Vector2(-1,-1):
+		if self.is_player1:
+			set_castle(Vector2(GameSettings.battlefield_width - 1, GameSettings.castle_start_height))
+		else:
+			set_castle(Vector2(0, GameSettings.castle_start_height))
+	emit_signal("initial_done")
 
 # Stops the timer, waits until the running play is finished and emits the finsih signal
-func turn_done() -> void:
+func game_turn_done() -> void:
 	if self.factory_capture_mode_enabled && self.act_player.factories.size() > 0:
 		if self.act_player.food < GameSettings.max_food_amount:
 			var new_food_amount = self.act_player.food + act_player.factories.size()
@@ -479,7 +508,7 @@ func turn_done() -> void:
 				self.act_player.food = GameSettings.max_food_amount
 			else:
 				self.act_player.food = new_food_amount 
-	else:
+	elif self.factory_capture_mode_enabled:
 		self.act_player.food = self.act_player.food - 1
 		if self.act_player.food  <= 0:
 			game_over()
@@ -491,15 +520,17 @@ func turn_done() -> void:
 		print("turn finished, player1: " + str(self.is_player1))
 		emit_signal("turn_finished")
 
-# Sets the actual player and opponent for this round
-func set_actual_players(is_player1: bool) -> void:
-	self.is_player1 = is_player1
-	if is_player1:
-		self.act_player = self.player1
-		self.act_opponent = self.player2
-	else:
-		self.act_player = self.player2
-		self.act_opponent = self.player1
+# Stops Round, show Game Over and finish the game
+func game_over() -> void:
+	get_playground().stop_timer()
+	get_playground().disable_all()
+	get_playground().show_message("Game Over " + self.act_opponent.player_name)
+
+func close_game() -> void:
+	emit_signal("game_finished", act_player)
+	yield(get_tree().create_timer(0.1), "timeout")
+	emit_signal("turn_finished")
+	emit_signal("initial_done")
 
 # Returns the Playground / Parent
 func get_playground() -> Playground:

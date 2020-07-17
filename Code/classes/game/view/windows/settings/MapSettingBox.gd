@@ -1,4 +1,4 @@
-extends "res://classes/game/controller/settings/SettingBox.gd"
+extends "res://classes/game/view/windows/settings/SettingBox.gd"
 
 export var map_key: String
 

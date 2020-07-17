@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://classes/game/controller/settings/SettingBox.tscn" type="PackedScene" id=1]
-[ext_resource path="res://classes/game/controller/settings/SettingsWindow.gd" type="Script" id=2]
-[ext_resource path="res://classes/game/controller/settings/DoubleMapSettingBox.tscn" type="PackedScene" id=3]
-[ext_resource path="res://classes/game/controller/settings/MapSettingBox.tscn" type="PackedScene" id=4]
-[ext_resource path="res://artifacts/fonts/notosans_settings_title.tres" type="DynamicFont" id=5]
+[ext_resource path="res://classes/game/view/windows/settings/DoubleMapSettingBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/windows/settings/SettingBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://classes/game/view/windows/settings/MapSettingBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://artifacts/fonts/notosans_settings_title.tres" type="DynamicFont" id=4]
+[ext_resource path="res://classes/game/view/windows/settings/SettingsWindow.gd" type="Script" id=5]
 
 [node name="SettingsWindow" type="MarginContainer"]
 anchor_right = 1.0
@@ -13,7 +13,7 @@ custom_constants/margin_right = 50
 custom_constants/margin_top = 50
 custom_constants/margin_left = 50
 custom_constants/margin_bottom = 50
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -84,7 +84,7 @@ columns = 3
 [node name="Label" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
 margin_right = 250.0
 margin_bottom = 22.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Game Settings"
 
 [node name="Label2" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
@@ -99,7 +99,7 @@ margin_top = 4.0
 margin_right = 1154.0
 margin_bottom = 18.0
 
-[node name="CastleHealth" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="CastleHealth" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_top = 26.0
 margin_bottom = 56.0
 label = "Castle Health"
@@ -109,7 +109,7 @@ class_sett = "GameSettings"
 value_sett = "castle_health"
 datatype = "int"
 
-[node name="StartGold" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="StartGold" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 452.0
 margin_top = 26.0
 margin_right = 702.0
@@ -121,7 +121,7 @@ class_sett = "GameSettings"
 value_sett = "start_gold"
 datatype = "int"
 
-[node name="BasicIncome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="BasicIncome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 904.0
 margin_top = 26.0
 margin_right = 1154.0
@@ -133,7 +133,7 @@ class_sett = "GameSettings"
 value_sett = "basic_income"
 datatype = "int"
 
-[node name="Factoryincome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="Factoryincome" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_top = 60.0
 margin_bottom = 90.0
 label = "Income per Factory"
@@ -143,7 +143,7 @@ class_sett = "GameSettings"
 value_sett = "income_per_factory"
 datatype = "int"
 
-[node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="MessageShowTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 452.0
 margin_top = 60.0
 margin_right = 702.0
@@ -155,7 +155,7 @@ class_sett = "GameSettings"
 value_sett = "message_show_time"
 datatype = "int"
 
-[node name="QueueSize" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="QueueSize" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 904.0
 margin_top = 60.0
 margin_right = 1154.0
@@ -167,7 +167,7 @@ class_sett = "GameSettings"
 value_sett = "queue_size"
 datatype = "int"
 
-[node name="Buildtime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="Buildtime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_top = 94.0
 margin_bottom = 124.0
 label = "Buildtime per Round"
@@ -177,7 +177,7 @@ class_sett = "GameSettings"
 value_sett = "buildpoints_per_round"
 datatype = "int"
 
-[node name="FactoryActivationTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="FactoryActivationTime" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 452.0
 margin_top = 94.0
 margin_right = 702.0
@@ -189,7 +189,7 @@ class_sett = "GameSettings"
 value_sett = "factory_activation_time"
 datatype = "int"
 
-[node name="RoundTime4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="RoundTime4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 904.0
 margin_top = 94.0
 margin_right = 1154.0
@@ -201,7 +201,7 @@ class_sett = "GameSettings"
 value_sett = "round_time"
 datatype = "int"
 
-[node name="AnimationSpeed" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="AnimationSpeed" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_top = 128.0
 margin_bottom = 158.0
 label = "Animationspeed per Round"
@@ -211,7 +211,7 @@ class_sett = "GameSettings"
 value_sett = "animation_speed_per_field"
 datatype = "float"
 
-[node name="AnimationTolerance" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="AnimationTolerance" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 452.0
 margin_top = 128.0
 margin_right = 702.0
@@ -223,7 +223,7 @@ class_sett = "GameSettings"
 value_sett = "animation_tolerance"
 datatype = "float"
 
-[node name="AnimationTolerance2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
+[node name="AnimationTolerance2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 2 )]
 margin_left = 904.0
 margin_top = 128.0
 margin_right = 1154.0
@@ -239,7 +239,7 @@ datatype = "bool"
 margin_top = 162.0
 margin_right = 250.0
 margin_bottom = 184.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Chances Grass"
 
 [node name="Place3" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
@@ -254,7 +254,7 @@ margin_top = 166.0
 margin_right = 1154.0
 margin_bottom = 180.0
 
-[node name="GrassGrass1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassGrass1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 188.0
 margin_bottom = 218.0
 label = "Grass - 1"
@@ -266,7 +266,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "1"
 
-[node name="GrassGrass2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassGrass2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 188.0
 margin_right = 702.0
@@ -280,7 +280,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "2"
 
-[node name="GrassGrass3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassGrass3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 188.0
 margin_right = 1154.0
@@ -294,7 +294,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "3"
 
-[node name="GrassForest1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassForest1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 222.0
 margin_bottom = 252.0
 label = "Forest - 1"
@@ -306,7 +306,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "1"
 
-[node name="GrassForest2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassForest2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 222.0
 margin_right = 702.0
@@ -320,7 +320,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "2"
 
-[node name="GrassForest3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassForest3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 222.0
 margin_right = 1154.0
@@ -334,7 +334,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "3"
 
-[node name="GrassMountain1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassMountain1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 256.0
 margin_bottom = 286.0
 label = "Mountain - 1"
@@ -346,7 +346,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "1"
 
-[node name="GrassMountain2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassMountain2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 256.0
 margin_right = 702.0
@@ -360,7 +360,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "2"
 
-[node name="GrassMountain3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassMountain3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 256.0
 margin_right = 1154.0
@@ -374,7 +374,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "3"
 
-[node name="GrassVillage1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassVillage1" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 290.0
 margin_bottom = 320.0
 label = "Village - 1"
@@ -386,7 +386,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "1"
 
-[node name="GrassVillage2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassVillage2" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 290.0
 margin_right = 702.0
@@ -400,7 +400,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "2"
 
-[node name="GrassVillage3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="GrassVillage3" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 290.0
 margin_right = 1154.0
@@ -418,7 +418,7 @@ second_map_key = "3"
 margin_top = 324.0
 margin_right = 250.0
 margin_bottom = 346.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Chances Forest"
 
 [node name="Place5" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
@@ -433,7 +433,7 @@ margin_top = 328.0
 margin_right = 1154.0
 margin_bottom = 342.0
 
-[node name="ForestGrass6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestGrass6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 350.0
 margin_bottom = 380.0
 label = "Grass - 1"
@@ -445,7 +445,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "1"
 
-[node name="ForestGrass5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestGrass5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 350.0
 margin_right = 702.0
@@ -459,7 +459,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "2"
 
-[node name="ForestGrass4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestGrass4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 350.0
 margin_right = 1154.0
@@ -473,7 +473,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "3"
 
-[node name="ForestForest6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestForest6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 384.0
 margin_bottom = 414.0
 label = "Forest - 1"
@@ -485,7 +485,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "1"
 
-[node name="ForestForest5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestForest5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 384.0
 margin_right = 702.0
@@ -499,7 +499,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "2"
 
-[node name="ForestForest4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestForest4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 384.0
 margin_right = 1154.0
@@ -513,7 +513,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "3"
 
-[node name="ForestMountain6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestMountain6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 418.0
 margin_bottom = 448.0
 label = "Mountain - 1"
@@ -525,7 +525,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "1"
 
-[node name="ForestMountain5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestMountain5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 418.0
 margin_right = 702.0
@@ -539,7 +539,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "2"
 
-[node name="ForestMountain4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestMountain4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 418.0
 margin_right = 1154.0
@@ -553,7 +553,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "3"
 
-[node name="ForestVillage6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestVillage6" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 452.0
 margin_bottom = 482.0
 label = "Village - 1"
@@ -565,7 +565,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "1"
 
-[node name="ForestVillage5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestVillage5" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 452.0
 margin_right = 702.0
@@ -579,7 +579,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "2"
 
-[node name="ForestVillage4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="ForestVillage4" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 452.0
 margin_right = 1154.0
@@ -597,7 +597,7 @@ second_map_key = "3"
 margin_top = 486.0
 margin_right = 250.0
 margin_bottom = 508.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Chances Mountain"
 
 [node name="Place7" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
@@ -612,7 +612,7 @@ margin_top = 490.0
 margin_right = 1154.0
 margin_bottom = 504.0
 
-[node name="MountainGrass9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainGrass9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 512.0
 margin_bottom = 542.0
 label = "Grass - 1"
@@ -624,7 +624,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "1"
 
-[node name="MountainGrass8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainGrass8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 512.0
 margin_right = 702.0
@@ -638,7 +638,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "2"
 
-[node name="MountainGrass7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainGrass7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 512.0
 margin_right = 1154.0
@@ -652,7 +652,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "3"
 
-[node name="MountainForest9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainForest9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 546.0
 margin_bottom = 576.0
 label = "Forest - 1"
@@ -664,7 +664,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "1"
 
-[node name="MountainForest8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainForest8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 546.0
 margin_right = 702.0
@@ -678,7 +678,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "2"
 
-[node name="MountainForest7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainForest7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 546.0
 margin_right = 1154.0
@@ -692,7 +692,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "3"
 
-[node name="MountainMountain9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainMountain9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 580.0
 margin_bottom = 610.0
 label = "Mountain - 1"
@@ -704,7 +704,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "1"
 
-[node name="MountainMountain8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainMountain8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 580.0
 margin_right = 702.0
@@ -718,7 +718,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "2"
 
-[node name="MountainMountain7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainMountain7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 580.0
 margin_right = 1154.0
@@ -732,7 +732,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "3"
 
-[node name="MountainVillage9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainVillage9" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 614.0
 margin_bottom = 644.0
 label = "Village - 1"
@@ -744,7 +744,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "1"
 
-[node name="MountainVillage8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainVillage8" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 614.0
 margin_right = 702.0
@@ -758,7 +758,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "2"
 
-[node name="MountainVillage7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="MountainVillage7" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 614.0
 margin_right = 1154.0
@@ -776,7 +776,7 @@ second_map_key = "3"
 margin_top = 648.0
 margin_right = 250.0
 margin_bottom = 670.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Chances Village"
 
 [node name="Place9" type="Label" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer"]
@@ -791,7 +791,7 @@ margin_top = 652.0
 margin_right = 1154.0
 margin_bottom = 666.0
 
-[node name="VillageGrass12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageGrass12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 674.0
 margin_bottom = 704.0
 label = "Grass - 1"
@@ -803,7 +803,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "1"
 
-[node name="VillageGrass11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageGrass11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 674.0
 margin_right = 702.0
@@ -817,7 +817,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "2"
 
-[node name="VillageGrass10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageGrass10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 674.0
 margin_right = 1154.0
@@ -831,7 +831,7 @@ datatype = "int"
 map_key = "GRASS"
 second_map_key = "3"
 
-[node name="VillageForest11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageForest11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 708.0
 margin_bottom = 738.0
 label = "Forest - 2"
@@ -843,7 +843,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "2"
 
-[node name="VillageForest12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageForest12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 708.0
 margin_right = 702.0
@@ -857,7 +857,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "1"
 
-[node name="VillageForest10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageForest10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 708.0
 margin_right = 1154.0
@@ -871,7 +871,7 @@ datatype = "int"
 map_key = "FOREST"
 second_map_key = "3"
 
-[node name="VillageMountain12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageMountain12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 742.0
 margin_bottom = 772.0
 label = "Mountain - 1"
@@ -883,7 +883,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "1"
 
-[node name="VillageMountain11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageMountain11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 742.0
 margin_right = 702.0
@@ -897,7 +897,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "2"
 
-[node name="VillageMountain10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageMountain10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 742.0
 margin_right = 1154.0
@@ -911,7 +911,7 @@ datatype = "int"
 map_key = "MOUNTAIN"
 second_map_key = "3"
 
-[node name="VillageVillage12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageVillage12" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_top = 776.0
 margin_bottom = 806.0
 label = "Village - 1"
@@ -923,7 +923,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "1"
 
-[node name="VillageVillage11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageVillage11" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 776.0
 margin_right = 702.0
@@ -937,7 +937,7 @@ datatype = "int"
 map_key = "VILLAGE"
 second_map_key = "2"
 
-[node name="VillageVillage10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 3 )]
+[node name="VillageVillage10" parent="MarginContainer/Content/TabContainer/Game/MarginContainer/ScrollContainer2/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 776.0
 margin_right = 1154.0
@@ -989,7 +989,7 @@ columns = 3
 [node name="FieldSpeed" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
 margin_right = 250.0
 margin_bottom = 22.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Field Speed"
 
 [node name="Space" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1004,7 +1004,7 @@ margin_top = 4.0
 margin_right = 1154.0
 margin_bottom = 18.0
 
-[node name="SpeedGrass" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SpeedGrass" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 26.0
 margin_bottom = 56.0
 label = "Speed Grass"
@@ -1015,7 +1015,7 @@ value_sett = "speed"
 datatype = "int"
 map_key = "GRASS"
 
-[node name="SpeedForrest" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SpeedForrest" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 26.0
 margin_right = 702.0
@@ -1028,7 +1028,7 @@ value_sett = "speed"
 datatype = "int"
 map_key = "FOREST"
 
-[node name="SpeedMountain" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SpeedMountain" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 26.0
 margin_right = 1154.0
@@ -1041,7 +1041,7 @@ value_sett = "speed"
 datatype = "int"
 map_key = "MOUNTAIN"
 
-[node name="SpeedVillage" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SpeedVillage" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 60.0
 margin_bottom = 90.0
 label = "Speed Village"
@@ -1052,7 +1052,7 @@ value_sett = "speed"
 datatype = "int"
 map_key = "VILLAGE"
 
-[node name="SpeedCastle" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SpeedCastle" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 60.0
 margin_right = 702.0
@@ -1075,7 +1075,7 @@ margin_bottom = 82.0
 margin_top = 94.0
 margin_right = 250.0
 margin_bottom = 116.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Att Damage Grass"
 
 [node name="Space4" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1090,7 +1090,7 @@ margin_top = 98.0
 margin_right = 1154.0
 margin_bottom = 112.0
 
-[node name="AttGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 120.0
 margin_bottom = 150.0
 label = "Spearman"
@@ -1102,7 +1102,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "SPEARMAN"
 
-[node name="AttGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 120.0
 margin_right = 702.0
@@ -1116,7 +1116,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "SWORDSMAN"
 
-[node name="AttGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 120.0
 margin_right = 1154.0
@@ -1130,7 +1130,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "ARCHER"
 
-[node name="AttGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 154.0
 margin_bottom = 184.0
 label = "Knight"
@@ -1142,7 +1142,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "KNIGHT"
 
-[node name="AttGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 154.0
 margin_right = 702.0
@@ -1166,7 +1166,7 @@ margin_bottom = 176.0
 margin_top = 188.0
 margin_right = 250.0
 margin_bottom = 210.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Att Damage Forest"
 
 [node name="Space9" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1181,7 +1181,7 @@ margin_top = 192.0
 margin_right = 1154.0
 margin_bottom = 206.0
 
-[node name="AttForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 214.0
 margin_bottom = 244.0
 label = "Spearman"
@@ -1193,7 +1193,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "SPEARMAN"
 
-[node name="AttForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 214.0
 margin_right = 702.0
@@ -1207,7 +1207,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "SWORDSMAN"
 
-[node name="AttForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 214.0
 margin_right = 1154.0
@@ -1221,7 +1221,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "ARCHER"
 
-[node name="AttForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 248.0
 margin_bottom = 278.0
 label = "Knight"
@@ -1233,7 +1233,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "KNIGHT"
 
-[node name="AttForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 248.0
 margin_right = 702.0
@@ -1257,7 +1257,7 @@ margin_bottom = 270.0
 margin_top = 282.0
 margin_right = 250.0
 margin_bottom = 304.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Att Damage Mountain"
 
 [node name="Space12" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1272,7 +1272,7 @@ margin_top = 286.0
 margin_right = 1154.0
 margin_bottom = 300.0
 
-[node name="AttMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 308.0
 margin_bottom = 338.0
 label = "Spearman"
@@ -1284,7 +1284,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "SPEARMAN"
 
-[node name="AttMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 308.0
 margin_right = 702.0
@@ -1298,7 +1298,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "SWORDSMAN"
 
-[node name="AttMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 308.0
 margin_right = 1154.0
@@ -1312,7 +1312,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "ARCHER"
 
-[node name="AttMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 342.0
 margin_bottom = 372.0
 label = "Knight"
@@ -1324,7 +1324,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "KNIGHT"
 
-[node name="AttMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 342.0
 margin_right = 702.0
@@ -1348,7 +1348,7 @@ margin_bottom = 364.0
 margin_top = 376.0
 margin_right = 250.0
 margin_bottom = 398.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Att Damage Village"
 
 [node name="Space15" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1363,7 +1363,7 @@ margin_top = 380.0
 margin_right = 1154.0
 margin_bottom = 394.0
 
-[node name="AttVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 402.0
 margin_bottom = 432.0
 label = "Spearman"
@@ -1375,7 +1375,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "SPEARMAN"
 
-[node name="AttVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 402.0
 margin_right = 702.0
@@ -1389,7 +1389,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "SWORDSMAN"
 
-[node name="AttVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 402.0
 margin_right = 1154.0
@@ -1403,7 +1403,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "ARCHER"
 
-[node name="AttVillageKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttVillageKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 436.0
 margin_bottom = 466.0
 label = "Knight"
@@ -1415,7 +1415,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "KNIGHT"
 
-[node name="AttVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 436.0
 margin_right = 702.0
@@ -1439,7 +1439,7 @@ margin_bottom = 458.0
 margin_top = 470.0
 margin_right = 250.0
 margin_bottom = 492.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Att Damage Castle"
 
 [node name="Space18" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1454,7 +1454,7 @@ margin_top = 474.0
 margin_right = 1154.0
 margin_bottom = 488.0
 
-[node name="AttCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 496.0
 margin_bottom = 526.0
 label = "Spearman"
@@ -1466,7 +1466,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "SPEARMAN"
 
-[node name="AttCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 496.0
 margin_right = 702.0
@@ -1480,7 +1480,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "SWORDSMAN"
 
-[node name="AttCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 496.0
 margin_right = 1154.0
@@ -1494,7 +1494,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "ARCHER"
 
-[node name="AttCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 530.0
 margin_bottom = 560.0
 label = "Knight"
@@ -1506,7 +1506,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "KNIGHT"
 
-[node name="AttCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="AttCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 530.0
 margin_right = 702.0
@@ -1530,7 +1530,7 @@ margin_bottom = 552.0
 margin_top = 564.0
 margin_right = 250.0
 margin_bottom = 586.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Def Damage Grass"
 
 [node name="Space33" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1545,7 +1545,7 @@ margin_top = 568.0
 margin_right = 1154.0
 margin_bottom = 582.0
 
-[node name="DefGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefGrassSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 590.0
 margin_bottom = 620.0
 label = "Spearman"
@@ -1557,7 +1557,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "SPEARMAN"
 
-[node name="DefGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefGrassSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 590.0
 margin_right = 702.0
@@ -1571,7 +1571,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "SWORDSMAN"
 
-[node name="DefGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefGrassArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 590.0
 margin_right = 1154.0
@@ -1585,7 +1585,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "ARCHER"
 
-[node name="DefGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefGrassKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 624.0
 margin_bottom = 654.0
 label = "Knight"
@@ -1597,7 +1597,7 @@ datatype = "float"
 map_key = "GRASS"
 second_map_key = "KNIGHT"
 
-[node name="DefGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefGrassCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 624.0
 margin_right = 702.0
@@ -1621,7 +1621,7 @@ margin_bottom = 646.0
 margin_top = 658.0
 margin_right = 250.0
 margin_bottom = 680.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Def Damage Forest"
 
 [node name="Space30" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1636,7 +1636,7 @@ margin_top = 662.0
 margin_right = 1154.0
 margin_bottom = 676.0
 
-[node name="DefForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefForestSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 684.0
 margin_bottom = 714.0
 label = "Spearman"
@@ -1648,7 +1648,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "SPEARMAN"
 
-[node name="DefForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefForestSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 684.0
 margin_right = 702.0
@@ -1662,7 +1662,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "SWORDSMAN"
 
-[node name="DefForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefForestArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 684.0
 margin_right = 1154.0
@@ -1676,7 +1676,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "ARCHER"
 
-[node name="DefForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefForestKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 718.0
 margin_bottom = 748.0
 label = "Knight"
@@ -1688,7 +1688,7 @@ datatype = "float"
 map_key = "FOREST"
 second_map_key = "KNIGHT"
 
-[node name="DefForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefForestCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 718.0
 margin_right = 702.0
@@ -1712,7 +1712,7 @@ margin_bottom = 740.0
 margin_top = 752.0
 margin_right = 250.0
 margin_bottom = 774.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Def Damage Mountain"
 
 [node name="Space27" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1727,7 +1727,7 @@ margin_top = 756.0
 margin_right = 1154.0
 margin_bottom = 770.0
 
-[node name="DefMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefMountainSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 778.0
 margin_bottom = 808.0
 label = "Spearman"
@@ -1739,7 +1739,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "SPEARMAN"
 
-[node name="DefMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefMountainSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 778.0
 margin_right = 702.0
@@ -1753,7 +1753,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "SWORDSMAN"
 
-[node name="DefMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefMountainArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 778.0
 margin_right = 1154.0
@@ -1767,7 +1767,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "ARCHER"
 
-[node name="DefMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefMountainKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 812.0
 margin_bottom = 842.0
 label = "Knight"
@@ -1779,7 +1779,7 @@ datatype = "float"
 map_key = "MOUNTAIN"
 second_map_key = "KNIGHT"
 
-[node name="DefMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefMountainCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 812.0
 margin_right = 702.0
@@ -1803,7 +1803,7 @@ margin_bottom = 834.0
 margin_top = 846.0
 margin_right = 250.0
 margin_bottom = 868.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Def Damage Village"
 
 [node name="Space24" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1818,7 +1818,7 @@ margin_top = 850.0
 margin_right = 1154.0
 margin_bottom = 864.0
 
-[node name="DefVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefVillageSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 872.0
 margin_bottom = 902.0
 label = "Spearman"
@@ -1830,7 +1830,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "SPEARMAN"
 
-[node name="DefVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefVillageSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 872.0
 margin_right = 702.0
@@ -1844,7 +1844,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "SWORDSMAN"
 
-[node name="DefVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefVillageArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 872.0
 margin_right = 1154.0
@@ -1858,7 +1858,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "ARCHER"
 
-[node name="DefVillageKnightDef" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefVillageKnightDef" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 906.0
 margin_bottom = 936.0
 label = "Knight"
@@ -1870,7 +1870,7 @@ datatype = "float"
 map_key = "VILLAGE"
 second_map_key = "KNIGHT"
 
-[node name="DefVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefVillageCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 906.0
 margin_right = 702.0
@@ -1894,7 +1894,7 @@ margin_bottom = 928.0
 margin_top = 940.0
 margin_right = 250.0
 margin_bottom = 962.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Def Damage Castle"
 
 [node name="Space21" type="Label" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer"]
@@ -1909,7 +1909,7 @@ margin_top = 944.0
 margin_right = 1154.0
 margin_bottom = 958.0
 
-[node name="DefCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefCastleSpearman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 966.0
 margin_bottom = 996.0
 label = "Spearman"
@@ -1921,7 +1921,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "SPEARMAN"
 
-[node name="DefCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefCastleSwordsman" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 966.0
 margin_right = 702.0
@@ -1935,7 +1935,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "SWORDSMAN"
 
-[node name="DefCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefCastleArcher" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 904.0
 margin_top = 966.0
 margin_right = 1154.0
@@ -1949,7 +1949,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "ARCHER"
 
-[node name="DefCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefCastleKnight" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 1000.0
 margin_bottom = 1030.0
 label = "Knight"
@@ -1961,7 +1961,7 @@ datatype = "float"
 map_key = "FCASTLE"
 second_map_key = "KNIGHT"
 
-[node name="DefCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DefCastleCatapult" parent="MarginContainer/Content/TabContainer/Field/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 452.0
 margin_top = 1000.0
 margin_right = 702.0
@@ -2019,7 +2019,7 @@ columns = 3
 [node name="Price" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
 margin_right = 250.0
 margin_bottom = 22.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Price"
 
 [node name="Space" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2034,7 +2034,7 @@ margin_top = 4.0
 margin_right = 1154.0
 margin_bottom = 18.0
 
-[node name="PriceSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 26.0
 margin_bottom = 56.0
 label = "Price Spearman"
@@ -2045,7 +2045,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="PriceSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 26.0
 margin_right = 702.0
@@ -2058,7 +2058,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="PriceArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 26.0
 margin_right = 1154.0
@@ -2071,7 +2071,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="PriceKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 60.0
 margin_bottom = 90.0
 label = "Price Knight"
@@ -2082,7 +2082,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="PriceCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 60.0
 margin_right = 702.0
@@ -2095,7 +2095,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="PriceBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 60.0
 margin_right = 1154.0
@@ -2108,7 +2108,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="PriceCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 94.0
 margin_bottom = 124.0
 label = "Price Cavalary"
@@ -2119,7 +2119,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="PriceDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 94.0
 margin_right = 702.0
@@ -2132,7 +2132,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="PriceHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 94.0
 margin_right = 1154.0
@@ -2145,7 +2145,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="PriceCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 128.0
 margin_bottom = 158.0
 label = "Price Crossbow"
@@ -2156,7 +2156,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="PriceTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 128.0
 margin_right = 702.0
@@ -2169,7 +2169,7 @@ value_sett = "price"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="PriceShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="PriceShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 128.0
 margin_right = 1154.0
@@ -2186,7 +2186,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 162.0
 margin_right = 250.0
 margin_bottom = 184.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Build Time"
 
 [node name="Space6" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2201,7 +2201,7 @@ margin_top = 166.0
 margin_right = 1154.0
 margin_bottom = 180.0
 
-[node name="BuildTimeSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 188.0
 margin_bottom = 218.0
 label = "Build Time Spearman"
@@ -2212,7 +2212,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="BuildTimeSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 188.0
 margin_right = 702.0
@@ -2225,7 +2225,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="BuildTimeArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 188.0
 margin_right = 1154.0
@@ -2238,7 +2238,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="BuildTimeKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 222.0
 margin_bottom = 252.0
 label = "Build Time Knight"
@@ -2249,7 +2249,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="BuildTimeCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 222.0
 margin_right = 702.0
@@ -2262,7 +2262,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="BuildTimeBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 222.0
 margin_right = 1154.0
@@ -2275,7 +2275,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="BuildTimeCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 256.0
 margin_bottom = 286.0
 label = "Build Time Cavalary"
@@ -2286,7 +2286,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="BuildTimeDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 256.0
 margin_right = 702.0
@@ -2299,7 +2299,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="BuildTimeHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 256.0
 margin_right = 1154.0
@@ -2312,7 +2312,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="BuildTimeCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 290.0
 margin_bottom = 320.0
 label = "Build Time Crossbow"
@@ -2323,7 +2323,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="BuildTimeTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 290.0
 margin_right = 702.0
@@ -2336,7 +2336,7 @@ value_sett = "build_time"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="BuildTimeShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="BuildTimeShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 290.0
 margin_right = 1154.0
@@ -2353,7 +2353,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 324.0
 margin_right = 250.0
 margin_bottom = 346.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Salary"
 
 [node name="Space9" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2368,7 +2368,7 @@ margin_top = 328.0
 margin_right = 1154.0
 margin_bottom = 342.0
 
-[node name="SalarySpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalarySpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 350.0
 margin_bottom = 380.0
 label = "Spearman"
@@ -2379,7 +2379,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="SalarySwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalarySwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 350.0
 margin_right = 702.0
@@ -2392,7 +2392,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="SalaryArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 350.0
 margin_right = 1154.0
@@ -2405,7 +2405,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="SalaryKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 384.0
 margin_bottom = 414.0
 label = "Knight"
@@ -2416,7 +2416,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="SalaryCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 384.0
 margin_right = 702.0
@@ -2429,7 +2429,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="SalaryBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 384.0
 margin_right = 1154.0
@@ -2442,7 +2442,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="SalaryCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 418.0
 margin_bottom = 448.0
 label = "Cavalary"
@@ -2453,7 +2453,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="SalaryDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 418.0
 margin_right = 702.0
@@ -2466,7 +2466,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="SalaryHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 418.0
 margin_right = 1154.0
@@ -2479,7 +2479,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="SalaryCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 452.0
 margin_bottom = 482.0
 label = "Crossbow"
@@ -2490,7 +2490,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="SalaryTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 452.0
 margin_right = 702.0
@@ -2503,7 +2503,7 @@ value_sett = "salary"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="SalaryShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="SalaryShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 452.0
 margin_right = 1154.0
@@ -2520,7 +2520,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 486.0
 margin_right = 250.0
 margin_bottom = 508.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Fields per Round"
 
 [node name="Space12" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2535,7 +2535,7 @@ margin_top = 490.0
 margin_right = 1154.0
 margin_bottom = 504.0
 
-[node name="FPRSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 512.0
 margin_bottom = 542.0
 label = "Spearman"
@@ -2546,7 +2546,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="FPRSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 512.0
 margin_right = 702.0
@@ -2559,7 +2559,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="FPRArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 512.0
 margin_right = 1154.0
@@ -2572,7 +2572,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="FPRKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 546.0
 margin_bottom = 576.0
 label = "Knight"
@@ -2583,7 +2583,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="FPRCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 546.0
 margin_right = 702.0
@@ -2596,7 +2596,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="FPRBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 546.0
 margin_right = 1154.0
@@ -2609,7 +2609,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="FPRCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 580.0
 margin_bottom = 610.0
 label = "Cavalary"
@@ -2620,7 +2620,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="FPRDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 580.0
 margin_right = 702.0
@@ -2633,7 +2633,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="FPRHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 580.0
 margin_right = 1154.0
@@ -2646,7 +2646,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="FPRCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 614.0
 margin_bottom = 644.0
 label = "Crossbow"
@@ -2657,7 +2657,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="FPRTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 614.0
 margin_right = 702.0
@@ -2670,7 +2670,7 @@ value_sett = "fpr"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="FPRShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="FPRShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 614.0
 margin_right = 1154.0
@@ -2687,7 +2687,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 648.0
 margin_right = 250.0
 margin_bottom = 670.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Start Health"
 
 [node name="Space15" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2702,7 +2702,7 @@ margin_top = 652.0
 margin_right = 1154.0
 margin_bottom = 666.0
 
-[node name="StartHealthSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 674.0
 margin_bottom = 704.0
 label = "Spearman"
@@ -2713,7 +2713,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="StartHealthSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 674.0
 margin_right = 702.0
@@ -2726,7 +2726,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="StartHealthArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 674.0
 margin_right = 1154.0
@@ -2739,7 +2739,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="StartHealthKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 708.0
 margin_bottom = 738.0
 label = "Knight"
@@ -2750,7 +2750,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="StartHealthCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 708.0
 margin_right = 702.0
@@ -2763,7 +2763,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="StartHealthBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 708.0
 margin_right = 1154.0
@@ -2776,7 +2776,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="StartHealthCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 742.0
 margin_bottom = 772.0
 label = "Cavalary"
@@ -2787,7 +2787,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="StartHealthDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 742.0
 margin_right = 702.0
@@ -2800,7 +2800,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="StartHealthHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 742.0
 margin_right = 1154.0
@@ -2813,7 +2813,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="StartHealthCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 776.0
 margin_bottom = 806.0
 label = "Crossbow"
@@ -2824,7 +2824,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="StartHealthTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 776.0
 margin_right = 702.0
@@ -2837,7 +2837,7 @@ value_sett = "start_health"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="StartHealthShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="StartHealthShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 776.0
 margin_right = 1154.0
@@ -2854,7 +2854,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 810.0
 margin_right = 250.0
 margin_bottom = 832.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Attack Damage"
 
 [node name="Space18" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -2869,7 +2869,7 @@ margin_top = 814.0
 margin_right = 1154.0
 margin_bottom = 828.0
 
-[node name="AttSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 836.0
 margin_bottom = 866.0
 label = "Spearman"
@@ -2880,7 +2880,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="AttSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 836.0
 margin_right = 702.0
@@ -2893,7 +2893,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="AttArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 836.0
 margin_right = 1154.0
@@ -2906,7 +2906,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="AttKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 870.0
 margin_bottom = 900.0
 label = "Knight"
@@ -2917,7 +2917,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="AttCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 870.0
 margin_right = 702.0
@@ -2930,7 +2930,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="AttBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 870.0
 margin_right = 1154.0
@@ -2943,7 +2943,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="AttCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 904.0
 margin_bottom = 934.0
 label = "Cavalary"
@@ -2954,7 +2954,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="AttDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 904.0
 margin_right = 702.0
@@ -2967,7 +2967,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="AttHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 904.0
 margin_right = 1154.0
@@ -2980,7 +2980,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="AttCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 938.0
 margin_bottom = 968.0
 label = "Crossbow"
@@ -2991,7 +2991,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="AttTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 938.0
 margin_right = 702.0
@@ -3004,7 +3004,7 @@ value_sett = "att_dmg"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="AttShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="AttShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 938.0
 margin_right = 1154.0
@@ -3021,7 +3021,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 972.0
 margin_right = 250.0
 margin_bottom = 994.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Defence Damage"
 
 [node name="Space21" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -3036,7 +3036,7 @@ margin_top = 976.0
 margin_right = 1154.0
 margin_bottom = 990.0
 
-[node name="DefSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefSpearman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 998.0
 margin_bottom = 1028.0
 label = "Spearman"
@@ -3047,7 +3047,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "SPEARMAN"
 
-[node name="DefSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefSwordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 998.0
 margin_right = 702.0
@@ -3060,7 +3060,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "SWORDSMAN"
 
-[node name="DefArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefArcher" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 998.0
 margin_right = 1154.0
@@ -3073,7 +3073,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "ARCHER"
 
-[node name="DefKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 1032.0
 margin_bottom = 1062.0
 label = "Knight"
@@ -3084,7 +3084,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "KNIGHT"
 
-[node name="DefCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefCatapult" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 1032.0
 margin_right = 702.0
@@ -3097,7 +3097,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "CATAPULT"
 
-[node name="DefBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefBattleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 1032.0
 margin_right = 1154.0
@@ -3110,7 +3110,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "BATTLEAXFIGHTER"
 
-[node name="DefCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefCavalary" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 1066.0
 margin_bottom = 1096.0
 label = "Cavalary"
@@ -3121,7 +3121,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "CAVALARY"
 
-[node name="DefDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefDoubleaxfighter" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 1066.0
 margin_right = 702.0
@@ -3134,7 +3134,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "DOUBLEAXFIGHTER"
 
-[node name="DefHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefHalberdier" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 1066.0
 margin_right = 1154.0
@@ -3147,7 +3147,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "HALBERDIER"
 
-[node name="DefCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefCrossbow" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_top = 1100.0
 margin_bottom = 1130.0
 label = "Crossbow"
@@ -3158,7 +3158,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "CROSSBOWMAN"
 
-[node name="DefTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefTrebuchet" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 452.0
 margin_top = 1100.0
 margin_right = 702.0
@@ -3171,7 +3171,7 @@ value_sett = "def_dmg"
 datatype = "int"
 map_key = "TREBUCHET"
 
-[node name="DefShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 4 )]
+[node name="DefShortswordsman" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 904.0
 margin_top = 1100.0
 margin_right = 1154.0
@@ -3188,7 +3188,7 @@ map_key = "SHORTSWORDSMAN"
 margin_top = 1134.0
 margin_right = 250.0
 margin_bottom = 1156.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 4 )
 text = "Special  Damage"
 
 [node name="Space23" type="Label" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer"]
@@ -3203,7 +3203,7 @@ margin_top = 1138.0
 margin_right = 1154.0
 margin_bottom = 1152.0
 
-[node name="SpearmanVsKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="SpearmanVsKnight" parent="MarginContainer/Content/TabContainer/Troops/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource( 1 )]
 margin_top = 1160.0
 margin_bottom = 1190.0
 label = "Spearman vs Knight"

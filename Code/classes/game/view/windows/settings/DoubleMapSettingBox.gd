@@ -1,4 +1,4 @@
-extends "res://classes/game/controller/settings/MapSettingBox.gd"
+extends "res://classes/game/view/windows/settings/MapSettingBox.gd"
 
 export var second_map_key: String
 

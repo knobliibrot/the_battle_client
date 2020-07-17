@@ -1,5 +1,12 @@
 extends Node
 
+const FIELD_NAME: Dictionary = {
+	FieldType.CASTLE : "Castle",
+	FieldType.GRASS : "Grass",
+	FieldType.MOUNTAIN : "Mountain",
+	FieldType.VILLAGE : "Village",
+	FieldType.FOREST : "Forest"
+}
 const CONNECTION_PAIRS: Dictionary = {
 	FieldConnectionType.LEFT : FieldConnectionType.RIGHT,
 	FieldConnectionType.RIGHT : FieldConnectionType.LEFT,

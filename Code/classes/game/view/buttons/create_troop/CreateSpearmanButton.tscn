@@ -4,8 +4,9 @@
 [ext_resource path="res://classes/game/view/buttons/create_troop/CreateSpearmanButton.gd" type="Script" id=2]
 [ext_resource path="res://artifacts/graphics/gui/buttons/create_troop/create_spearman_button.svg" type="Texture" id=3]
 
-[node name="CreateSpearmanButton" index="0" instance=ExtResource( 1 )]
+[node name="CreateSpearmanButton" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="TextureButton" parent="." index="0"]
 texture_normal = ExtResource( 3 )
+texture_disabled = ExtResource( 3 )
