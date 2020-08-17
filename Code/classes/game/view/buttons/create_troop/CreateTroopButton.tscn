@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://classes/game/view/buttons/create_troop/CreateTroopButton.gd" type="Script" id=1]
 [ext_resource path="res://artifacts/graphics/gui/buttons/create_troop/create_archer_button.svg" type="Texture" id=2]
-[ext_resource path="res://artifacts/graphics/gui/buttons/create_troop/transparent_button.png" type="Texture" id=3]
 
-[node name="CreateTroopButton" type="MarginContainer"]
+[node name="CreateTroopButton" type="MarginContainer" groups=[
+"create_troop_button",
+]]
 margin_right = 40.0
 margin_bottom = 40.0
 custom_constants/margin_right = 10
@@ -16,9 +17,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureButton" type="TextureButton" parent="." groups=[
-"create_troop_button",
-]]
+[node name="TextureButton" type="TextureButton" parent="."]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 130.0
@@ -26,6 +25,6 @@ margin_bottom = 130.0
 rect_min_size = Vector2( 120, 120 )
 disabled = true
 texture_normal = ExtResource( 2 )
-texture_disabled = ExtResource( 3 )
+texture_disabled = ExtResource( 2 )
 expand = true
 [connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]

@@ -112,7 +112,6 @@ const INCOME_PER_FACTORY: int = 5
 const FACTORY_ACTIVATION_TIME: int = 0
 const MAX_FOOD_AMOUNT: int = 3
 
-const MESSAGE_SHOW_TIME: int = 2
 const ROUND_TIME: int = 20
 const QUEUE_SIZE: int = 4
 const BUILDPOINTS_PER_ROUND: int = 2
@@ -121,3 +120,11 @@ const ANIMATION_SPEED_PER_FIELD: float = 0.1
 const ANIMATION_TOLERANCE: float = 5.0
 
 const DAMGE_PER_HEALTH: bool = false
+
+const STANDARD_TROOPS: Array = [
+	TroopType.SPEARMAN,
+	TroopType.SWORDSMAN,
+	TroopType.KNIGHT,
+	TroopType.ARCHER,
+	TroopType.CATAPULT
+	]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://classes/game/controller/settings/SettingBox.gd" type="Script" id=1]
+[ext_resource path="res://classes/game/view/windows/settings/SettingBox.gd" type="Script" id=1]
 
 [node name="SettingBox" type="NinePatchRect" groups=[
 "settings",

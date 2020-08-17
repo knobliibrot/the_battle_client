@@ -12,6 +12,9 @@ const FIELDS: String = "fields"
 const CREATE_TROOP_BUTTON: String = "create_troop_button"
 const QUEUE_BUTTON: String = "qeueue_button"
 
+const GAME_MODE_UI_NODE: String = "game_mode_ui_node"
+const INITIAL_MODE_UI_NODE: String = "initial_mode_ui_node"
+
 const SETTINGS: String = "settings"
 
 static func stationed_troop(is_player1: bool) -> String:

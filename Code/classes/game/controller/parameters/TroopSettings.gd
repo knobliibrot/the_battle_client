@@ -1,17 +1,23 @@
 extends Node
 
-var price: Dictionary = TroopParameters.PRICE
+var troop_name: Dictionary = TroopParameters.TROOP_NAME.duplicate()
 
-var build_time: Dictionary = TroopParameters.BUILD_TIME
+var price: Dictionary = TroopParameters.PRICE.duplicate()
 
-var salary: Dictionary = TroopParameters.SALARY
+var build_time: Dictionary = TroopParameters.BUILD_TIME.duplicate()
 
-var fpr: Dictionary = TroopParameters.FPR
+var salary: Dictionary = TroopParameters.SALARY.duplicate()
 
-var start_health: Dictionary = TroopParameters.START_HEALTH
+var fpr: Dictionary = TroopParameters.FPR.duplicate()
 
-var att_dmg: Dictionary = TroopParameters.ATT_DMG
+var start_health: Dictionary = TroopParameters.START_HEALTH.duplicate()
 
-var def_dmg: Dictionary = TroopParameters.DEF_DMG
+var att_dmg: Dictionary = TroopParameters.ATT_DMG.duplicate()
 
-var special_dmg: Dictionary = TroopParameters.SPECIAL_DMG
+var def_dmg: Dictionary = TroopParameters.DEF_DMG.duplicate()
+
+var special_dmg: Dictionary = TroopParameters.SPECIAL_DMG.duplicate()
+
+var field_att_dmg: Dictionary = TroopParameters.FIELD_ATT_DMG.duplicate()
+
+var field_def_dmg: Dictionary = TroopParameters.FIELD_DEF_DMG.duplicate()
