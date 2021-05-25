@@ -1,0 +1,4 @@
+#Wed Apr 15 19:41:59 CEST 2020
+base.0=C\:\\Users\\samru\\Code\\Godot\\The Battle\\Code\\android\\build\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
+renamed.0=classes.dex
+path.0=classes.dex

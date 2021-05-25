@@ -1,0 +1,131 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/HalberdierSelectionButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/TrebuchetSelectionButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/BattleaxfighterSelectionButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/SwordsmanSelectionButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/SpearmanSelectionButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/DoubleaxfighterSelectionButton.tscn" type="PackedScene" id=6]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/ShortswordsmanSelectionButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/ArcherSelectionButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/CatapultSelectionButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/CavalarySelectionButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/CrossbowmanSelectionButton.tscn" type="PackedScene" id=11]
+[ext_resource path="res://classes/game/view/windows/troopselection/troopselectionbutton/KnightSelectionButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://classes/game/view/windows/troopselection/TroopinfoWindow.gd" type="Script" id=13]
+
+[node name="TroopinfoWindow" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -8.0
+mouse_filter = 2
+custom_constants/margin_right = 64
+custom_constants/margin_top = 135
+custom_constants/margin_left = 64
+custom_constants/margin_bottom = 4
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="PanelContainer" parent="."]
+margin_left = 64.0
+margin_top = 135.0
+margin_right = 1302.0
+margin_bottom = 764.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1231.0
+margin_bottom = 622.0
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
+margin_right = 1224.0
+margin_bottom = 571.0
+custom_constants/vseparation = -3
+custom_constants/hseparation = -3
+columns = 3
+
+[node name="SpearmanSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 5 )]
+
+[node name="ShortswordsmanSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 7 )]
+margin_left = 407.0
+margin_right = 817.0
+
+[node name="CavalarySelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 10 )]
+margin_left = 814.0
+margin_right = 1224.0
+
+[node name="HalberdierSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 142.0
+margin_bottom = 287.0
+
+[node name="SwordsmanSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 4 )]
+margin_left = 407.0
+margin_top = 142.0
+margin_right = 817.0
+margin_bottom = 287.0
+
+[node name="KnightSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 12 )]
+margin_left = 814.0
+margin_top = 142.0
+margin_right = 1224.0
+margin_bottom = 287.0
+
+[node name="ArcherSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 8 )]
+margin_top = 284.0
+margin_bottom = 429.0
+
+[node name="DoubleaxfighterSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 6 )]
+margin_left = 407.0
+margin_top = 284.0
+margin_right = 817.0
+margin_bottom = 429.0
+
+[node name="CatapultSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 9 )]
+margin_left = 814.0
+margin_top = 284.0
+margin_right = 1224.0
+margin_bottom = 429.0
+
+[node name="CrossbowmanSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 11 )]
+margin_top = 426.0
+margin_bottom = 571.0
+
+[node name="BattleaxfighterSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+margin_left = 407.0
+margin_top = 426.0
+margin_right = 817.0
+margin_bottom = 571.0
+
+[node name="TrebuchetSelectionButton" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 2 )]
+margin_left = 814.0
+margin_top = 426.0
+margin_right = 1224.0
+margin_bottom = 571.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_top = 575.0
+margin_right = 1224.0
+margin_bottom = 595.0
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 588.0
+margin_right = 635.0
+margin_bottom = 20.0
+text = "Close"
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/SpearmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/ShortswordsmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/CavalarySelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/HalberdierSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/SwordsmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/KnightSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/ArcherSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/DoubleaxfighterSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/CatapultSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/CrossbowmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/BattleaxfighterSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/TrebuchetSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]

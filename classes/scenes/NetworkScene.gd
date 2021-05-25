@@ -1,0 +1,5 @@
+extends ScreenScene
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$Client.start_connection()
