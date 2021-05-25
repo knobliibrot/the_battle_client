@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://classes/scenes/ScreenScene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://artifacts/icon.png" type="Texture" id=2]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_big.tres" type="DynamicFont" id=3]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium.tres" type="DynamicFont" id=4]
+[ext_resource path="res://classes/scenes/MenuScene.gd" type="Script" id=5]
+
+[node name="MenuScene" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+
+[node name="Menu" type="MarginContainer" parent="." index="1"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -174.5
+margin_right = 225.0
+margin_bottom = 174.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Menu" index="0"]
+margin_right = 456.0
+margin_bottom = 459.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/VBoxContainer2" index="0"]
+margin_right = 456.0
+margin_bottom = 250.0
+custom_constants/margin_bottom = 150
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu/VBoxContainer2/MarginContainer" index="0"]
+margin_right = 456.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 450, 100 )
+region_rect = Rect2( 10, 10, 100, 100 )
+
+[node name="TextureRect" type="TextureRect" parent="Menu/VBoxContainer2/MarginContainer/NinePatchRect" index="0"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -49.5
+margin_right = 99.0
+margin_bottom = 49.5
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer2/MarginContainer/NinePatchRect" index="1"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -400.0
+margin_top = -24.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 3 )
+text = "The Battle"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/VBoxContainer2" index="1"]
+margin_top = 254.0
+margin_right = 456.0
+margin_bottom = 459.0
+custom_constants/separation = 15
+
+[node name="StartOpenGameButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="0"]
+margin_right = 456.0
+margin_bottom = 40.0
+custom_fonts/font = ExtResource( 4 )
+text = "Start Open Game"
+
+[node name="StartOpenMirroredGameButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="1"]
+margin_top = 55.0
+margin_right = 456.0
+margin_bottom = 95.0
+custom_fonts/font = ExtResource( 4 )
+text = "Start Open Mirrored Game"
+
+[node name="ChangeGameSettingsButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="2"]
+margin_top = 110.0
+margin_right = 456.0
+margin_bottom = 150.0
+custom_fonts/font = ExtResource( 4 )
+text = "Change Game Settings"
+
+[node name="CheckNetworkButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="3"]
+margin_top = 165.0
+margin_right = 456.0
+margin_bottom = 205.0
+custom_fonts/font = ExtResource( 4 )
+text = "Check Network"
+[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/StartOpenGameButton" to="." method="_on_StartOpenGameButton_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/StartOpenMirroredGameButton" to="." method="_on_StartOpenMirroredGameButton_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/ChangeGameSettingsButton" to="." method="_on_ChangeGameSettingsButton_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/CheckNetworkButton" to="." method="_on_CheckNetworkButton_pressed"]

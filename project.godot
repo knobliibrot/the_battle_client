@@ -1,0 +1,192 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "ApplicationSettings",
+"language": "GDScript",
+"path": "res://classes/controller/ApplicationSettings.gd"
+}, {
+"base": "Node",
+"class": "Battlefield",
+"language": "GDScript",
+"path": "res://classes/game/model/Battelfield.gd"
+}, {
+"base": "Node",
+"class": "Client",
+"language": "GDScript",
+"path": "res://classes/network/Client.gd"
+}, {
+"base": "MarginContainer",
+"class": "CreateTroopButton",
+"language": "GDScript",
+"path": "res://classes/game/view/buttons/create_troop/CreateTroopButton.gd"
+}, {
+"base": "Node",
+"class": "Factory",
+"language": "GDScript",
+"path": "res://classes/game/model/Factory.gd"
+}, {
+"base": "TextureButton",
+"class": "Field",
+"language": "GDScript",
+"path": "res://classes/game/model/fields/Field.gd"
+}, {
+"base": "Node",
+"class": "FieldConnectionType",
+"language": "GDScript",
+"path": "res://classes/enums/FieldConnectionType.gd"
+}, {
+"base": "Node",
+"class": "FieldMapPerDistance",
+"language": "GDScript",
+"path": "res://classes/tools/FieldMapPerDistance.gd"
+}, {
+"base": "Node",
+"class": "FieldState",
+"language": "GDScript",
+"path": "res://classes/enums/FieldState.gd"
+}, {
+"base": "Node",
+"class": "FieldType",
+"language": "GDScript",
+"path": "res://classes/enums/FieldType.gd"
+}, {
+"base": "Node",
+"class": "Gamelogic",
+"language": "GDScript",
+"path": "res://classes/game/controller/Gamelogic.gd"
+}, {
+"base": "Node",
+"class": "Group",
+"language": "GDScript",
+"path": "res://classes/game/controller/parameters/Group.gd"
+}, {
+"base": "Node",
+"class": "MainController",
+"language": "GDScript",
+"path": "res://classes/controller/MainController.gd"
+}, {
+"base": "Node",
+"class": "Mode",
+"language": "GDScript",
+"path": "res://classes/enums/Mode.gd"
+}, {
+"base": "Node",
+"class": "MovementType",
+"language": "GDScript",
+"path": "res://classes/enums/MovementType.gd"
+}, {
+"base": "Node",
+"class": "Player",
+"language": "GDScript",
+"path": "res://classes/game/model/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerType",
+"language": "GDScript",
+"path": "res://classes/enums/PlayerType.gd"
+}, {
+"base": "Node",
+"class": "Playground",
+"language": "GDScript",
+"path": "res://classes/game/view/Playground.gd"
+}, {
+"base": "MarginContainer",
+"class": "QueueButton",
+"language": "GDScript",
+"path": "res://classes/game/view/buttons/queue/QueueButton.gd"
+}, {
+"base": "Node",
+"class": "ScreenScene",
+"language": "GDScript",
+"path": "res://classes/scenes/ScreenScene.gd"
+}, {
+"base": "Node2D",
+"class": "Troop",
+"language": "GDScript",
+"path": "res://classes/game/model/troops/Troop.gd"
+}, {
+"base": "Node",
+"class": "TroopType",
+"language": "GDScript",
+"path": "res://classes/enums/TroopType.gd"
+}, {
+"base": "MarginContainer",
+"class": "TroopselectionButton",
+"language": "GDScript",
+"path": "res://classes/game/view/windows/troopselection/troopselectionbutton/TroopSelectionButton.gd"
+} ]
+_global_script_class_icons={
+"ApplicationSettings": "",
+"Battlefield": "",
+"Client": "",
+"CreateTroopButton": "",
+"Factory": "",
+"Field": "",
+"FieldConnectionType": "",
+"FieldMapPerDistance": "",
+"FieldState": "",
+"FieldType": "",
+"Gamelogic": "",
+"Group": "",
+"MainController": "",
+"Mode": "",
+"MovementType": "",
+"Player": "",
+"PlayerType": "",
+"Playground": "",
+"QueueButton": "",
+"ScreenScene": "",
+"Troop": "",
+"TroopType": "",
+"TroopselectionButton": ""
+}
+
+[application]
+
+config/name="The Battle"
+run/main_scene="res://classes/controller/MainController.tscn"
+config/icon="res://artifacts/icon.png"
+config/windows_native_icon="res://artifacts/icon.ico"
+
+[autoload]
+
+GameParameters="*res://classes/game/controller/parameters/GameParameters.gd"
+GameSettings="*res://classes/game/controller/parameters/GameSettings.gd"
+FieldParameters="*res://classes/game/controller/parameters/FieldParameters.gd"
+FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
+TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
+TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
+
+[debug]
+
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/variable_conflicts_function=false
+gdscript/warnings/function_conflicts_variable=false
+gdscript/warnings/function_conflicts_constant=false
+gdscript/warnings/unused_signal=false
+
+[display]
+
+window/size/width=1366
+window/size/height=768
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[gui]
+
+timers/tooltip_delay_sec=0.2
+
+[rendering]
+
+vram_compression/import_etc=true
+environment/default_environment="res://default_env.tres"
+quality/driver/driver_name.Android="GLES3"
