@@ -70,5 +70,10 @@ func process_request(packet: Dictionary) -> void:
 	match packet.get("id"):
 		"hello_world":
 			print(packet.get("data")[0])
+	var dict: Dictionary = {
+		"id": "moarga",
+		"data": "moarga"
+	}
+	_client.get_peer(1).put_packet(to_json(dict).to_utf8())
 
 
