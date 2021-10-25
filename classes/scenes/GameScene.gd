@@ -7,7 +7,7 @@ var game_finished: bool = false
 # TODO game logic for open mode
 func _ready():
 	pass
-
+#TODO should be in open game scene
 func run_open_game(mirrored: bool) -> bool:
 	$Content/Playground/Gamelogic.initialize_game(PlayerType.MANUAL, PlayerType.MANUAL)
 	$Content/Playground/Gamelogic.generate_battlefield(mirrored)

@@ -165,6 +165,8 @@ FieldParameters="*res://classes/game/controller/parameters/FieldParameters.gd"
 FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
 TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
 TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
+SearchOpponentState="*res://classes/enums/SearchOpponentState.gd"
+ServiceNames="*res://classes/enums/ServiceNames.gd"
 
 [debug]
 

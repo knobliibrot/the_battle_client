@@ -1,0 +1,16 @@
+extends Node
+
+const ID = "id"
+const DATA = "data"
+const USER = "user"
+const OPPONENT = "opponent"
+const FIRST_PLAYER = "first_player"
+const BATTLEFIELD = "battlefield"
+const STARTING_TIME = "starting_time"
+const SELECTED_TROOPS = "selected_troops"
+const CASTEL_PSITION = "castel_psition"
+const TROOP_TYPE = "troop_type"
+const QUEUE_POS = "queue_pos"
+const FROM = "from"
+const TO = "to"
+const SNAPSHOT = "snapshot"

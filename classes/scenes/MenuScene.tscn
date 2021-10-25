@@ -9,6 +9,12 @@
 [node name="MenuScene" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 
+[node name="Background" parent="." index="0"]
+margin_left = -5.26318
+margin_top = 4.21057
+margin_right = -5.26318
+margin_bottom = 4.21057
+
 [node name="Menu" type="MarginContainer" parent="." index="1"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -84,16 +90,18 @@ text = "Start Open Mirrored Game"
 margin_top = 110.0
 margin_right = 456.0
 margin_bottom = 150.0
+rect_pivot_offset = Vector2( 716.526, -93.6921 )
 custom_fonts/font = ExtResource( 4 )
 text = "Change Game Settings"
 
-[node name="CheckNetworkButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="3"]
+[node name="StartMultiplayerGameButton" type="Button" parent="Menu/VBoxContainer2/VBoxContainer" index="3"]
 margin_top = 165.0
 margin_right = 456.0
 margin_bottom = 205.0
+rect_pivot_offset = Vector2( 716.526, -93.6921 )
 custom_fonts/font = ExtResource( 4 )
-text = "Check Network"
+text = "Start Multiplayer Game"
 [connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/StartOpenGameButton" to="." method="_on_StartOpenGameButton_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/StartOpenMirroredGameButton" to="." method="_on_StartOpenMirroredGameButton_pressed"]
 [connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/ChangeGameSettingsButton" to="." method="_on_ChangeGameSettingsButton_pressed"]
-[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/CheckNetworkButton" to="." method="_on_CheckNetworkButton_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer2/VBoxContainer/StartMultiplayerGameButton" to="." method="_on_StartMultiplayerGameButton_pressed"]

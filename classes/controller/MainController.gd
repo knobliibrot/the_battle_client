@@ -5,8 +5,7 @@ class_name MainController
 const OPEN_GAME_SCENE: PackedScene = preload("res://classes/scenes/OpenGameScene.tscn")
 const OPEN_MIRRORED_GAME_SCENE: PackedScene = preload("res://classes/scenes/OpenMirroredGameScene.tscn")
 const MENU_SCENE: PackedScene = preload("res://classes/scenes/MenuScene.tscn")
-#TODO
-const NETWORK_SCENE: PackedScene = preload("res://classes/scenes/NetworkScene.tscn")
+const MULTIPLAYER_GAME_SCENE: PackedScene = preload("res://classes/scenes/MultiplayerGameScene.tscn")
 
 var act_scene: ScreenScene 
 
@@ -18,7 +17,7 @@ func change_to_menu_scene() -> void:
 	change_scene(MENU_SCENE)
 	var _err = act_scene.connect("start_open_game", self, "on_MenuScene_start_open_game")
 	var _err2 = act_scene.connect("start_open_mirrored_game", self, "on_MenuScene_start_open_mirrored_game")
-	var _err3 = act_scene.connect("start_open_network", self, "on_MenuScene_start_open_network")
+	var _err3 = act_scene.connect("start_multiplayer_game", self, "on_MenuScene_start_multiplayer_game")
 
 func change_to_open_game_scene() -> void:
 	change_scene(OPEN_GAME_SCENE)
@@ -26,6 +25,10 @@ func change_to_open_game_scene() -> void:
 
 func change_to_open_mirrored_game_scene() -> void:
 	change_scene(OPEN_MIRRORED_GAME_SCENE)
+	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
+
+func change_to_multiplayer_game_scene() -> void:
+	change_scene(MULTIPLAYER_GAME_SCENE)
 	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
 
 # Changes the actual Scene to given scene
@@ -41,12 +44,8 @@ func on_MenuScene_start_open_game() -> void:
 func on_MenuScene_start_open_mirrored_game() -> void:
 	change_to_open_mirrored_game_scene()
 
+func on_MenuScene_start_multiplayer_game() -> void:
+	change_to_multiplayer_game_scene()
+
 func on_GameScene_game_over() -> void:
 	change_to_menu_scene()
-
-#TODO
-func on_MenuScene_start_open_network() -> void:
-	change_to_network_scene()
-
-func change_to_network_scene() -> void:
-	change_scene(NETWORK_SCENE)
