@@ -167,6 +167,8 @@ TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
 TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
 SearchOpponentState="*res://classes/enums/SearchOpponentState.gd"
 ServiceNames="*res://classes/enums/ServiceNames.gd"
+Interface="*res://classes/network/Interface.gd"
+InterfaceKeys="*res://classes/enums/InterfaceKeys.gd"
 
 [debug]
 

@@ -28,13 +28,9 @@ var def_animation_finished: bool = false
 var play_running: bool = false
 
 # Initialize the players with the given player types
-func initialize_game(player1_type: int, player2_type: int) -> void: 
-	self.player1 = Player.new()
-	self.player1.init(player1_type, true)
-	self.player1.player_name= "Player 1"
-	self.player2 = Player.new()
-	self.player2.init(player2_type, false)
-	self.player2.player_name= "Player 2"
+func initialize_game(player1: Player, player2: Player) -> void: 
+	self.player1 = player1
+	self.player2 = player2
 	self.factory_capture_mode_enabled = false
 	self.game_over = false
 
@@ -44,7 +40,29 @@ func generate_battlefield(mirrored: bool) -> void:
 		self.battlefield_map = $BattlefieldGenerator.generate_mirrored_battlefield()
 	else:
 		self.battlefield_map = $BattlefieldGenerator.generate_battlefield()
-	
+
+# Make battlefield lighter for sending it to opponent
+func get_field_type_map() -> Array:
+	var field_type_map: Array  = []
+	field_type_map.resize(GameSettings.battlefield_height)
+	for y in range(GameSettings.battlefield_height):
+		var row: Array = []
+		row.resize(GameSettings.battlefield_width)
+		field_type_map[y] = row
+		for x in range(GameSettings.battlefield_width):
+			# Fields are just at positions where x + y is uneven
+			if (x + y) % 2 == 1:
+				# First and last column have just empty fields
+				if x != 0 and x != GameSettings.battlefield_width - 1:
+					var field: Field = self.battlefield_map[y][x]
+					field_type_map[y][x] = field.field_type
+					
+	print(field_type_map)
+	return field_type_map
+
+# Initalize Battlfield passed on the given field_types
+func initialize_battlefield(field_type_map: Array) -> void:
+	self.battlefield_map = $BattlefieldGenerator.generate_battlefield(true, field_type_map)
 
 # Starts the castle choosing process for the given player
 func start_initial_mode(is_player1: bool) -> void:

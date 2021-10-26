@@ -5,7 +5,7 @@ var field_percantage_map: Dictionary = {}
 var neigbour_counter_map: Dictionary = {}
 
 # Generates the battlefield randomly
-func generate_battlefield() -> Array:
+func generate_battlefield(are_fields_given: bool = false, field_type_map = null) -> Array:
 	self.battlefield_map = []
 	self.battlefield_map.resize(GameSettings.battlefield_height)
 	for y in range(GameSettings.battlefield_height):
@@ -18,7 +18,10 @@ func generate_battlefield() -> Array:
 				var field: Field
 				# First and last column have just empty fields
 				if x != 0 and x != GameSettings.battlefield_width - 1:
-					field = get_battlefield().initalize_field(Vector2(x,y), choose_field_type(x, y)) 
+					if are_fields_given:
+						field = get_battlefield().initalize_field(Vector2(x,y), field_type_map[y][x])
+					else:
+						field = get_battlefield().initalize_field(Vector2(x,y), choose_field_type(x, y))
 				else:
 					field = get_battlefield().initalize_field(Vector2(x,y), FieldType.EMPTY) 
 					

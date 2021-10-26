@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://classes/scenes/GameScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://classes/scenes/MultiplayerGameScene.gd" type="Script" id=2]
+[ext_resource path="res://classes/network/Client.gd" type="Script" id=3]
 
 [node name="MultiplayerGameScene" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -12,7 +13,12 @@ visible = false
 [node name="Content" parent="." index="1"]
 visible = false
 
-[node name="SearchScreen" type="Node" parent="." index="2"]
+[node name="SearchScreen" type="Control" parent="." index="2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Background" type="ColorRect" parent="SearchScreen" index="0"]
 anchor_right = 1.0
@@ -72,4 +78,7 @@ margin_right = 200.0
 margin_bottom = 57.0
 text = "Connecting with Server..."
 align = 1
+
+[node name="Client" type="Node" parent="." index="3"]
+script = ExtResource( 3 )
 [connection signal="pressed" from="SearchScreen/Content/UsernameBox/SearchButton" to="." method="_on_SearchButton_pressed"]

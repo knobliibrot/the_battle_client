@@ -1,7 +1,7 @@
 extends Node
 
-var search_game: Dictionary = {
-  "id": "search_game",
+var search_opponent: Dictionary = {
+  "id": "search_opponent",
   "data": {
 	"user": ""    
   }
@@ -15,8 +15,8 @@ var opponent_found: Dictionary = {
   }
 }
 
-var build_battelfield: Dictionary = { # not sure if can be done with opponent _found
-  "id": "build_battelfield",
+var build_battlefield: Dictionary = { # not sure if can be done with opponent _found
+  "id": "build_battlefield",
   "data": {}
 }
 

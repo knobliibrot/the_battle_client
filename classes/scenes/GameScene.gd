@@ -9,7 +9,11 @@ func _ready():
 	pass
 #TODO should be in open game scene
 func run_open_game(mirrored: bool) -> bool:
-	$Content/Playground/Gamelogic.initialize_game(PlayerType.MANUAL, PlayerType.MANUAL)
+	var player1: Player = Player.new()
+	player1.init(PlayerType.MANUAL, true)
+	var player2: Player = Player.new()
+	player2.init(PlayerType.MANUAL, false)
+	$Content/Playground/Gamelogic.initialize_game(player1, player2)
 	$Content/Playground/Gamelogic.generate_battlefield(mirrored)
 	
 	$Content/Playground/Gamelogic.start_initial_mode(true)

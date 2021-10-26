@@ -4,6 +4,7 @@ class_name Client
 
 signal connected
 signal connection_failed
+signal response_received
 
 # The URL we will connect to
 export var websocket_url = "127.0.0.1:9080"
@@ -32,13 +33,10 @@ func start_connection() -> void:
 	var err = _client.connect_to_url(websocket_url)
 	if err != OK:
 		print("Unable to connect")
-		emit_signal("connection_failed")
-		
+		emit_signal("connection_failed")		
 		set_process(false)
 	else:
 		print("ok")
-		emit_signal("connected")
-		
 
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
@@ -49,6 +47,7 @@ func _closed(was_clean = false):
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
 	# sub-protocol (which is optional)
+	emit_signal("connected")
 	print("Connected with protocol: ", proto)
 
 func _on_data():
@@ -56,10 +55,11 @@ func _on_data():
 	# to receive data from server, and not get_packet directly when not
 	# using the MultiplayerAPI.
 	var json_string: String = _client.get_peer(1).get_packet().get_string_from_utf8()
+	print(json_string)
 	var error: String = validate_json(json_string)
 	if not error:
 		print("valid")
-		process_response(parse_json(json_string))
+		emit_signal("response_received", (parse_json(json_string)))
 #		if typeof(json_string) == TYPE_DICTIONARY:
 #			process_request(parse_json(json_string))
 #		else:
@@ -67,18 +67,8 @@ func _on_data():
 #			print(json_string)
 	else:
 		prints("invalid", error)
-	
-	
 
-func process_response(packet: Dictionary) -> void:
-	var dict: Dictionary
-	match packet.get("id"):
-		"hello_world":
-			print(packet.get("data")[0])
-			dict = {
-				"id": "moarga",
-				"data": "moarga"
-			}
-	_client.get_peer(1).put_packet(to_json(dict).to_utf8())
+func send_request(pkg: Dictionary) -> void:
+	_client.get_peer(1).put_packet(to_json(pkg).to_utf8())
 
 
