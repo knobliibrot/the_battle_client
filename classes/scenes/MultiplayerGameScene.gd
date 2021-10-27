@@ -3,6 +3,7 @@ extends "res://classes/scenes/GameScene.gd"
 var user: Player = Player.new()
 var opponent: Player = Player.new()
 var is_first_player: bool
+var round_timer: int = 0
 
 var connected: bool = false
 var username_selected: bool = false
@@ -58,7 +59,6 @@ func opponent_found(pkg: Dictionary) -> void:
 	self.is_first_player = pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER]
 	print("opponent saved")
 
-# TOODO new workflow: first generate like in offline mode the battlefield and then collect from there the field types
 func build_battlefield(pkg: Dictionary) -> void:
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.GENERATE_BATTLEFIELD
 	var new_pkg = Interface.send_battlefield
@@ -68,7 +68,6 @@ func build_battlefield(pkg: Dictionary) -> void:
 	$Content/Playground/Gamelogic.initialize_game(self.user, self.opponent)
 	print("battlefield generated")
 
-# new basic idea use the old generate battlefield and make an option in with or without given field types
 func send_battlefield(pkg: Dictionary) -> void:
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.INITIALIZING_GAME
 	$Content/Playground/Gamelogic.initialize_battlefield(pkg[InterfaceKeys.DATA][InterfaceKeys.BATTLEFIELD])
@@ -80,6 +79,14 @@ func send_battlefield(pkg: Dictionary) -> void:
 
 func start_game(pkg: Dictionary) -> void:
 	$SearchScreen.visible = false
-	$Content/Playground/Gamelogic.start_initial_mode(self.is_first_player)
-	
+	$Content/Playground/Gamelogic.start_initial_mode(self.is_first_player)	
 	print("game started")
+
+func _on_Gamelogic_initial_done():
+	var new_pkg = Interface.initial_turn_finished
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.SELECTED_TROOPS] = $Content/Playground/Gamelogic.act_player.selected_troop
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION] = $Content/Playground/Gamelogic.act_player.castle_position
+	send_request(ServiceNames.INITIAL_TURN_FINISHED, new_pkg)
+	$Content/Playground/Gamelogic.start_game_mode()
+	$Content/Playground/Gamelogic.start_turn(true, self.round_timer)
+	print("game mode started")

@@ -3,7 +3,6 @@ extends Node
 class_name Playground
 
 signal gui_ready
-signal game_finished
 
 const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
@@ -46,22 +45,26 @@ func start_game_mode() -> void:
 		ui.set_visible(false)
 
 # Activates create buttons and make all fields with own troops on int selectable
-func activate_turn_mode(is_player1: bool, actual_player: Player) -> void:
-	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
-		if  actual_player.selected_troops.has(button.troop_type):
-			button.get_node("TextureButton").set_disabled(false)
-	
+func activate_turn_mode(is_player1: bool, actual_player: Player, act_player_type: int) -> void:
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
-
-	for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
-		if field.stationed_troop != null:
-			if field.stationed_troop.movement_left > 0:
-				field.field_state = FieldState.TROOP_SELECTION
-				field.set_disabled(false)
-				field.pressed = false
-		else:
-			print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
+	
+	if act_player_type == PlayerType.MANUAL:
+		for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
+			if  actual_player.selected_troops.has(button.troop_type):
+				button.get_node("TextureButton").set_disabled(false)
+		
+		for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
+			if field.stationed_troop != null:
+				if field.stationed_troop.movement_left > 0:
+					field.field_state = FieldState.TROOP_SELECTION
+					field.set_disabled(false)
+					field.pressed = false
+			else:
+				print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
+	elif act_player_type == PlayerType.MANUAL:
+		for queue_button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
+			queue_button.set_disabled(true)
 	yield()
 
 # Disables everything 
@@ -71,8 +74,8 @@ func disable_all() -> void:
 	
 	disable_battlefield()
 	
-	for field in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
-		field.set_disabled(true)
+	for button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
+		button.set_disabled(true)
 	
 	$CentredGame/Top/TopBar/TopBar2/DoneBox/NinePatchRect/Button.set_disabled(true)
 
@@ -112,9 +115,6 @@ func _on_SettingsWindow_close(window: Node) -> void:
 
 func _on_CloseButton_pressed():
 	$Gamelogic.close_game()
-
-func _on_Gamelogic_game_finished(player: Player) -> void:
-	emit_signal("game_finished", player)
 
 func _on_SelectTroopsButton_pressed():
 	$CentredGame/Overlay/TroopselectionWindow.set_selected_troops($Gamelogic.act_player.selected_troops)

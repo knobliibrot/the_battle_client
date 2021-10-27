@@ -48,6 +48,7 @@ custom_constants/separation = 5
 alignment = 1
 
 [node name="Label" type="Label" parent="SearchScreen/Content/UsernameBox" index="0"]
+visible = false
 margin_top = 16.0
 margin_right = 200.0
 margin_bottom = 30.0
@@ -55,15 +56,15 @@ text = "Enter your Username"
 align = 1
 
 [node name="Input" type="LineEdit" parent="SearchScreen/Content/UsernameBox" index="1"]
-margin_top = 35.0
+margin_top = 25.0
 margin_right = 200.0
-margin_bottom = 59.0
+margin_bottom = 49.0
 align = 1
 
 [node name="SearchButton" type="Button" parent="SearchScreen/Content/UsernameBox" index="2"]
-margin_top = 64.0
+margin_top = 54.0
 margin_right = 200.0
-margin_bottom = 84.0
+margin_bottom = 74.0
 text = "Search for opponent"
 
 [node name="StatusBox" type="VBoxContainer" parent="SearchScreen/Content" index="1"]

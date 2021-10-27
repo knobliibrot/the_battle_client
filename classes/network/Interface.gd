@@ -43,7 +43,7 @@ var initial_turn_finished: Dictionary = {
   "id": "initial_turn_finished",
   "data": {
 	"selected_troops": [],
-	"castel_psition": 0
+	"castel_position": null
   }
 }
 
@@ -74,7 +74,7 @@ var moving_troop: Dictionary = {
   }
 }
 
-#Don't think it's necesary
+#Don't think it's necesary update: may it is
 #var change_foodpoints: Dictionary = {
 #  "id": "",
 #  "data": {}

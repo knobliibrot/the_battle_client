@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "FieldConnectionType",
 "language": "GDScript",
-"path": "res://classes/enums/FieldConnectionType.gd"
+"path": "res://classes/game/enums/FieldConnectionType.gd"
 }, {
 "base": "Node",
 "class": "FieldMapPerDistance",
@@ -52,12 +52,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "FieldState",
 "language": "GDScript",
-"path": "res://classes/enums/FieldState.gd"
+"path": "res://classes/game/enums/FieldState.gd"
 }, {
 "base": "Node",
 "class": "FieldType",
 "language": "GDScript",
-"path": "res://classes/enums/FieldType.gd"
+"path": "res://classes/game/enums/FieldType.gd"
 }, {
 "base": "Node",
 "class": "Gamelogic",
@@ -77,12 +77,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Mode",
 "language": "GDScript",
-"path": "res://classes/enums/Mode.gd"
+"path": "res://classes/game/enums/Mode.gd"
 }, {
 "base": "Node",
 "class": "MovementType",
 "language": "GDScript",
-"path": "res://classes/enums/MovementType.gd"
+"path": "res://classes/game/enums/MovementType.gd"
 }, {
 "base": "Node",
 "class": "Player",
@@ -92,7 +92,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "PlayerType",
 "language": "GDScript",
-"path": "res://classes/enums/PlayerType.gd"
+"path": "res://classes/game/enums/PlayerType.gd"
 }, {
 "base": "Node",
 "class": "Playground",
@@ -117,7 +117,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "TroopType",
 "language": "GDScript",
-"path": "res://classes/enums/TroopType.gd"
+"path": "res://classes/game/enums/TroopType.gd"
 }, {
 "base": "MarginContainer",
 "class": "TroopselectionButton",
@@ -165,10 +165,10 @@ FieldParameters="*res://classes/game/controller/parameters/FieldParameters.gd"
 FieldSettings="*res://classes/game/controller/parameters/FieldSettings.gd"
 TroopParameters="*res://classes/game/controller/parameters/TroopParameters.gd"
 TroopSettings="*res://classes/game/controller/parameters/TroopSettings.gd"
-SearchOpponentState="*res://classes/enums/SearchOpponentState.gd"
-ServiceNames="*res://classes/enums/ServiceNames.gd"
+SearchOpponentState="*res://classes/game/enums/SearchOpponentState.gd"
+ServiceNames="*res://classes/game/enums/ServiceNames.gd"
 Interface="*res://classes/network/Interface.gd"
-InterfaceKeys="*res://classes/enums/InterfaceKeys.gd"
+InterfaceKeys="*res://classes/game/enums/InterfaceKeys.gd"
 
 [debug]
 

@@ -1,5 +1,4 @@
 extends Node
-
 # This class controls everything what happens in the playground and emits signal to the GameScene
 class_name Gamelogic
 
@@ -73,7 +72,7 @@ func initialize_battlefield(field_type_map: Array) -> void:
 # Starts the castle choosing process for the given player
 func start_initial_mode(is_player1: bool) -> void:
 	self.actual_mode = Mode.INITIAL_MODE
-	set_actual_players(is_player1)
+	set_actual_player(is_player1)
 	
 	if self.act_player.player_type == PlayerType.MANUAL:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
@@ -111,8 +110,8 @@ func start_game_mode() -> void:
 
 # Starts a turn of the actual player
 func start_turn(is_player1: bool, round_timer: int) -> void:
-	set_actual_players(is_player1)
-	if round_timer == GameSettings.factory_activation_time && !is_player1:
+	set_actual_player(is_player1)
+	if round_timer == GameSettings.factory_activation_time && !is_player1 || round_timer == (GameSettings.factory_activation_time + 1) && is_player1:
 		self.factory_capture_mode_enabled = true
 		activate_factories(self.player2)
 		activate_factories(self.player1)
@@ -121,7 +120,13 @@ func start_turn(is_player1: bool, round_timer: int) -> void:
 		var game_over = pay_and_trainingday()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		if !game_over:
-			get_playground().activate_turn_mode(self.is_player1, self.act_player)
+			get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
+			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
+	elif self.act_player.player_type == PlayerType.ONLINE:
+		var game_over = pay_and_trainingday()
+		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
+		if !game_over:
+			get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
 			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 
 func activate_factories(player: Player) -> void:
@@ -261,7 +266,7 @@ func _on_Battlefield_target_selected(position: Vector2):
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		game_over()
 	else:
-		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player)
+		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
 		state.resume()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		state = get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
@@ -497,7 +502,7 @@ func _on_Defender_animation_finished() -> void:
 
 
 # Sets the actual player and opponent for this round
-func set_actual_players(is_player1: bool) -> void:
+func set_actual_player(is_player1: bool) -> void:
 	self.is_player1 = is_player1
 	if is_player1:
 		self.act_player = self.player1
