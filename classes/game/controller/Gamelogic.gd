@@ -18,6 +18,7 @@ var player2: Player
 var act_player: Player
 var act_opponent: Player
 var is_player1: bool
+var is_user_player1: bool
 
 var factory_capture_mode_enabled: bool
 
@@ -33,6 +34,11 @@ func initialize_game(player1: Player, player2: Player) -> void:
 	self.player2 = player2
 	self.factory_capture_mode_enabled = false
 	self.game_over = false
+
+# Extends Method above for multiplayer
+func initialize_online_game(player1: Player, player2: Player, is_user_player1: bool) -> void: 
+	self.is_user_player1 = is_user_player1
+	initialize_game(player1, player2)
 
 # Generates the battlefield randomly
 func generate_battlefield(mirrored: bool) -> void:

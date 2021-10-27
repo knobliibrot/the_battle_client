@@ -2,7 +2,7 @@ extends "res://classes/scenes/GameScene.gd"
 
 var user: Player = Player.new()
 var opponent: Player = Player.new()
-var first_player: bool
+var is_first_player: bool
 
 var connected: bool = false
 var username_selected: bool = false
@@ -55,7 +55,7 @@ func opponent_found(pkg: Dictionary) -> void:
 	self.opponent.name = pkg[InterfaceKeys.DATA][InterfaceKeys.OPPONENT]
 	self.opponent.init(PlayerType.ONLINE, !pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
 	self.user.init(PlayerType.MANUAL, pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
-	self.first_player = pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER]
+	self.is_first_player = pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER]
 	print("opponent saved")
 
 # TOODO new workflow: first generate like in offline mode the battlefield and then collect from there the field types
@@ -72,10 +72,14 @@ func build_battlefield(pkg: Dictionary) -> void:
 func send_battlefield(pkg: Dictionary) -> void:
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.INITIALIZING_GAME
 	$Content/Playground/Gamelogic.initialize_battlefield(pkg[InterfaceKeys.DATA][InterfaceKeys.BATTLEFIELD])
-	$Content/Playground/Gamelogic.initialize_game(self.user, self.opponent)
+	if self.is_first_player:
+		$Content/Playground/Gamelogic.initialize_game(self.user, self.opponent)
+	else:
+		$Content/Playground/Gamelogic.initialize_game(self.opponent, self.user)
 	print("battlefield saved")
 
 func start_game(pkg: Dictionary) -> void:
 	$SearchScreen.visible = false
-	$Content/Playground/Gamelogic.start_initial_mode(self.first_player)
+	$Content/Playground/Gamelogic.start_initial_mode(self.is_first_player)
+	
 	print("game started")

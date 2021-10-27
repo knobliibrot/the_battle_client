@@ -213,6 +213,96 @@ margin_top = 700.0
 margin_right = 140.0
 margin_bottom = 840.0
 
+[node name="Left" type="MarginContainer" parent="CentredGame"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -360.0
+margin_bottom = 360.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightBar" type="VBoxContainer" parent="CentredGame/Left"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 710.0
+rect_min_size = Vector2( 120, 700 )
+custom_constants/separation = 0
+
+[node name="SpearmanButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 7 )]
+margin_right = 140.0
+margin_bottom = 140.0
+
+[node name="CreateHalberdierButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 28 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateShortswordsmanButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 29 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="SwordsmanButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 6 )]
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateCavalaryButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 27 )]
+visible = false
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="KnightButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 9 )]
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="ArcherButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 8 )]
+margin_top = 420.0
+margin_right = 140.0
+margin_bottom = 560.0
+
+[node name="CreateCrossbowmanButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 30 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateDoubleaxfighterButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 31 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateBattleaxfighterButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 25 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CatapultButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 10 )]
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateTrebuchetButton" parent="CentredGame/Left/RightBar" instance=ExtResource( 26 )]
+visible = false
+margin_top = 700.0
+margin_right = 140.0
+margin_bottom = 840.0
+
 [node name="Bottom" type="MarginContainer" parent="CentredGame"]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -611,10 +701,10 @@ margin_right = 880.0
 margin_bottom = 110.0
 
 [node name="19-4" parent="CentredGame/Battlefield" instance=ExtResource( 15 )]
-margin_left = 880.0
-margin_top = 19.0
-margin_right = 960.0
-margin_bottom = 110.0
+margin_left = 879.947
+margin_top = 19.3793
+margin_right = 959.947
+margin_bottom = 110.379
 
 [node name="0-5" parent="CentredGame/Battlefield" groups=[
 "castle_field_2",
@@ -831,6 +921,18 @@ script = ExtResource( 20 )
 [connection signal="create_troop" from="CentredGame/Right/RightBar/CreateBattleaxfighterButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="CentredGame/Right/RightBar/CatapultButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="create_troop" from="CentredGame/Right/RightBar/CreateTrebuchetButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/SpearmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateHalberdierButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateShortswordsmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/SwordsmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateCavalaryButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/KnightButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/ArcherButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateCrossbowmanButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateDoubleaxfighterButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateBattleaxfighterButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CatapultButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="CentredGame/Left/RightBar/CreateTrebuchetButton" to="Gamelogic" method="_on_TroopButton_create_troop"]
 [connection signal="remove_from_queue" from="CentredGame/Bottom/BottomBar/QueueBar" to="Gamelogic" method="_on_QueueBar_remove_from_queue"]
 [connection signal="pressed" from="CentredGame/Bottom/BottomBar/SelectTroopsButton" to="." method="_on_SelectTroopsButton_pressed"]
 [connection signal="castle_choosen" from="CentredGame/Battlefield" to="Gamelogic" method="_on_Battlefield_castle_choosen"]
