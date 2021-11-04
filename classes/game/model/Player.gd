@@ -21,11 +21,6 @@ var progress_actual_troop_in_queue: int
 
 # Set start values
 func init(type: int, is_player1: bool) -> void:
-	if is_player1:
-		self.player_name = "Player 1"
-	else:
-		self.player_name = "Player 2"
-		
 	self.player_type = type
 	self.castle_health = GameSettings.castle_health
 	self.gold = GameSettings.start_gold

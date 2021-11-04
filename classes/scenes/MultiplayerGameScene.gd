@@ -7,6 +7,8 @@ var round_timer: int = 0
 
 var connected: bool = false
 var username_selected: bool = false
+var initial_turn_finished: bool = false
+var opponent_initial_turn_finished: bool = false
 
 func _ready():
 	$Client.connect("connected", self, "_on_Client_connected")
@@ -17,7 +19,7 @@ func _ready():
 	
 
 func _on_SearchButton_pressed():
-	self.user.name = $SearchScreen/Content/UsernameBox/Input.text
+	self.user.player_name = $SearchScreen/Content/UsernameBox/Input.text
 	$SearchScreen/Content/UsernameBox.visible = false
 	$SearchScreen/Content/StatusBox.visible = true
 	self.username_selected = true
@@ -33,7 +35,7 @@ func _on_Client_connected() -> void:
 
 func send_search_opponent_request() -> void:
 	var pkg: Dictionary = Interface.search_opponent
-	pkg[InterfaceKeys.DATA][InterfaceKeys.USER] = self.user
+	pkg[InterfaceKeys.DATA][InterfaceKeys.USER] = self.user.player_name
 	self.send_request(ServiceNames.SEARCH_OPPONENT, pkg)
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.SEARCH_OPPONENT
 
@@ -53,7 +55,7 @@ func _on_Client_response_received(pkg: Dictionary) -> void:
 
 func opponent_found(pkg: Dictionary) -> void:
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.OPPONENT_FOUND
-	self.opponent.name = pkg[InterfaceKeys.DATA][InterfaceKeys.OPPONENT]
+	self.opponent.player_name = pkg[InterfaceKeys.DATA][InterfaceKeys.OPPONENT]
 	self.opponent.init(PlayerType.ONLINE, !pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
 	self.user.init(PlayerType.MANUAL, pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
 	self.is_first_player = pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER]
@@ -79,14 +81,32 @@ func send_battlefield(pkg: Dictionary) -> void:
 
 func start_game(pkg: Dictionary) -> void:
 	$SearchScreen.visible = false
-	$Content/Playground/Gamelogic.start_initial_mode(self.is_first_player)	
+	$Content/Playground/Gamelogic.start_initial_mode(self.is_first_player)
 	print("game started")
 
-func _on_Gamelogic_initial_done():
+func _on_Gamelogic_initial_done( selected_troops: Array, castle_position: Vector2) -> void:
+	self.initial_turn_finished = true
 	var new_pkg = Interface.initial_turn_finished
-	new_pkg[InterfaceKeys.DATA][InterfaceKeys.SELECTED_TROOPS] = $Content/Playground/Gamelogic.act_player.selected_troop
-	new_pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION] = $Content/Playground/Gamelogic.act_player.castle_position
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.SELECTED_TROOPS] = selected_troops
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION][InterfaceKeys.X] = int(castle_position.x)
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION][InterfaceKeys.Y] = int(castle_position.y)
 	send_request(ServiceNames.INITIAL_TURN_FINISHED, new_pkg)
+	$Content/Playground/Gamelogic.set_castle(opponent.castle_position, true)
+	$Content/Playground.wait_for_opponent_initial_round_finished(!is_first_player, opponent)
+	print("selected troops and caste position sent")
+	if self.opponent_initial_turn_finished:
+		start_game_mode()
+
+func initial_turn_finished(pkg: Dictionary) -> void:
+	self.opponent_initial_turn_finished = true
+	opponent.selected_troops = pkg[InterfaceKeys.DATA][InterfaceKeys.SELECTED_TROOPS]
+	var x: float = float(pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION][InterfaceKeys.X])
+	var y: float = float(pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION][InterfaceKeys.Y])
+	opponent.castle_position = Vector2(x, y)
+	if self.initial_turn_finished:
+		start_game_mode()
+ 
+func start_game_mode() -> void:
 	$Content/Playground/Gamelogic.start_game_mode()
 	$Content/Playground/Gamelogic.start_turn(true, self.round_timer)
 	print("game mode started")

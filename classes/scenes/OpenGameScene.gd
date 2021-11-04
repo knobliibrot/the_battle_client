@@ -8,8 +8,10 @@ func _ready():
 func run_open_game(mirrored: bool) -> bool:
 	var player1: Player = Player.new()
 	player1.init(PlayerType.MANUAL, true)
+	player1.player_name = "Player1"
 	var player2: Player = Player.new()
 	player2.init(PlayerType.MANUAL, false)
+	player2.player_name = "Player2"
 	$Content/Playground/Gamelogic.initialize_game(player1, player2)
 	$Content/Playground/Gamelogic.generate_battlefield(mirrored)
 	

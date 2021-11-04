@@ -77,17 +77,20 @@ func start_initial_mode(is_player1: bool) -> void:
 	if self.act_player.player_type == PlayerType.MANUAL:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		get_playground().activate_castle_choosing(is_player1)
-		get_playground().start_timer_with_message("Place your Castle and select your Troops" + self.act_player.player_name + "!", GameSettings.initial_round_time)
+		get_playground().start_timer_with_message("Place your Castle and select your Troops " + self.act_player.player_name + "!", GameSettings.initial_round_time)
 
 func _on_Battlefield_castle_choosen(position: Vector2) -> void:
 	set_castle(position)
 
 # Sets the castle at the given position. 
 # If it's called through a timout it will take the CASTLE_START_HEIGHT
-func set_castle(position: Vector2) -> void:
+func set_castle(position: Vector2, is_multiplayer: bool = false) -> void:
 	var castle_fields: Array = []
 	# Get the castle fields
-	castle_fields = get_tree().get_nodes_in_group(Group.castle_field(self.is_player1))
+	if is_multiplayer:
+		castle_fields = get_tree().get_nodes_in_group(Group.castle_field(!self.is_player1))
+	else:
+		castle_fields = get_tree().get_nodes_in_group(Group.castle_field(self.is_player1))
 	
 	for empty_field in castle_fields:
 		if position == empty_field.field_position:
@@ -120,13 +123,13 @@ func start_turn(is_player1: bool, round_timer: int) -> void:
 		var game_over = pay_and_trainingday()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		if !game_over:
-			get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
+			get_playground().activate_turn_mode(self.is_player1, self.act_player)
 			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 	elif self.act_player.player_type == PlayerType.ONLINE:
 		var game_over = pay_and_trainingday()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		if !game_over:
-			get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
+			get_playground().activate_turn_mode(self.is_player1, self.act_player)
 			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 
 func activate_factories(player: Player) -> void:
@@ -266,7 +269,7 @@ func _on_Battlefield_target_selected(position: Vector2):
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		game_over()
 	else:
-		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player, self.act_player.player_type)
+		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player)
 		state.resume()
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		state = get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
@@ -530,7 +533,7 @@ func initial_turn_done() -> void:
 			set_castle(Vector2(GameSettings.battlefield_width - 1, GameSettings.castle_start_height))
 		else:
 			set_castle(Vector2(0, GameSettings.castle_start_height))
-	emit_signal("initial_done")
+	emit_signal("initial_done", self.act_player.selected_troops, self.act_player.castle_position )
 
 # Stops the timer, waits until the running play is finished and emits the finsih signal
 func game_turn_done() -> void:

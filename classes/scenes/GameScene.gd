@@ -16,5 +16,5 @@ func _on_Gamelogic_game_finished(player: Player):
 	self.game_finished = true
 
 
-func _on_Gamelogic_initial_done():
+func _on_Gamelogic_initial_done( selected_troops: Array, castle_position: Vector2) -> void:
 	pass # Replace with function body.

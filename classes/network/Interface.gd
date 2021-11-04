@@ -43,7 +43,10 @@ var initial_turn_finished: Dictionary = {
   "id": "initial_turn_finished",
   "data": {
 	"selected_troops": [],
-	"castel_position": null
+	"castel_position": {
+		"x": 0,
+		"y": 0
+	}
   }
 }
 

@@ -36,6 +36,13 @@ func activate_castle_choosing(is_player1: bool) -> void:
 		field.set_disabled(false)
 	emit_signal("gui_ready")
 
+# Mode if the user finished but the opponent didn't in Multiplayer
+func wait_for_opponent_initial_round_finished(opponent_is_player1: bool, opponent: Player) -> void:
+	show_message("You have to wait until " + opponent.player_name + " has finished the initial round")
+	$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = false
+	for ui in get_tree().get_nodes_in_group(Group.INITIAL_MODE_UI_NODE):
+		ui.set_visible(false)
+
 # Shows all the game ui boxes and makes the start ui boxes invisible
 func start_game_mode() -> void:
 	for ui in get_tree().get_nodes_in_group(Group.GAME_MODE_UI_NODE):
@@ -45,11 +52,11 @@ func start_game_mode() -> void:
 		ui.set_visible(false)
 
 # Activates create buttons and make all fields with own troops on int selectable
-func activate_turn_mode(is_player1: bool, actual_player: Player, act_player_type: int) -> void:
+func activate_turn_mode(is_player1: bool, actual_player: Player) -> void:
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
 	
-	if act_player_type == PlayerType.MANUAL:
+	if actual_player.player_type == PlayerType.MANUAL:
 		for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
 			if  actual_player.selected_troops.has(button.troop_type):
 				button.get_node("TextureButton").set_disabled(false)
@@ -62,9 +69,13 @@ func activate_turn_mode(is_player1: bool, actual_player: Player, act_player_type
 					field.pressed = false
 			else:
 				print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
-	elif act_player_type == PlayerType.MANUAL:
+		
+		$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = true
+	elif actual_player.player_type == PlayerType.ONLINE:
 		for queue_button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
 			queue_button.set_disabled(true)
+		
+		$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = false
 	yield()
 
 # Disables everything 
