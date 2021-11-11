@@ -1,7 +1,43 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://classes/scenes/GameScene.gd" type="Script" id=1]
-[ext_resource path="res://classes/game/view/Playground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://classes/game/model/fields/Field.tscn" type="PackedScene" id=2]
+[ext_resource path="res://classes/game/view/boxes/TimeBox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://classes/game/model/Battelfield.gd" type="Script" id=4]
+[ext_resource path="res://classes/game/controller/BattlefieldGenerator.gd" type="Script" id=5]
+[ext_resource path="res://classes/game/view/Playground.gd" type="Script" id=6]
+[ext_resource path="res://classes/game/controller/Gamelogic.gd" type="Script" id=7]
+[ext_resource path="res://classes/game/view/boxes/MessageBox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateTrebuchetButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateHalberdierButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://classes/game/view/boxes/GoldBox.tscn" type="PackedScene" id=11]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateBattleaxfighterButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://classes/game/view/boxes/DoneBox.tscn" type="PackedScene" id=13]
+[ext_resource path="res://classes/game/view/bars/HealthBarRed.tscn" type="PackedScene" id=14]
+[ext_resource path="res://classes/game/view/boxes/IncomeBox.tscn" type="PackedScene" id=15]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateSpearmanButton.tscn" type="PackedScene" id=16]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateCavalaryButton.tscn" type="PackedScene" id=17]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateArcherButton.tscn" type="PackedScene" id=18]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateKnightButton.tscn" type="PackedScene" id=19]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateCrossbowmanButton.tscn" type="PackedScene" id=20]
+[ext_resource path="res://classes/game/view/boxes/SalaryBox.tscn" type="PackedScene" id=21]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateShortswordsmanButton.tscn" type="PackedScene" id=22]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateDoubleaxfighterButton.tscn" type="PackedScene" id=23]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateSwordsmanButton.tscn" type="PackedScene" id=24]
+[ext_resource path="res://classes/game/view/buttons/create_troop/CreateCatapultButton.tscn" type="PackedScene" id=25]
+[ext_resource path="res://classes/game/view/bars/QueueBar.tscn" type="PackedScene" id=26]
+[ext_resource path="res://classes/game/view/bars/HealthBarBlue.tscn" type="PackedScene" id=27]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium.tres" type="DynamicFont" id=28]
+[ext_resource path="res://artifacts/graphics/fields/grass.png" type="Texture" id=29]
+[ext_resource path="res://artifacts/graphics/gui/buttons/settings.png" type="Texture" id=30]
+[ext_resource path="res://artifacts/graphics/fields/mountain.png" type="Texture" id=31]
+[ext_resource path="res://artifacts/graphics/fields/village.png" type="Texture" id=32]
+[ext_resource path="res://artifacts/graphics/gui/buttons/cancel.svg" type="Texture" id=33]
+[ext_resource path="res://artifacts/graphics/gui/buttons/help.svg" type="Texture" id=34]
+[ext_resource path="res://classes/game/view/windows/troopselection/TroopselectionWindow.tscn" type="PackedScene" id=35]
+[ext_resource path="res://classes/game/view/windows/troopselection/TroopinfoWindow.tscn" type="PackedScene" id=36]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_big.tres" type="DynamicFont" id=37]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium_35.tres" type="DynamicFont" id=38]
 
 [node name="GameScene" type="Node"]
 script = ExtResource( 1 )
@@ -10,6 +46,9 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.490196, 0.439216, 0.380392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Content" type="ViewportContainer" parent="."]
 anchor_left = 0.5
@@ -25,5 +64,988 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Playground" parent="Content" instance=ExtResource( 2 )]
-[connection signal="game_finished" from="Content/Playground" to="." method="_on_Playground_game_finished"]
+[node name="Playground" type="Node" parent="Content"]
+script = ExtResource( 6 )
+
+[node name="CentredGame" type="Control" parent="Content/Playground"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -384.0
+margin_right = 640.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 1280, 720 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="MarginContainer" parent="Content/Playground/CentredGame"]
+margin_right = 1120.0
+margin_bottom = 100.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBar" type="VBoxContainer" parent="Content/Playground/CentredGame/Top"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1110.0
+margin_bottom = 135.0
+custom_constants/separation = 20
+
+[node name="MessageBox" parent="Content/Playground/CentredGame/Top/TopBar" instance=ExtResource( 8 )]
+margin_right = 1100.0
+
+[node name="TopBar2" type="HBoxContainer" parent="Content/Playground/CentredGame/Top/TopBar"]
+margin_top = 45.0
+margin_right = 1100.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 1100, 80 )
+custom_constants/separation = 15
+alignment = 1
+
+[node name="TimeBox" parent="Content/Playground/CentredGame/Top/TopBar/TopBar2" instance=ExtResource( 3 )]
+margin_left = 382.0
+margin_right = 622.0
+margin_bottom = 80.0
+
+[node name="DoneBox" parent="Content/Playground/CentredGame/Top/TopBar/TopBar2" instance=ExtResource( 13 )]
+margin_left = 637.0
+margin_right = 717.0
+
+[node name="SalaryBox" parent="Content/Playground/CentredGame/Top/TopBar/TopBar2" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 21 )]
+visible = false
+margin_left = 350.0
+margin_right = 590.0
+margin_bottom = 80.0
+
+[node name="IncomeBox" parent="Content/Playground/CentredGame/Top/TopBar/TopBar2" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 15 )]
+visible = false
+margin_left = 477.0
+margin_right = 717.0
+margin_bottom = 80.0
+
+[node name="GoldBox" parent="Content/Playground/CentredGame/Top/TopBar/TopBar2" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 11 )]
+visible = false
+margin_left = 605.0
+margin_right = 845.0
+margin_bottom = 80.0
+
+[node name="Right" type="MarginContainer" parent="Content/Playground/CentredGame"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -360.0
+margin_bottom = 360.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightBar" type="VBoxContainer" parent="Content/Playground/CentredGame/Right"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 710.0
+rect_min_size = Vector2( 120, 700 )
+custom_constants/separation = 0
+
+[node name="SpearmanButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 16 )]
+margin_right = 140.0
+margin_bottom = 140.0
+
+[node name="CreateHalberdierButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 10 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateShortswordsmanButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 22 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="SwordsmanButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 24 )]
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateCavalaryButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 17 )]
+visible = false
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="KnightButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 19 )]
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="ArcherButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 18 )]
+margin_top = 420.0
+margin_right = 140.0
+margin_bottom = 560.0
+
+[node name="CreateCrossbowmanButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 20 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateDoubleaxfighterButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 23 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateBattleaxfighterButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 12 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CatapultButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 25 )]
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateTrebuchetButton" parent="Content/Playground/CentredGame/Right/RightBar" instance=ExtResource( 9 )]
+visible = false
+margin_top = 700.0
+margin_right = 140.0
+margin_bottom = 840.0
+
+[node name="Left" type="MarginContainer" parent="Content/Playground/CentredGame"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -360.0
+margin_bottom = 360.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightBar" type="VBoxContainer" parent="Content/Playground/CentredGame/Left"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 150.0
+margin_bottom = 710.0
+rect_min_size = Vector2( 120, 700 )
+custom_constants/separation = 0
+
+[node name="SpearmanButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 16 )]
+margin_right = 140.0
+margin_bottom = 140.0
+
+[node name="CreateHalberdierButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 10 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateShortswordsmanButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 22 )]
+visible = false
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="SwordsmanButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 24 )]
+margin_top = 140.0
+margin_right = 140.0
+margin_bottom = 280.0
+
+[node name="CreateCavalaryButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 17 )]
+visible = false
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="KnightButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 19 )]
+margin_top = 280.0
+margin_right = 140.0
+margin_bottom = 420.0
+
+[node name="ArcherButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 18 )]
+margin_top = 420.0
+margin_right = 140.0
+margin_bottom = 560.0
+
+[node name="CreateCrossbowmanButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 20 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateDoubleaxfighterButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 23 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateBattleaxfighterButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 12 )]
+visible = false
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CatapultButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 25 )]
+margin_top = 560.0
+margin_right = 140.0
+margin_bottom = 700.0
+
+[node name="CreateTrebuchetButton" parent="Content/Playground/CentredGame/Left/RightBar" instance=ExtResource( 9 )]
+visible = false
+margin_top = 700.0
+margin_right = 140.0
+margin_bottom = 840.0
+
+[node name="Bottom" type="MarginContainer" parent="Content/Playground/CentredGame"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+margin_right = 1120.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomBar" type="HBoxContainer" parent="Content/Playground/CentredGame/Bottom"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1110.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 1100, 80 )
+custom_constants/separation = 15
+alignment = 1
+
+[node name="HealthBarRed" parent="Content/Playground/CentredGame/Bottom/BottomBar" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 14 )]
+visible = false
+
+[node name="QueueBar" parent="Content/Playground/CentredGame/Bottom/BottomBar" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 26 )]
+visible = false
+margin_left = 172.0
+margin_right = 572.0
+
+[node name="HealthBarBlue" parent="Content/Playground/CentredGame/Bottom/BottomBar" groups=[
+"game_mode_ui_node",
+] instance=ExtResource( 27 )]
+visible = false
+margin_left = 380.0
+margin_right = 710.0
+
+[node name="SelectTroopsButton" type="Button" parent="Content/Playground/CentredGame/Bottom/BottomBar" groups=[
+"initial_mode_ui_node",
+]]
+margin_left = 300.0
+margin_right = 800.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 500, 0 )
+custom_fonts/font = ExtResource( 28 )
+text = "Select Troops"
+
+[node name="Battlefield" type="Control" parent="Content/Playground/CentredGame"]
+anchor_top = 0.522
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 160.0
+margin_top = -257.0
+margin_right = 240.0
+margin_bottom = -166.0
+
+[node name="3-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 240.0
+margin_top = -257.0
+margin_right = 320.0
+margin_bottom = -166.0
+
+[node name="5-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 320.0
+margin_top = -257.0
+margin_right = 400.0
+margin_bottom = -166.0
+texture_normal = ExtResource( 31 )
+
+[node name="7-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 400.0
+margin_top = -257.0
+margin_right = 480.0
+margin_bottom = -166.0
+
+[node name="9-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 480.0
+margin_top = -257.0
+margin_right = 560.0
+margin_bottom = -166.0
+
+[node name="11-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 560.0
+margin_top = -257.0
+margin_right = 640.0
+margin_bottom = -166.0
+texture_normal = ExtResource( 32 )
+
+[node name="13-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 640.0
+margin_top = -257.0
+margin_right = 720.0
+margin_bottom = -166.0
+texture_normal = ExtResource( 32 )
+
+[node name="15-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 720.0
+margin_top = -257.0
+margin_right = 800.0
+margin_bottom = -166.0
+
+[node name="17-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 800.0
+margin_top = -257.0
+margin_right = 880.0
+margin_bottom = -166.0
+
+[node name="19-0" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 880.0
+margin_top = -257.0
+margin_right = 960.0
+margin_bottom = -166.0
+texture_normal = ExtResource( 31 )
+
+[node name="0-1" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_2",
+] instance=ExtResource( 2 )]
+margin_left = 120.0
+margin_top = -188.0
+margin_right = 200.0
+margin_bottom = -97.0
+
+[node name="2-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 200.0
+margin_top = -188.0
+margin_right = 280.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 31 )
+
+[node name="4-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 280.0
+margin_top = -188.0
+margin_right = 360.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 31 )
+
+[node name="6-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 360.0
+margin_top = -188.0
+margin_right = 440.0
+margin_bottom = -97.0
+
+[node name="8-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 440.0
+margin_top = -188.0
+margin_right = 520.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 29 )
+
+[node name="10-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 520.0
+margin_top = -188.0
+margin_right = 600.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 32 )
+
+[node name="12-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 600.0
+margin_top = -188.0
+margin_right = 680.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 32 )
+
+[node name="14-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 680.0
+margin_top = -188.0
+margin_right = 760.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 29 )
+
+[node name="16-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 760.0
+margin_top = -188.0
+margin_right = 840.0
+margin_bottom = -97.0
+texture_normal = ExtResource( 31 )
+
+[node name="18-1" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 840.0
+margin_top = -188.0
+margin_right = 920.0
+margin_bottom = -97.0
+
+[node name="20-1" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_1",
+] instance=ExtResource( 2 )]
+margin_left = 920.0
+margin_top = -188.0
+margin_right = 1000.0
+margin_bottom = -97.0
+
+[node name="1-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 160.0
+margin_top = -119.0
+margin_right = 240.0
+margin_bottom = -28.0
+
+[node name="3-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 240.0
+margin_top = -119.0
+margin_right = 320.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 31 )
+
+[node name="5-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 320.0
+margin_top = -119.0
+margin_right = 400.0
+margin_bottom = -28.0
+
+[node name="9-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 480.0
+margin_top = -119.0
+margin_right = 560.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 29 )
+
+[node name="7-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 400.0
+margin_top = -119.0
+margin_right = 480.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 29 )
+
+[node name="11-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 560.0
+margin_top = -119.0
+margin_right = 640.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 29 )
+
+[node name="13-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 640.0
+margin_top = -119.0
+margin_right = 720.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 29 )
+
+[node name="15-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 720.0
+margin_top = -119.0
+margin_right = 800.0
+margin_bottom = -28.0
+texture_normal = ExtResource( 29 )
+
+[node name="17-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 800.0
+margin_top = -119.0
+margin_right = 880.0
+margin_bottom = -28.0
+
+[node name="19-2" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 880.0
+margin_top = -119.0
+margin_right = 960.0
+margin_bottom = -28.0
+
+[node name="0-3" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_2",
+] instance=ExtResource( 2 )]
+margin_left = 120.0
+margin_top = -50.0
+margin_right = 200.0
+margin_bottom = 41.0
+
+[node name="2-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 200.0
+margin_top = -50.0
+margin_right = 280.0
+margin_bottom = 41.0
+
+[node name="4-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 280.0
+margin_top = -50.0
+margin_right = 360.0
+margin_bottom = 41.0
+texture_normal = ExtResource( 32 )
+
+[node name="6-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 360.0
+margin_top = -50.0
+margin_right = 440.0
+margin_bottom = 41.0
+texture_normal = ExtResource( 29 )
+
+[node name="8-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 440.0
+margin_top = -50.0
+margin_right = 520.0
+margin_bottom = 41.0
+
+[node name="10-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 520.0
+margin_top = -50.0
+margin_right = 600.0
+margin_bottom = 41.0
+
+[node name="12-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 600.0
+margin_top = -50.0
+margin_right = 680.0
+margin_bottom = 41.0
+texture_normal = ExtResource( 29 )
+
+[node name="14-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 680.0
+margin_top = -50.0
+margin_right = 760.0
+margin_bottom = 41.0
+
+[node name="16-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 760.0
+margin_top = -50.0
+margin_right = 840.0
+margin_bottom = 41.0
+
+[node name="18-3" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 840.0
+margin_top = -50.0
+margin_right = 920.0
+margin_bottom = 41.0
+
+[node name="20-3" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_1",
+] instance=ExtResource( 2 )]
+margin_left = 920.0
+margin_top = -50.0
+margin_right = 1000.0
+margin_bottom = 41.0
+
+[node name="1-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 160.0
+margin_top = 19.0
+margin_right = 240.0
+margin_bottom = 110.0
+
+[node name="3-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 240.0
+margin_top = 19.0
+margin_right = 320.0
+margin_bottom = 110.0
+
+[node name="5-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 320.0
+margin_top = 19.0
+margin_right = 400.0
+margin_bottom = 110.0
+texture_normal = ExtResource( 32 )
+
+[node name="7-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 400.0
+margin_top = 19.0
+margin_right = 480.0
+margin_bottom = 110.0
+texture_normal = ExtResource( 29 )
+
+[node name="9-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 480.0
+margin_top = 19.0
+margin_right = 560.0
+margin_bottom = 110.0
+texture_normal = ExtResource( 29 )
+
+[node name="11-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 560.0
+margin_top = 19.0
+margin_right = 640.0
+margin_bottom = 110.0
+
+[node name="13-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 640.0
+margin_top = 19.0
+margin_right = 720.0
+margin_bottom = 110.0
+
+[node name="15-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 720.0
+margin_top = 19.0
+margin_right = 800.0
+margin_bottom = 110.0
+texture_normal = ExtResource( 29 )
+
+[node name="17-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 800.0
+margin_top = 19.0
+margin_right = 880.0
+margin_bottom = 110.0
+
+[node name="19-4" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 879.947
+margin_top = 19.3793
+margin_right = 959.947
+margin_bottom = 110.379
+
+[node name="0-5" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_2",
+] instance=ExtResource( 2 )]
+margin_left = 120.0
+margin_top = 88.0
+margin_right = 200.0
+margin_bottom = 179.0
+
+[node name="2-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 200.0
+margin_top = 88.0
+margin_right = 280.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 29 )
+
+[node name="4-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 280.0
+margin_top = 88.0
+margin_right = 360.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 29 )
+
+[node name="6-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 360.0
+margin_top = 88.0
+margin_right = 440.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 29 )
+
+[node name="8-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 440.0
+margin_top = 88.0
+margin_right = 520.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 29 )
+
+[node name="10-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 520.0
+margin_top = 88.0
+margin_right = 600.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 31 )
+
+[node name="12-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 600.0
+margin_top = 88.0
+margin_right = 680.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 31 )
+
+[node name="14-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 680.0
+margin_top = 88.0
+margin_right = 760.0
+margin_bottom = 179.0
+texture_normal = ExtResource( 31 )
+
+[node name="16-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 760.0
+margin_top = 88.0
+margin_right = 840.0
+margin_bottom = 179.0
+
+[node name="18-5" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 840.0
+margin_top = 88.0
+margin_right = 920.0
+margin_bottom = 179.0
+
+[node name="20-5" parent="Content/Playground/CentredGame/Battlefield" groups=[
+"castle_field_1",
+] instance=ExtResource( 2 )]
+margin_left = 920.0
+margin_top = 88.0
+margin_right = 1000.0
+margin_bottom = 179.0
+
+[node name="1-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 160.0
+margin_top = 157.0
+margin_right = 240.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 29 )
+
+[node name="3-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 240.0
+margin_top = 157.0
+margin_right = 320.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 29 )
+
+[node name="5-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 320.0
+margin_top = 157.0
+margin_right = 400.0
+margin_bottom = 248.0
+
+[node name="7-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 400.307
+margin_top = 157.0
+margin_right = 480.307
+margin_bottom = 248.0
+
+[node name="9-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 480.0
+margin_top = 157.0
+margin_right = 560.0
+margin_bottom = 248.0
+
+[node name="11-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 560.0
+margin_top = 157.0
+margin_right = 640.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 29 )
+
+[node name="13-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 640.0
+margin_top = 157.0
+margin_right = 720.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 31 )
+
+[node name="15-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 720.0
+margin_top = 157.0
+margin_right = 800.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 31 )
+
+[node name="17-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 800.0
+margin_top = 157.0
+margin_right = 880.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 29 )
+
+[node name="19-6" parent="Content/Playground/CentredGame/Battlefield" instance=ExtResource( 2 )]
+margin_left = 880.0
+margin_top = 157.0
+margin_right = 960.0
+margin_bottom = 248.0
+texture_normal = ExtResource( 29 )
+
+[node name="Overlay" type="Node2D" parent="Content/Playground/CentredGame"]
+position = Vector2( -43, 0 )
+z_index = 20
+
+[node name="GameoverBackground" type="ColorRect" parent="Content/Playground/CentredGame/Overlay"]
+visible = false
+light_mask = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -5000.0
+margin_top = -5000.0
+margin_right = 5000.0
+margin_bottom = 5000.0
+rect_min_size = Vector2( 10000, 10000 )
+color = Color( 0.278431, 0.247059, 0.215686, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameoverWindow" type="MarginContainer" parent="Content/Playground/CentredGame/Overlay"]
+visible = false
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_min_size = Vector2( 1366, 768 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Content/Playground/CentredGame/Overlay/GameoverWindow"]
+margin_right = 1366.0
+margin_bottom = 768.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer"]
+margin_left = 433.0
+margin_top = 342.0
+margin_right = 933.0
+margin_bottom = 425.0
+rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 37 )
+text = "Gam Over!!!"
+align = 1
+
+[node name="MenuButton" type="Button" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer"]
+margin_left = 100.0
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 38 )
+text = "Go Back to the Menu"
+
+[node name="TroopselectionWindow" parent="Content/Playground/CentredGame/Overlay" instance=ExtResource( 35 )]
+visible = false
+
+[node name="TroopinfoWindow" parent="Content/Playground/CentredGame/Overlay" instance=ExtResource( 36 )]
+visible = false
+
+[node name="UI" type="Node" parent="Content/Playground"]
+
+[node name="SettingsButton" type="Button" parent="Content/Playground/UI"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 29.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 20, 100 )
+icon = ExtResource( 30 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="TextureButton" parent="Content/Playground/UI"]
+anchor_left = 0.99
+anchor_top = 0.01
+anchor_right = 0.99
+anchor_bottom = 0.013
+margin_left = -20.0
+margin_top = 1.0
+margin_right = 10.0
+margin_bottom = 28.696
+texture_normal = ExtResource( 33 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GiveUpButton" type="TextureButton" parent="Content/Playground/UI"]
+visible = false
+anchor_left = 0.99
+anchor_top = 0.01
+anchor_right = 0.99
+anchor_bottom = 0.013
+margin_left = -20.0
+margin_top = 1.0
+margin_right = 10.0
+margin_bottom = 28.696
+texture_normal = ExtResource( 33 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InfoButton" type="TextureButton" parent="Content/Playground/UI"]
+anchor_left = 0.003
+anchor_top = 0.013
+anchor_right = 0.003
+anchor_bottom = 0.013
+margin_right = 30.0
+margin_bottom = 30.0
+texture_normal = ExtResource( 34 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gamelogic" type="Node" parent="Content/Playground"]
+script = ExtResource( 7 )
+
+[node name="BattlefieldGenerator" type="Node" parent="Content/Playground/Gamelogic"]
+script = ExtResource( 5 )
+[connection signal="timer_finished" from="Content/Playground/CentredGame/Top/TopBar/TopBar2/TimeBox" to="Content/Playground/Gamelogic" method="_on_TimeBox_timer_finished"]
+[connection signal="done" from="Content/Playground/CentredGame/Top/TopBar/TopBar2/DoneBox" to="Content/Playground/Gamelogic" method="_on_DoneBox_done"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/SpearmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateHalberdierButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateShortswordsmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/SwordsmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateCavalaryButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/KnightButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/ArcherButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateCrossbowmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateDoubleaxfighterButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateBattleaxfighterButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CatapultButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Right/RightBar/CreateTrebuchetButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/SpearmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateHalberdierButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateShortswordsmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/SwordsmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateCavalaryButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/KnightButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/ArcherButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateCrossbowmanButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateDoubleaxfighterButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateBattleaxfighterButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CatapultButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="create_troop" from="Content/Playground/CentredGame/Left/RightBar/CreateTrebuchetButton" to="Content/Playground/Gamelogic" method="_on_TroopButton_create_troop"]
+[connection signal="remove_from_queue" from="Content/Playground/CentredGame/Bottom/BottomBar/QueueBar" to="Content/Playground/Gamelogic" method="_on_QueueBar_remove_from_queue"]
+[connection signal="pressed" from="Content/Playground/CentredGame/Bottom/BottomBar/SelectTroopsButton" to="Content/Playground" method="_on_SelectTroopsButton_pressed"]
+[connection signal="castle_choosen" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_castle_choosen"]
+[connection signal="target_selected" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_target_selected"]
+[connection signal="troop_selected" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_troop_selected"]
+[connection signal="pressed" from="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/MenuButton" to="Content/Playground" method="_on_MenuButton_pressed"]
+[connection signal="close" from="Content/Playground/CentredGame/Overlay/TroopselectionWindow" to="Content/Playground" method="_on_TroopselectionWindow_close"]
+[connection signal="refresh" from="Content/Playground/CentredGame/Overlay/TroopselectionWindow" to="Content/Playground" method="_on_TroopselectionWindow_refresh"]
+[connection signal="close" from="Content/Playground/CentredGame/Overlay/TroopinfoWindow" to="Content/Playground" method="_on_TroopinfoWindow_close"]
+[connection signal="pressed" from="Content/Playground/UI/SettingsButton" to="Content/Playground" method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="Content/Playground/UI/CloseButton" to="Content/Playground" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Content/Playground/UI/GiveUpButton" to="Content/Playground" method="_on_GiveUpButton_pressed"]
+[connection signal="pressed" from="Content/Playground/UI/InfoButton" to="Content/Playground" method="_on_InfoButton_pressed"]
+[connection signal="adding_to_queue" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_adding_to_queue"]
+[connection signal="game_finished" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_game_finished"]
+[connection signal="game_over" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_game_over"]
+[connection signal="give_up" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_give_up"]
+[connection signal="initial_done" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_initial_done"]
+[connection signal="moving_troop" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_moving_troop"]
+[connection signal="removing_from_queue" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_removing_from_queue"]
+[connection signal="turn_finished" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_turn_finished"]

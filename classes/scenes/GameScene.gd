@@ -1,42 +1,33 @@
 extends "res://classes/scenes/ScreenScene.gd"
 
-signal game_over
+signal ready_to_close
 
 var game_finished: bool = false
 
-# TODO game logic for open mode
-func _ready():
-	pass
 
-func run_open_game(mirrored: bool) -> bool:
-	$Content/Playground/Gamelogic.initialize_game(PlayerType.MANUAL, PlayerType.MANUAL)
-	$Content/Playground/Gamelogic.generate_battlefield(mirrored)
-	
-	$Content/Playground/Gamelogic.start_initial_mode(true)
-	yield($Content/Playground/Gamelogic, "initial_done")
-	if self.game_finished:
-		emit_signal("game_over")
-		return true
-	$Content/Playground/Gamelogic.start_initial_mode(false)
-	yield($Content/Playground/Gamelogic, "initial_done")
-	if self.game_finished:
-		emit_signal("game_over")
-		return true
-	self.game_finished = false
-	var round_timer: int = 0
-	$Content/Playground/Gamelogic.start_game_mode()
-	while(!self.game_finished):
-		$Content/Playground/Gamelogic.start_turn(true, round_timer)
-		yield($Content/Playground/Gamelogic, "turn_finished")
-		print("Round " + str(round_timer) + ", Player 1; finished")
-		if !self.game_finished:
-			$Content/Playground/Gamelogic.start_turn(false, round_timer)
-			yield($Content/Playground/Gamelogic, "turn_finished")
-			print("Round " + str(round_timer) + ", Player 2; finished")
-		round_timer += 1
-	
-	emit_signal("game_over")
-	return true
+func _on_Gamelogic_initial_done( selected_troops: Array, castle_position: Vector2) -> void:
+	pass # Replace with function body.
 
-func _on_Playground_game_finished(player: Player):
+func _on_Gamelogic_turn_finished():
+	pass # Replace with function body.
+
+
+func _on_Gamelogic_adding_to_queue(troop_type: int):
+	pass # Replace with function body.
+
+
+func _on_Gamelogic_removing_from_queue(queue_pos: int):
+	pass # Replace with function body.
+
+
+func _on_Gamelogic_moving_troop(from: Vector2, to: Vector2):
+	pass # Replace with function body.
+
+func _on_Gamelogic_game_over(player: Player):
+	pass # Replace with function body.
+
+func _on_Gamelogic_give_up():
+	pass # Replace with function body.
+
+func _on_Gamelogic_game_finished():
 	self.game_finished = true

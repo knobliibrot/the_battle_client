@@ -3,7 +3,7 @@ extends "res://classes/scenes/ScreenScene.gd"
 
 signal start_open_game
 signal start_open_mirrored_game
-signal start_open_network
+signal start_multiplayer_game
 
 const SETTINGS_SCENE: PackedScene = preload("res://classes/game/view/windows/settings/SettingsWindow.tscn")
 
@@ -12,6 +12,9 @@ func _on_StartOpenGameButton_pressed() -> void:
 
 func _on_StartOpenMirroredGameButton_pressed() -> void:
 	emit_signal("start_open_mirrored_game")
+
+func _on_StartMultiplayerGameButton_pressed() -> void:
+	emit_signal("start_multiplayer_game")
 
 # Instance the Settings Window
 func _on_ChangeGameSettingsButton_pressed() -> void:
@@ -22,6 +25,8 @@ func _on_ChangeGameSettingsButton_pressed() -> void:
 func _on_SettingsWindow_close(window: Node) -> void:
 	remove_child(window)
 
-#TODO
-func _on_CheckNetworkButton_pressed():
-	emit_signal("start_open_network")
+
+
+
+
+

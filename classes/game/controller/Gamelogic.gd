@@ -1,5 +1,4 @@
 extends Node
-
 # This class controls everything what happens in the playground and emits signal to the GameScene
 class_name Gamelogic
 
@@ -7,6 +6,12 @@ signal initial_done
 signal turn_finished
 signal play_finished
 signal game_finished
+signal game_over
+signal give_up
+
+signal adding_to_queue
+signal removing_from_queue
+signal moving_troop
 
 const FIELD_DISTANCE_SET_SCENE: PackedScene = preload("res://classes/tools/FieldDistanceSet.tscn")
 
@@ -18,6 +23,8 @@ var player2: Player
 var act_player: Player
 var act_opponent: Player
 var is_player1: bool
+var is_user_player1: bool
+var is_multiplayer: bool = false
 
 var factory_capture_mode_enabled: bool
 
@@ -28,15 +35,16 @@ var def_animation_finished: bool = false
 var play_running: bool = false
 
 # Initialize the players with the given player types
-func initialize_game(player1_type: int, player2_type: int) -> void: 
-	self.player1 = Player.new()
-	self.player1.init(player1_type, true)
-	self.player1.player_name= "Player 1"
-	self.player2 = Player.new()
-	self.player2.init(player2_type, false)
-	self.player2.player_name= "Player 2"
+func initialize_game(player1: Player, player2: Player) -> void: 
+	self.player1 = player1
+	self.player2 = player2
 	self.factory_capture_mode_enabled = false
 	self.game_over = false
+
+# Extends Method above for multiplayer
+func initialize_online_game(player1: Player, player2: Player, is_user_player1: bool) -> void: 
+	self.is_user_player1 = is_user_player1
+	initialize_game(player1, player2)
 
 # Generates the battlefield randomly
 func generate_battlefield(mirrored: bool) -> void:
@@ -44,17 +52,39 @@ func generate_battlefield(mirrored: bool) -> void:
 		self.battlefield_map = $BattlefieldGenerator.generate_mirrored_battlefield()
 	else:
 		self.battlefield_map = $BattlefieldGenerator.generate_battlefield()
-	
+
+# Make battlefield lighter for sending it to opponent
+func get_field_type_map() -> Array:
+	var field_type_map: Array  = []
+	field_type_map.resize(GameSettings.battlefield_height)
+	for y in range(GameSettings.battlefield_height):
+		var row: Array = []
+		row.resize(GameSettings.battlefield_width)
+		field_type_map[y] = row
+		for x in range(GameSettings.battlefield_width):
+			# Fields are just at positions where x + y is uneven
+			if (x + y) % 2 == 1:
+				# First and last column have just empty fields
+				if x != 0 and x != GameSettings.battlefield_width - 1:
+					var field: Field = self.battlefield_map[y][x]
+					field_type_map[y][x] = field.field_type
+					
+	print(field_type_map)
+	return field_type_map
+
+# Initalize Battlfield passed on the given field_types
+func initialize_battlefield(field_type_map: Array) -> void:
+	self.battlefield_map = $BattlefieldGenerator.generate_battlefield(true, field_type_map)
 
 # Starts the castle choosing process for the given player
 func start_initial_mode(is_player1: bool) -> void:
 	self.actual_mode = Mode.INITIAL_MODE
-	set_actual_players(is_player1)
+	set_actual_player(is_player1)
 	
 	if self.act_player.player_type == PlayerType.MANUAL:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 		get_playground().activate_castle_choosing(is_player1)
-		get_playground().start_timer_with_message("Place your Castle and select your Troops" + self.act_player.player_name + "!", GameSettings.initial_round_time)
+		get_playground().start_timer_with_message("Place your Castle and select your Troops " + self.act_player.player_name + "!", GameSettings.initial_round_time)
 
 func _on_Battlefield_castle_choosen(position: Vector2) -> void:
 	set_castle(position)
@@ -87,18 +117,17 @@ func start_game_mode() -> void:
 
 # Starts a turn of the actual player
 func start_turn(is_player1: bool, round_timer: int) -> void:
-	set_actual_players(is_player1)
+	set_actual_player(is_player1)
 	if round_timer == GameSettings.factory_activation_time && !is_player1:
 		self.factory_capture_mode_enabled = true
 		activate_factories(self.player2)
 		activate_factories(self.player1)
 	
-	if self.act_player.player_type == PlayerType.MANUAL:
-		var game_over = pay_and_trainingday()
-		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
-		if !game_over:
-			get_playground().activate_turn_mode(self.is_player1, self.act_player)
-			get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
+	var game_over = pay_and_trainingday()
+	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
+	if !game_over:
+		get_playground().activate_turn_mode(self.is_player1, self.act_player)
+		get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 
 func activate_factories(player: Player) -> void:
 	for troop in player.troops:
@@ -133,10 +162,15 @@ func pay_and_trainingday() -> bool:
 	return false
 
 func _on_QueueBar_remove_from_queue(position: int) -> void:
+	emit_signal("removing_from_queue", position)
+	remove_troop_from_queue(position)
+
+func remove_troop_from_queue(position: int) -> void:
 	self.act_player.remove_from_queue(position)
 	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 
 func _on_TroopButton_create_troop(troop_type: int) -> void:
+	emit_signal("adding_to_queue", troop_type)
 	add_troop_to_queue(troop_type)
 
 # Adds troop to queue if there is space and enaugh money 
@@ -176,23 +210,25 @@ func calculate_distance_to_troop_and_change_status_of_fields(troop_pos: Vector2)
 	var act_field : Field = field_set.pop_first_field()
 	while act_field != null:
 		act_field.dijk_visited = true
-		# Depending on the distance set it's status
-		if ((
-			(max_travel_distance >= act_field.dijk_distance or
-				(act_field.dijk_previous != null and 
-				act_field.dijk_previous.dijk_distance == 0 and 
-				first_move)
-			) and 
-			!act_player.troops.has(act_field.stationed_troop) and 
-			!(act_field.stationed_troop != null and attack_done)
-		) or
-		act_field == battlefield_map[troop_pos.y][troop_pos.x]):
-			act_field.field_state = FieldState.TARGET_SELECTION
-			act_field.set_disabled(false)
-			act_field.set_pressed(false)
-		else:
-			act_field.set_disabled(true)
-			act_field.set_pressed(false)
+		#Don't change the fields if it's ONLINE mode
+		if self.act_player.player_type == PlayerType.MANUAL:
+			# Depending on the distance set it's status
+			if ((
+				(max_travel_distance >= act_field.dijk_distance or
+					(act_field.dijk_previous != null and 
+					act_field.dijk_previous.dijk_distance == 0 and 
+					first_move)
+				) and 
+				!act_player.troops.has(act_field.stationed_troop) and 
+				!(act_field.stationed_troop != null and attack_done)
+			) or
+			act_field == battlefield_map[troop_pos.y][troop_pos.x]):
+				act_field.field_state = FieldState.TARGET_SELECTION
+				act_field.set_disabled(false)
+				act_field.set_pressed(false)
+			else:
+				act_field.set_disabled(true)
+				act_field.set_pressed(false)
 		# Calculate the distance to the neighbours as long there is not an opponent's troop on the field
 		if act_field.stationed_troop == null or act_field.stationed_troop.is_player1 == self.is_player1:
 			for key in act_field.connections:
@@ -216,6 +252,10 @@ func set_dijk_values(act_field: Field, direction: int, stationed_troop: Troop) -
 
 # Procedure when a target is selected
 func _on_Battlefield_target_selected(position: Vector2):
+	emit_signal("moving_troop", self.selected_field.field_position, position)
+	move_troop(position)
+
+func move_troop(position: Vector2) -> void:
 	self.play_running = true
 	var target: Field = battlefield_map[position.y][position.x]
 	var troop: Troop = self.selected_field.stationed_troop
@@ -407,7 +447,7 @@ func show_movement(attacker: Troop, defender: Troop, target_field: Field, moveme
 			attacker.move(path)
 			yield(attacker, "move_finished")
 		
-		var state = move_troop(attacker, start_field, final_target)
+		var state = move_troop_on_battlefield(attacker, start_field, final_target)
 		state.resume()
 		attacker.disconnect("animation_finished", self, "_on_Attacker_animation_finished")
 	# Cleanup
@@ -421,7 +461,7 @@ func move_troop_temp(troop: Troop, target: Field) -> void:
 	target.add_child(troop)
 
 # Moves the troop to the final position and makes the logic updates
-func move_troop(troop: Troop, start: Field, target: Field) -> void:
+func move_troop_on_battlefield(troop: Troop, start: Field, target: Field) -> void:
 	start.stationed_troop = null
 	start.remove_from_group(Group.stationed_troop(self.is_player1))
 	troop.get_parent().remove_child(troop)
@@ -473,7 +513,7 @@ func _on_Defender_animation_finished() -> void:
 
 
 # Sets the actual player and opponent for this round
-func set_actual_players(is_player1: bool) -> void:
+func set_actual_player(is_player1: bool) -> void:
 	self.is_player1 = is_player1
 	if is_player1:
 		self.act_player = self.player1
@@ -501,7 +541,7 @@ func initial_turn_done() -> void:
 			set_castle(Vector2(GameSettings.battlefield_width - 1, GameSettings.castle_start_height))
 		else:
 			set_castle(Vector2(0, GameSettings.castle_start_height))
-	emit_signal("initial_done")
+	emit_signal("initial_done", self.act_player.selected_troops, self.act_player.castle_position )
 
 # Stops the timer, waits until the running play is finished and emits the finsih signal
 func game_turn_done() -> void:
@@ -521,20 +561,41 @@ func game_turn_done() -> void:
 	if self.play_running:
 		yield(self, "play_finished")
 	if !self.game_over:
-		print("turn finished, player1: " + str(self.is_player1))
-		emit_signal("turn_finished")
+		print("turn finished of: " + self.act_player.player_name)
+		if act_player.player_type == PlayerType.MANUAL:
+			emit_signal("turn_finished")
 
 # Stops Round, show Game Over and finish the game
 func game_over() -> void:
+	get_playground().show_message("Game Over " + self.act_player.player_name)
+	stop_game()
+	if self.is_multiplayer:
+		get_playground().show_game_over_overlay(!(self.is_player1 == self.is_user_player1))
+	emit_signal("game_over", self.act_player)
+
+func give_up() -> void:
+	stop_game()
+	get_playground().show_game_over_overlay(false)
+	emit_signal("give_up")
+
+# For multiplayer
+func opponent_gave_up() -> void:
+	get_playground().show_message(self.act_player.player_name + " gave up the game")
+	stop_game()
+	get_playground().show_game_over_overlay(true)
+
+# Update the Ui one last time and disable everything 
+func stop_game() -> void:
 	get_playground().stop_timer()
+	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 	get_playground().disable_all()
-	get_playground().show_message("Game Over " + self.act_opponent.player_name)
 
 func close_game() -> void:
-	emit_signal("game_finished", act_player)
-	yield(get_tree().create_timer(0.1), "timeout")
-	emit_signal("turn_finished")
-	emit_signal("initial_done")
+	emit_signal("game_finished")
+	# TODO: when change open game to asynchronous obsolete
+#	yield(get_tree().create_timer(0.1), "timeout")
+#	emit_signal("turn_finished")
+#	emit_signal("initial_done", [], null)
 
 # Returns the Playground / Parent
 func get_playground() -> Playground:
