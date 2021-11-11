@@ -4,7 +4,6 @@ extends "res://classes/scenes/GameScene.gd"
 func _ready():
 	run_open_game(false)
 
-#TODO should be in open game scene
 func run_open_game(mirrored: bool) -> bool:
 	var player1: Player = Player.new()
 	player1.init(PlayerType.MANUAL, true)
@@ -18,12 +17,12 @@ func run_open_game(mirrored: bool) -> bool:
 	$Content/Playground/Gamelogic.start_initial_mode(true)
 	yield($Content/Playground/Gamelogic, "initial_done")
 	if self.game_finished:
-		emit_signal("game_over")
+		emit_signal("ready_to_close")
 		return true
 	$Content/Playground/Gamelogic.start_initial_mode(false)
 	yield($Content/Playground/Gamelogic, "initial_done")
 	if self.game_finished:
-		emit_signal("game_over")
+		emit_signal("ready_to_close")
 		return true
 	self.game_finished = false
 	var round_timer: int = 0
@@ -38,5 +37,5 @@ func run_open_game(mirrored: bool) -> bool:
 			print("Round " + str(round_timer) + ", Player 2; finished")
 		round_timer += 1
 	
-	emit_signal("game_over")
+	emit_signal("ready_to_close")
 	return true

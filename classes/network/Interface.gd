@@ -72,8 +72,14 @@ var turn_finished: Dictionary = {
 var moving_troop: Dictionary = {
   "id": "moving_troop",
   "data": {
-	"from": [],
-	"to": []
+	"from": {
+		"x": 0,
+		"y": 0
+	},
+	"to": {
+		"x": 0,
+		"y": 0
+	}
   }
 }
 
@@ -95,7 +101,9 @@ var give_up: Dictionary = {
 
 var game_over: Dictionary = {
   "id": "game_over",
-  "data": {}
+  "data": {
+	"player": ""
+	}
 }
 
 var detected_cheating: Dictionary = {

@@ -7,9 +7,6 @@
 [node name="MultiplayerGameScene" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="Background" parent="." index="0"]
-visible = false
-
 [node name="Content" parent="." index="1"]
 visible = false
 

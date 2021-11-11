@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://classes/scenes/GameScene.gd" type="Script" id=1]
 [ext_resource path="res://classes/game/model/fields/Field.tscn" type="PackedScene" id=2]
@@ -36,6 +36,8 @@
 [ext_resource path="res://artifacts/graphics/gui/buttons/help.svg" type="Texture" id=34]
 [ext_resource path="res://classes/game/view/windows/troopselection/TroopselectionWindow.tscn" type="PackedScene" id=35]
 [ext_resource path="res://classes/game/view/windows/troopselection/TroopinfoWindow.tscn" type="PackedScene" id=36]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_big.tres" type="DynamicFont" id=37]
+[ext_resource path="res://artifacts/fonts/ostrichsans_gui_medium_35.tres" type="DynamicFont" id=38]
 
 [node name="GameScene" type="Node"]
 script = ExtResource( 1 )
@@ -44,6 +46,9 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.490196, 0.439216, 0.380392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Content" type="ViewportContainer" parent="."]
 anchor_left = 0.5
@@ -61,14 +66,6 @@ __meta__ = {
 
 [node name="Playground" type="Node" parent="Content"]
 script = ExtResource( 6 )
-
-[node name="Background" type="ColorRect" parent="Content/Playground"]
-margin_right = 1366.0
-margin_bottom = 768.0
-color = Color( 0.490196, 0.439216, 0.380392, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="CentredGame" type="Control" parent="Content/Playground"]
 anchor_left = 0.5
@@ -877,6 +874,65 @@ texture_normal = ExtResource( 29 )
 position = Vector2( -43, 0 )
 z_index = 20
 
+[node name="GameoverBackground" type="ColorRect" parent="Content/Playground/CentredGame/Overlay"]
+visible = false
+light_mask = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -5000.0
+margin_top = -5000.0
+margin_right = 5000.0
+margin_bottom = 5000.0
+rect_min_size = Vector2( 10000, 10000 )
+color = Color( 0.278431, 0.247059, 0.215686, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameoverWindow" type="MarginContainer" parent="Content/Playground/CentredGame/Overlay"]
+visible = false
+margin_right = 1366.0
+margin_bottom = 768.0
+rect_min_size = Vector2( 1366, 768 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Content/Playground/CentredGame/Overlay/GameoverWindow"]
+margin_right = 1366.0
+margin_bottom = 768.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer"]
+margin_left = 433.0
+margin_top = 342.0
+margin_right = 933.0
+margin_bottom = 425.0
+rect_min_size = Vector2( 500, 0 )
+custom_constants/separation = 12
+alignment = 1
+
+[node name="Label" type="Label" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 48.0
+custom_fonts/font = ExtResource( 37 )
+text = "Gam Over!!!"
+align = 1
+
+[node name="MenuButton" type="Button" parent="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer"]
+margin_left = 100.0
+margin_top = 60.0
+margin_right = 400.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 300, 0 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 38 )
+text = "Go Back to the Menu"
+
 [node name="TroopselectionWindow" parent="Content/Playground/CentredGame/Overlay" instance=ExtResource( 35 )]
 visible = false
 
@@ -898,6 +954,22 @@ __meta__ = {
 }
 
 [node name="CloseButton" type="TextureButton" parent="Content/Playground/UI"]
+anchor_left = 0.99
+anchor_top = 0.01
+anchor_right = 0.99
+anchor_bottom = 0.013
+margin_left = -20.0
+margin_top = 1.0
+margin_right = 10.0
+margin_bottom = 28.696
+texture_normal = ExtResource( 33 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GiveUpButton" type="TextureButton" parent="Content/Playground/UI"]
+visible = false
 anchor_left = 0.99
 anchor_top = 0.01
 anchor_right = 0.99
@@ -961,13 +1033,19 @@ script = ExtResource( 5 )
 [connection signal="castle_choosen" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_castle_choosen"]
 [connection signal="target_selected" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_target_selected"]
 [connection signal="troop_selected" from="Content/Playground/CentredGame/Battlefield" to="Content/Playground/Gamelogic" method="_on_Battlefield_troop_selected"]
+[connection signal="pressed" from="Content/Playground/CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/MenuButton" to="Content/Playground" method="_on_MenuButton_pressed"]
 [connection signal="close" from="Content/Playground/CentredGame/Overlay/TroopselectionWindow" to="Content/Playground" method="_on_TroopselectionWindow_close"]
 [connection signal="refresh" from="Content/Playground/CentredGame/Overlay/TroopselectionWindow" to="Content/Playground" method="_on_TroopselectionWindow_refresh"]
 [connection signal="close" from="Content/Playground/CentredGame/Overlay/TroopinfoWindow" to="Content/Playground" method="_on_TroopinfoWindow_close"]
 [connection signal="pressed" from="Content/Playground/UI/SettingsButton" to="Content/Playground" method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="Content/Playground/UI/CloseButton" to="Content/Playground" method="_on_CloseButton_pressed"]
+[connection signal="pressed" from="Content/Playground/UI/GiveUpButton" to="Content/Playground" method="_on_GiveUpButton_pressed"]
 [connection signal="pressed" from="Content/Playground/UI/InfoButton" to="Content/Playground" method="_on_InfoButton_pressed"]
+[connection signal="adding_to_queue" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_adding_to_queue"]
 [connection signal="game_finished" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_game_finished"]
+[connection signal="game_over" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_game_over"]
+[connection signal="give_up" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_give_up"]
 [connection signal="initial_done" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_initial_done"]
-[connection signal="play_finished" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_play_finished"]
+[connection signal="moving_troop" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_moving_troop"]
+[connection signal="removing_from_queue" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_removing_from_queue"]
 [connection signal="turn_finished" from="Content/Playground/Gamelogic" to="." method="_on_Gamelogic_turn_finished"]

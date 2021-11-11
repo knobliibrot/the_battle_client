@@ -25,6 +25,10 @@ func update_gui_with_player(player1: Player, player2: Player, act_player: Player
 			button.set_visible(true)
 		else:
 			button.set_visible(false)
+	
+	if act_player.player_type == PlayerType.ONLINE:
+		for queue_button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
+			queue_button.set_disabled(true)
 	yield()
 
 # Set fields for selecting the castle for the given player
@@ -37,7 +41,7 @@ func activate_castle_choosing(is_player1: bool) -> void:
 	emit_signal("gui_ready")
 
 # Mode if the user finished but the opponent didn't in Multiplayer
-func wait_for_opponent_initial_round_finished(opponent_is_player1: bool, opponent: Player) -> void:
+func wait_for_opponent_initial_round_finished(opponent: Player) -> void:
 	show_message("You have to wait until " + opponent.player_name + " has finished the initial round")
 	$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = false
 	for ui in get_tree().get_nodes_in_group(Group.INITIAL_MODE_UI_NODE):
@@ -56,26 +60,30 @@ func activate_turn_mode(is_player1: bool, actual_player: Player) -> void:
 	for field in get_tree().get_nodes_in_group(Group.FIELDS):
 		field.set_disabled(true)
 	
-	if actual_player.player_type == PlayerType.MANUAL:
-		for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
-			if  actual_player.selected_troops.has(button.troop_type):
+	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
+		if  actual_player.selected_troops.has(button.troop_type):
+			if actual_player.player_type == PlayerType.MANUAL:
 				button.get_node("TextureButton").set_disabled(false)
-		
-		for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
-			if field.stationed_troop != null:
-				if field.stationed_troop.movement_left > 0:
-					field.field_state = FieldState.TROOP_SELECTION
-					field.set_disabled(false)
-					field.pressed = false
 			else:
-				print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
+				button.get_node("TextureButton").set_disabled(true)
+	
+	for field in get_tree().get_nodes_in_group(Group.stationed_troop(is_player1)):
+		if field.stationed_troop != null:
+			if field.stationed_troop.movement_left > 0:
+				field.field_state = FieldState.TROOP_SELECTION
+				if actual_player.player_type == PlayerType.MANUAL:
+					field.set_disabled(false)
+				else:
+					field.set_disabled(true)
+				field.pressed = false
+		else:
+			print("Kritisch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! statined troop = null")
 		
-		$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = true
-	elif actual_player.player_type == PlayerType.ONLINE:
-		for queue_button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
-			queue_button.set_disabled(true)
-		
+	$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = true
+	
+	if actual_player.player_type == PlayerType.ONLINE:
 		$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = false
+	
 	yield()
 
 # Disables everything 
@@ -88,7 +96,7 @@ func disable_all() -> void:
 	for button in get_tree().get_nodes_in_group(Group.QUEUE_BUTTON):
 		button.set_disabled(true)
 	
-	$CentredGame/Top/TopBar/TopBar2/DoneBox/NinePatchRect/Button.set_disabled(true)
+	$CentredGame/Top/TopBar/TopBar2/DoneBox.visible = false
 
 # Disables all fields
 func disable_battlefield() -> void:
@@ -105,12 +113,27 @@ func start_timer_with_message(message: String, seconds: float) -> void:
 	show_message(message)
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds)
 
+func set_timer_to(timer_started_time: int) -> void:
+	$CentredGame/Top/TopBar/TopBar2/TimeBox
+
 # Shows a message for the given time 
 func show_message(message: String) -> void:
 	$CentredGame/Top/TopBar/MessageBox/Box/Label.text = message
 
 func stop_timer() -> void:
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
+
+func change_close_to_give_up_button() -> void:
+	$UI/CloseButton.visible = false
+	$UI/GiveUpButton.visible = true
+
+func show_game_over_overlay(game_won: bool) -> void:
+	$CentredGame/Overlay/GameoverWindow.visible = true
+	$CentredGame/Overlay/GameoverBackground.visible = true
+	if game_won:
+		$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "You won!!!"
+	else:
+		$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "Game Over!!!"
 
 # Pause the time and instance the Settings Window
 func _on_SettingsButton_pressed() -> void:
@@ -124,7 +147,15 @@ func _on_SettingsWindow_close(window: Node) -> void:
 	$CentredGame/Overlay.remove_child(window)
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.resume_timer()
 
+func _on_GiveUpButton_pressed():
+	$Gamelogic.give_up()
+	print("on_GiveUpButton_pressed")
+
 func _on_CloseButton_pressed():
+	$Gamelogic.close_game()
+	print("on_CloseButton_pressed")
+
+func _on_MenuButton_pressed():
 	$Gamelogic.close_game()
 
 func _on_SelectTroopsButton_pressed():

@@ -21,15 +21,15 @@ func change_to_menu_scene() -> void:
 
 func change_to_open_game_scene() -> void:
 	change_scene(OPEN_GAME_SCENE)
-	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
+	var _err = act_scene.connect("ready_to_close", self, "on_GameScene_ready_to_close")
 
 func change_to_open_mirrored_game_scene() -> void:
 	change_scene(OPEN_MIRRORED_GAME_SCENE)
-	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
+	var _err = act_scene.connect("ready_to_close", self, "on_GameScene_ready_to_close")
 
 func change_to_multiplayer_game_scene() -> void:
 	change_scene(MULTIPLAYER_GAME_SCENE)
-	var _err = act_scene.connect("game_over", self, "on_GameScene_game_over")
+	var _err = act_scene.connect("ready_to_close", self, "on_GameScene_ready_to_close")
 
 # Changes the actual Scene to given scene
 func change_scene(new_scene) -> void:
@@ -47,5 +47,5 @@ func on_MenuScene_start_open_mirrored_game() -> void:
 func on_MenuScene_start_multiplayer_game() -> void:
 	change_to_multiplayer_game_scene()
 
-func on_GameScene_game_over() -> void:
+func on_GameScene_ready_to_close() -> void:
 	change_to_menu_scene()
