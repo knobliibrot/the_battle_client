@@ -3,6 +3,7 @@ extends Node
 class_name Playground
 
 signal gui_ready
+signal stop_opponent_search
 
 const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
@@ -127,13 +128,16 @@ func change_close_to_give_up_button() -> void:
 	$UI/CloseButton.visible = false
 	$UI/GiveUpButton.visible = true
 
-func show_game_over_overlay(game_won: bool) -> void:
+func show_game_over_overlay(game_won: bool, connection_broke: bool = false) -> void:
 	$CentredGame/Overlay/GameoverWindow.visible = true
 	$CentredGame/Overlay/GameoverBackground.visible = true
-	if game_won:
-		$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "You won!!!"
+	if connection_broke:
+		$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "The connection to the server got lost"
 	else:
-		$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "Game Over!!!"
+		if game_won:
+			$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "You won!!!"
+		else:
+			$CentredGame/Overlay/GameoverWindow/CenterContainer/VBoxContainer/Label.text = "Game Over!!!"
 
 # Pause the time and instance the Settings Window
 func _on_SettingsButton_pressed() -> void:
@@ -179,3 +183,6 @@ func _on_TroopselectionWindow_refresh(selected_troops: Array, message: String) -
 
 func _on_InfoButton_pressed():
 	$CentredGame/Overlay/TroopinfoWindow.set_visible(true)
+
+func _on_StopSearchButton_pressed():
+	emit_signal("stop_opponent_search")

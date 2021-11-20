@@ -9,11 +9,10 @@ var connected: bool = false
 var username_selected: bool = false
 var initial_turn_finished: bool = false
 var opponent_initial_turn_finished: bool = false
+var game_over: bool = false
+var close_multiplayer: bool = false
 
 func _ready():
-	$Client.connect("connected", self, "_on_Client_connected")
-	$Client.connect("connection_failed", self, "_on_Client_connection_failed")
-	$Client.connect("response_received", self, "_on_Client_response_received")
 	$Content/Playground/Gamelogic.is_multiplayer = true
 	$Content/Playground.change_close_to_give_up_button()
 	# TODO delete direct calls in SearchScreen and Playground keep Controller and View seperated
@@ -21,6 +20,7 @@ func _ready():
 	$Client.start_connection()
 
 func _on_SearchButton_pressed():
+	# TODO not clean
 	self.user.player_name = $SearchScreen/Content/UsernameBox/Input.text
 	$SearchScreen/Content/UsernameBox.visible = false
 	$SearchScreen/Content/StatusBox.visible = true
@@ -54,6 +54,22 @@ func _on_Client_response_received(pkg: Dictionary) -> void:
 		self.call(pkg[InterfaceKeys.ID], pkg)
 	else:
 		print("Response id doesn't exist " + pkg[InterfaceKeys.ID])
+
+func _on_Client_connection_closed():
+	if self.close_multiplayer:
+		emit_signal("ready_to_close")
+	else:
+		if !self.game_over:
+			print("Something with the server went wrong")
+			$SearchScreen.visible = false
+			$Content/Playground.show_game_over_overlay(false, true)
+
+func _on_Playground_stop_opponent_search():
+	if self.connected:
+		self.close_multiplayer = true
+		$Client.close_connection("Multiplayer closed")
+	else:
+		emit_signal("ready_to_close")
 
 func opponent_found(pkg: Dictionary) -> void:
 	$SearchScreen/Content/StatusBox/Label.text = SearchOpponentState.OPPONENT_FOUND
@@ -170,19 +186,24 @@ func moving_troop(pkg: Dictionary) -> void:
 	print("movement made")
 
 func _on_Gamelogic_give_up():
+	self.game_over = true
 	var new_pkg = Interface.give_up
 	send_request(ServiceNames.GIVE_UP, new_pkg)
 
 func give_up(pkg: Dictionary) -> void:
+	self.game_over = true
 	$Content/Playground/Gamelogic.opponent_gave_up()
 
 func _on_Gamelogic_game_over(player: Player):
+	self.game_over = true
 	var new_pkg = Interface.game_over
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.PLAYER] = player.player_name
 	send_request(ServiceNames.GAME_OVER, new_pkg)
 
 func game_over(pkg: Dictionary) -> void:
+	self.game_over = true
 	$Content/Playground/Gamelogic.game_over()
 
 func _on_Gamelogic_game_finished():
 	emit_signal("ready_to_close")
+

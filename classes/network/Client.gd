@@ -5,6 +5,7 @@ class_name Client
 signal connected
 signal connection_failed
 signal response_received
+signal connection_closed
 
 # The URL we will connect to
 export var websocket_url: String
@@ -18,6 +19,7 @@ func _ready():
 	_client.connect("connection_closed", self, "_closed")
 	_client.connect("connection_error", self, "_closed")
 	_client.connect("connection_established", self, "_connected")
+	_client.connect("server_close_request", self, "_close_requested")
 	# This signal is emitted when not using the Multiplayer API every time
 	# a full packet is received.
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
@@ -47,16 +49,20 @@ func start_connection() -> void:
 	var err = _client.connect_to_url(websocket_url)
 	if err != OK:
 		print("Unable to connect")
-		emit_signal("connection_failed")		
+		emit_signal("connection_failed")
 		set_process(false)
 	else:
 		print("ok")
+
+func _close_requested(code: int, reason: String) -> void:
+	print("Server requested close with Code: %d and Reason: %s" % [code, reason])
 
 func _closed(was_clean = false):
 	# was_clean will tell you if the disconnection was correctly notified
 	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
 	set_process(false)
+	emit_signal("connection_closed")
 
 func _connected(proto = ""):
 	# This is called on connection, "proto" will be the selected WebSocket
@@ -85,4 +91,5 @@ func _on_data():
 func send_request(pkg: Dictionary) -> void:
 	_client.get_peer(1).put_packet(to_json(pkg).to_utf8())
 
-
+func close_connection(reason: String) -> void:
+	_client.disconnect_from_host(1000, reason)
