@@ -7,12 +7,13 @@ signal connection_failed
 signal response_received
 
 # The URL we will connect to
-export var websocket_url = "127.0.0.1:9080"
+export var websocket_url: String
 
 # Our WebSocketClient instance
 var _client: WebSocketClient = WebSocketClient.new()
 
 func _ready():
+	load_websocket_client()
 	# Connect base signals to get notified of connection open, close, and errors.
 	_client.connect("connection_closed", self, "_closed")
 	_client.connect("connection_error", self, "_closed")
@@ -21,6 +22,19 @@ func _ready():
 	# a full packet is received.
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	_client.connect("data_received", self, "_on_data")
+
+func load_websocket_client() -> void:
+	var url: String
+	if GameSettings.is_server_url:
+		url = GameParameters.SERVER_URL
+	else:
+		url = GameParameters.LOCALHOST_URL
+	var port: String
+	if GameSettings.is_prod_port:
+		port = GameParameters.PROD_PORT
+	else:
+		port = GameParameters.TEST_PORT
+	self.websocket_url = url + ":" + port
 
 func _process(delta):
 	# Call this in _process or _physics_process. Data transfer, and signals

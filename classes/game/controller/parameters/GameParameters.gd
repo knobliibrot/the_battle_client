@@ -122,6 +122,13 @@ const ANIMATION_TOLERANCE: float = 5.0
 
 const DAMGE_PER_HEALTH: bool = false
 
+const SERVER_URL: String = "185.142.212.111"
+const LOCALHOST_URL: String = "127.0.0.1"
+const PROD_PORT: String = "9090"
+const TEST_PORT: String = "9080"
+const IS_SERVER_URL: bool = true
+const IS_PROD_PORT: bool = false
+
 const STANDARD_TROOPS: Array = [
 	TroopType.SPEARMAN,
 	TroopType.SWORDSMAN,

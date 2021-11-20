@@ -33,3 +33,7 @@ var max_food_amount: int = GameParameters.MAX_FOOD_AMOUNT
 var damge_per_health: bool = GameParameters.DAMGE_PER_HEALTH
 
 var standard_troops: Array = GameParameters.STANDARD_TROOPS.duplicate()
+
+var is_server_url: bool = GameParameters.IS_SERVER_URL
+var is_prod_port: bool = GameParameters.IS_PROD_PORT
+
