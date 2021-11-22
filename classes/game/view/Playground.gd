@@ -3,11 +3,10 @@ extends Node
 class_name Playground
 
 signal gui_ready
-signal stop_opponent_search
 
-const MESSAGE_CONTAINER = preload("res://classes/game/view/boxes/MessageContainer.tscn")
 const CASTLE_SCENE = preload("res://classes/game/model/fields/CastleField.tscn")
 const SETTINGS_SCENE = preload("res://classes/game/view/windows/settings/SettingsWindow.tscn")
+
 # Updates the info-, castlehealth- and queue boxes
 func update_gui_with_player(player1: Player, player2: Player, act_player: Player) -> void:
 	$CentredGame/Overlay/TroopselectionWindow.set_visible(false)
@@ -114,12 +113,15 @@ func start_timer_with_message(message: String, seconds: float) -> void:
 	show_message(message)
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds)
 
+# Set the timer for multiplayer to correct the time
 func set_timer(timer_started_time: int) -> void:
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.set_timer(timer_started_time)
 
+# Get the time when the timer started
 func get_actual_time_started() -> int:
 	return $CentredGame/Top/TopBar/TopBar2/TimeBox.actual_time_started
 
+# Stop timer
 func stop_timer() -> void:
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
 
@@ -127,10 +129,12 @@ func stop_timer() -> void:
 func show_message(message: String) -> void:
 	$CentredGame/Top/TopBar/MessageBox/Box/Label.text = message
 
+# Change Button from directl close to give up
 func change_close_to_give_up_button() -> void:
 	$UI/CloseButton.visible = false
 	$UI/GiveUpButton.visible = true
 
+# Show the overlay when the game is finished
 func show_game_over_overlay(game_won: bool, connection_broke: bool = false) -> void:
 	$CentredGame/Overlay/GameoverWindow.visible = true
 	$CentredGame/Overlay/GameoverBackground.visible = true
@@ -154,17 +158,18 @@ func _on_SettingsWindow_close(window: Node) -> void:
 	$CentredGame/Overlay.remove_child(window)
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.resume_timer()
 
-func _on_GiveUpButton_pressed():
+func _on_GiveUpButton_pressed() -> void:
 	$Gamelogic.give_up()
 	print("on_GiveUpButton_pressed")
 
-func _on_CloseButton_pressed():
+func _on_CloseButton_pressed() -> void:
 	$Gamelogic.close_game()
 	print("on_CloseButton_pressed")
 
-func _on_MenuButton_pressed():
+func _on_MenuButton_pressed() -> void:
 	$Gamelogic.close_game()
 
+# Select a troop in the troopselection window
 func _on_SelectTroopsButton_pressed():
 	$CentredGame/Overlay/TroopselectionWindow.set_selected_troops($Gamelogic.act_player.selected_troops)
 	$CentredGame/Overlay/TroopselectionWindow.set_visible(true)
@@ -175,6 +180,7 @@ func _on_TroopselectionWindow_close() -> void:
 func _on_TroopinfoWindow_close() -> void:
 	$CentredGame/Overlay/TroopinfoWindow.set_visible(false)
 
+# Refresh the troopselection window with the selected troops
 func _on_TroopselectionWindow_refresh(selected_troops: Array, message: String) -> void:
 	for button in get_tree().get_nodes_in_group(Group.CREATE_TROOP_BUTTON):
 		if  selected_troops.has(button.troop_type):
@@ -184,8 +190,5 @@ func _on_TroopselectionWindow_refresh(selected_troops: Array, message: String) -
 	if !message.empty():
 		show_message(message)
 
-func _on_InfoButton_pressed():
+func _on_InfoButton_pressed() -> void:
 	$CentredGame/Overlay/TroopinfoWindow.set_visible(true)
-
-func _on_StopSearchButton_pressed():
-	emit_signal("stop_opponent_search")

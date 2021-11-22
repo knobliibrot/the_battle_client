@@ -1,6 +1,5 @@
 extends "res://classes/scenes/ScreenScene.gd"
 
-
 signal start_open_game
 signal start_open_mirrored_game
 signal start_multiplayer_game

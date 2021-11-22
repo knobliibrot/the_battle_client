@@ -4,7 +4,7 @@
 [ext_resource path="res://classes/scenes/MultiplayerGameScene.gd" type="Script" id=2]
 [ext_resource path="res://classes/network/Client.gd" type="Script" id=3]
 [ext_resource path="res://artifacts/graphics/gui/buttons/cancel.svg" type="Texture" id=4]
-[ext_resource path="res://classes/scenes/SearchScreen.gd" type="Script" id=5]
+[ext_resource path="res://classes/game/view/windows/search_screen/SearchScreen.gd" type="Script" id=5]
 
 [node name="MultiplayerGameScene" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -105,9 +105,9 @@ align = 1
 [node name="Client" type="Node" parent="." index="3"]
 script = ExtResource( 3 )
 
-[connection signal="stop_opponent_search" from="Content/Playground" to="." method="_on_Playground_stop_opponent_search"]
+[connection signal="stop_opponent_search" from="SearchScreen" to="." method="_on_SearchScreen_stop_opponent_search"]
 [connection signal="pressed" from="SearchScreen/StopSearchButton" to="Content/Playground" method="_on_StopSearchButton_pressed"]
-[connection signal="pressed" from="SearchScreen/Content/UsernameBox/SearchButton" to="." method="_on_SearchButton_pressed"]
+[connection signal="pressed" from="SearchScreen/Content/UsernameBox/SearchButton" to="SearchScreen" method="_on_SearchButton_pressed"]
 [connection signal="connected" from="Client" to="." method="_on_Client_connected"]
 [connection signal="connection_closed" from="Client" to="." method="_on_Client_connection_closed"]
 [connection signal="connection_failed" from="Client" to="." method="_on_Client_connection_failed"]

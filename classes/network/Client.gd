@@ -25,6 +25,7 @@ func _ready():
 	# Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	_client.connect("data_received", self, "_on_data")
 
+# Set Websocket url based on the settings
 func load_websocket_client() -> void:
 	var url: String
 	if GameSettings.is_server_url:
@@ -38,13 +39,15 @@ func load_websocket_client() -> void:
 		port = GameParameters.TEST_PORT
 	self.websocket_url = url + ":" + port
 
+
+# Call this in _process or _physics_process. Data transfer, and signals
+# emission will only happen when calling this function.
 func _process(delta):
-	# Call this in _process or _physics_process. Data transfer, and signals
-	# emission will only happen when calling this function.
 	_client.poll()
 
+
+# Initiate connection to the given URL.
 func start_connection() -> void:
-	# Initiate connection to the given URL.
 	print("start to connect")
 	var err = _client.connect_to_url(websocket_url)
 	if err != OK:
@@ -57,37 +60,35 @@ func start_connection() -> void:
 func _close_requested(code: int, reason: String) -> void:
 	print("Server requested close with Code: %d and Reason: %s" % [code, reason])
 
+# was_clean will tell you if the disconnection was correctly notified
+# by the remote peer before closing the socket.
 func _closed(was_clean = false):
-	# was_clean will tell you if the disconnection was correctly notified
-	# by the remote peer before closing the socket.
 	print("Closed, clean: ", was_clean)
 	set_process(false)
 	emit_signal("connection_closed")
 
+# This is called on connection, "proto" will be the selected WebSocket
+# sub-protocol (which is optional)
 func _connected(proto = ""):
-	# This is called on connection, "proto" will be the selected WebSocket
-	# sub-protocol (which is optional)
 	emit_signal("connected")
 	print("Connected with protocol: ", proto)
 
+# Convert received data to Dictionary and send signal 
 func _on_data():
-	# Print the received packet, you MUST always use get_peer(1).get_packet
-	# to receive data from server, and not get_packet directly when not
-	# using the MultiplayerAPI.
 	var json_string: String = _client.get_peer(1).get_packet().get_string_from_utf8()
 	print(json_string)
 	var error: String = validate_json(json_string)
 	if not error:
 		print("valid")
-		emit_signal("response_received", (parse_json(json_string)))
-#		if typeof(json_string) == TYPE_DICTIONARY:
-#			process_request(parse_json(json_string))
-#		else:
-#			print("unexpected results")
-#			print(json_string)
+		if typeof(json_string) == TYPE_DICTIONARY:
+			emit_signal("response_received", (parse_json(json_string)))
+		else:
+			print("unexpected results")
+			print(json_string)
 	else:
 		prints("invalid", error)
 
+# Send package as PoolByte array to server
 func send_request(pkg: Dictionary) -> void:
 	_client.get_peer(1).put_packet(to_json(pkg).to_utf8())
 

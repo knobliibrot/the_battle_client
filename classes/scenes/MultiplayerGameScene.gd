@@ -16,13 +16,12 @@ func _ready():
 	get_search_screen().set_status(SearchOpponentState.CONNECTING)
 	get_client().start_connection()
 
-func _on_SearchButton_pressed():
+func _on_SearchButton_pressed() -> void:
 	self.user.player_name = get_search_screen().get_username()
 	get_search_screen().display_status_box()
 	self.username_selected = true
 	if self.connected:
 		send_search_opponent_request()
-	
 
 func _on_Client_connected() -> void:
 	get_search_screen().set_status(SearchOpponentState.CONNECTED)
@@ -50,7 +49,7 @@ func _on_Client_response_received(pkg: Dictionary) -> void:
 	else:
 		print("Response id doesn't exist " + pkg[InterfaceKeys.ID])
 
-func _on_Client_connection_closed():
+func _on_Client_connection_closed() -> void:
 	if self.close_multiplayer:
 		emit_signal("ready_to_close")
 	else:
@@ -59,7 +58,7 @@ func _on_Client_connection_closed():
 			get_search_screen().vanish()
 			get_playground().show_game_over_overlay(false, true)
 
-func _on_Playground_stop_opponent_search():
+func _on_SearchScreen_stop_opponent_search() -> void:
 	if self.connected:
 		self.close_multiplayer = true
 		get_client().close_connection("Multiplayer closed")
@@ -69,8 +68,8 @@ func _on_Playground_stop_opponent_search():
 func opponent_found(pkg: Dictionary) -> void:
 	get_search_screen().set_status(SearchOpponentState.OPPONENT_FOUND)
 	self.opponent.player_name = pkg[InterfaceKeys.DATA][InterfaceKeys.OPPONENT]
-	self.opponent.init(PlayerType.ONLINE, !pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
-	self.user.init(PlayerType.MANUAL, pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER])
+	self.opponent.init(PlayerType.ONLINE)
+	self.user.init(PlayerType.MANUAL)
 	self.is_first_player = pkg[InterfaceKeys.DATA][InterfaceKeys.FIRST_PLAYER]
 	print("opponent saved")
 
@@ -94,7 +93,7 @@ func start_game(pkg: Dictionary) -> void:
 	get_gamelogic().start_initial_mode(self.is_first_player)
 	print("game started")
 
-func _on_Gamelogic_initial_done( selected_troops: Array, castle_position: Vector2) -> void:
+func _on_Gamelogic_initial_done(selected_troops: Array, castle_position: Vector2) -> void:
 	var new_pkg = Interface.initial_turn_finished
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.SELECTED_TROOPS] = selected_troops
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.CASTEL_POSITION][InterfaceKeys.X] = int(castle_position.x)
@@ -121,14 +120,10 @@ func send_turn_started() -> void:
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.STARTING_TIME] = get_playground().get_actual_time_started()
 	send_request(ServiceNames.TURN_STARTED, new_pkg)
 
-
-
-
-
-func turn_started(pkg) -> void:
+func turn_started(pkg: Dictionary) -> void:
 	get_playground().set_timer(pkg[InterfaceKeys.DATA][InterfaceKeys.STARTING_TIME])
 
-func _on_Gamelogic_turn_finished():
+func _on_Gamelogic_turn_finished() -> void:
 	var new_pkg = Interface.turn_finished
 	send_request(ServiceNames.TURN_FINISHED, new_pkg)
 	
@@ -145,7 +140,7 @@ func turn_finished(pkg: Dictionary) -> void:
 		self.round_timer += 1
 	get_gamelogic().start_turn(self.is_first_player, self.round_timer)
 
-func _on_Gamelogic_adding_to_queue(troop_type: int):
+func _on_Gamelogic_adding_to_queue(troop_type: int) -> void:
 	var new_pkg = Interface.adding_to_queue
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.TROOP_TYPE] = troop_type
 	send_request(ServiceNames.ADDING_TO_QUEUE, new_pkg)
@@ -155,7 +150,7 @@ func adding_to_queue(pkg: Dictionary) -> void:
 	get_gamelogic().add_troop_to_queue(pkg[InterfaceKeys.DATA][InterfaceKeys.TROOP_TYPE])
 	print("troop added to queue")
 
-func _on_Gamelogic_removing_from_queue(queue_pos: int):
+func _on_Gamelogic_removing_from_queue(queue_pos: int) -> void:
 	var new_pkg = Interface.removing_from_queue
 	new_pkg[InterfaceKeys.DATA][InterfaceKeys.QUEUE_POS] = queue_pos
 	send_request(ServiceNames.REMOVING_FROM_QUEUE, new_pkg)
@@ -213,12 +208,11 @@ func _on_Gamelogic_game_finished():
 func get_client() -> Client:
 	return get_node("Client") as Client
 
-func get_search_screen() -> SearchScreen:
-	return get_node("SearchScreen") as SearchScreen
+func get_search_screen() -> Node:
+	return get_node("SearchScreen")
 
 func get_playground() -> Playground:
 	return get_node("Content/Playground") as Playground
 
 func get_gamelogic() -> Gamelogic:
 	return get_node("Content/Playground/Gamelogic") as Gamelogic
-

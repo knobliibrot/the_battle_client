@@ -1,4 +1,5 @@
 extends Node
+
 # This class controls everything what happens in the playground and emits signal to the GameScene
 class_name Gamelogic
 
@@ -86,6 +87,16 @@ func start_initial_mode(is_player1: bool) -> void:
 		get_playground().activate_castle_choosing(is_player1)
 		get_playground().start_timer_with_message("Place your Castle and select your Troops " + self.act_player.player_name + "!", GameSettings.initial_round_time)
 
+# Sets the actual player and opponent for this round
+func set_actual_player(is_player1: bool) -> void:
+	self.is_player1 = is_player1
+	if is_player1:
+		self.act_player = self.player1
+		self.act_opponent = self.player2
+	else:
+		self.act_player = self.player2
+		self.act_opponent = self.player1
+
 func _on_Battlefield_castle_choosen(position: Vector2) -> void:
 	set_castle(position)
 
@@ -106,6 +117,7 @@ func set_castle(position: Vector2) -> void:
 			get_battlefield().remove_child(empty_field)
 			battlefield_map[empty_field.field_position.y][empty_field.field_position.x] = null
 
+# Set selected troops
 func set_troops(selected_troops: Array) -> void:
 	self.act_player.selected_troops = selected_troops
 	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
@@ -129,6 +141,7 @@ func start_turn(is_player1: bool, round_timer: int) -> void:
 		get_playground().activate_turn_mode(self.is_player1, self.act_player)
 		get_playground().start_timer_with_message("Your turn " + act_player.player_name + "!", GameSettings.round_time)
 
+# Make factories selectable and capture factories where there are already troops
 func activate_factories(player: Player) -> void:
 	for troop in player.troops:
 		if (troop.parent_field.factory != null):
@@ -165,6 +178,7 @@ func _on_QueueBar_remove_from_queue(position: int) -> void:
 	emit_signal("removing_from_queue", position)
 	remove_troop_from_queue(position)
 
+# Remove troop from queue
 func remove_troop_from_queue(position: int) -> void:
 	self.act_player.remove_from_queue(position)
 	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
@@ -475,6 +489,7 @@ func move_troop_on_battlefield(troop: Troop, start: Field, target: Field) -> voi
 	check_if_movement_left(target)
 	yield()
 
+# Check if the movement_points are enaugh to go to a neibourgh field ortherwise make them to 0
 func check_if_movement_left(field: Field) -> void:
 	var mov_left = field.stationed_troop.movement_left
 	var move_possible = false
@@ -511,17 +526,6 @@ func _on_Attacker_animation_finished() -> void:
 func _on_Defender_animation_finished() -> void:
 	self.def_animation_finished = true
 
-
-# Sets the actual player and opponent for this round
-func set_actual_player(is_player1: bool) -> void:
-	self.is_player1 = is_player1
-	if is_player1:
-		self.act_player = self.player1
-		self.act_opponent = self.player2
-	else:
-		self.act_player = self.player2
-		self.act_opponent = self.player1
-
 func _on_DoneBox_done() -> void:
 	get_playground().stop_timer()
 	self.turn_done()
@@ -535,6 +539,7 @@ func turn_done() -> void:
 	elif actual_mode == Mode.GAME_MODE:
 		self.game_turn_done()
 
+# Set the castel position and signal initial_done
 func initial_turn_done() -> void:
 	if self.act_player.castle_position == Vector2(-1,-1):
 		if self.is_player1:
@@ -565,7 +570,7 @@ func game_turn_done() -> void:
 		if act_player.player_type == PlayerType.MANUAL:
 			emit_signal("turn_finished")
 
-# Stops Round, show Game Over and finish the game
+# Stops Round and show the game over overlay
 func game_over() -> void:
 	get_playground().show_message("Game Over " + self.act_player.player_name)
 	stop_game()
@@ -573,6 +578,7 @@ func game_over() -> void:
 		get_playground().show_game_over_overlay(!(self.is_player1 == self.is_user_player1))
 	emit_signal("game_over", self.act_player)
 
+# Stops Round and show the game over overlay
 func give_up() -> void:
 	stop_game()
 	get_playground().show_game_over_overlay(false)
@@ -590,12 +596,14 @@ func stop_game() -> void:
 	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 	get_playground().disable_all()
 
+# Go back to the menu
 func close_game() -> void:
 	emit_signal("game_finished")
 	# TODO: when change open game to asynchronous obsolete
-#	yield(get_tree().create_timer(0.1), "timeout")
-#	emit_signal("turn_finished")
-#	emit_signal("initial_done", [], null)
+	if !is_multiplayer:
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("turn_finished")
+		emit_signal("initial_done", [], null)
 
 # Returns the Playground / Parent
 func get_playground() -> Playground:
@@ -605,5 +613,6 @@ func get_playground() -> Playground:
 func get_battlefield() -> Battlefield:
 	return get_playground().get_node("CentredGame/Battlefield") as Battlefield
 
+# Returns the Battlefield Generator
 func get_battlefield_generator() -> BattlefieldGenerator:
 	return get_node("BattlefieldGenerator") as BattlefieldGenerator

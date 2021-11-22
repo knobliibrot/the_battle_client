@@ -24,12 +24,14 @@ func set_pressed(value: bool) -> void:
 func _on_Button_pressed():
 	emit_signal("pressed", self.troop_type, $Button.pressed)
 
+# Set Troop Bonus based on TroopSettings
 func set_bonus_troops(troop_type: int) -> void:
 	for bonus_troop in TroopSettings.special_dmg[troop_type]:
 		var node: Node = $Button/VBoxContainer/HBoxContainer/InfoBox/MarginContainer/TroopBonusBox/HBoxContainer.get_node(TroopSettings.troop_name[bonus_troop])
 		node.set_visible(true)
 		node.hint_tooltip = String(TroopSettings.special_dmg[troop_type][bonus_troop])
 
+# Set field bonus based on TroopSettings
 func set_bonus_fields(troop_type: int) -> void:
 	for bonus_field in TroopSettings.field_att_dmg[troop_type]:
 		if (bonus_field != FieldType.MOUNTAIN and bonus_field != FieldType.CASTLE or

@@ -72,6 +72,7 @@ func create_troop(troop_type: int, is_player1: bool, battlefield_map: Array) -> 
 	else:
 		return null
 
+# Move the troop in the castle when a new one spawns in the castle
 func force_troop_move(is_player1: bool, troop: Troop, battlefield_map: Array) -> bool:
 	# Reset the visited value of all fields
 	for column in battlefield_map:

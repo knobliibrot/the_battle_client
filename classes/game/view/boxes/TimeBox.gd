@@ -28,6 +28,7 @@ func pause_timer() -> void:
 func resume_timer() -> void:
 	$Timer.set_paused(false)
 
+# Change every second the time displayed
 func _on_Timer_timeout() -> void:
 	if actual_time < time:
 		actual_time += 1

@@ -119,6 +119,7 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 450, 40 )
 custom_fonts/font = ExtResource( 14 )
 text = "Close"
+
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/SpearmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/ShortswordsmanSelectionButton" to="." method="_on_TroopSelectionButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/CavalarySelectionButton" to="." method="_on_TroopSelectionButton_pressed"]

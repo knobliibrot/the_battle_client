@@ -20,7 +20,7 @@ var queue: Array = []
 var progress_actual_troop_in_queue: int
 
 # Set start values
-func init(type: int, is_player1: bool) -> void:
+func init(type: int) -> void:
 	self.player_type = type
 	self.castle_health = GameSettings.castle_health
 	self.gold = GameSettings.start_gold

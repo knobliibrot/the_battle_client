@@ -117,7 +117,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "SearchScreen",
 "language": "GDScript",
-"path": "res://classes/scenes/SearchScreen.gd"
+"path": "res://classes/game/view/windows/search_screen/SearchScreen.gd"
 }, {
 "base": "Node2D",
 "class": "Troop",
