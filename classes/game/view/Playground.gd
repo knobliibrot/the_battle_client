@@ -114,15 +114,18 @@ func start_timer_with_message(message: String, seconds: float) -> void:
 	show_message(message)
 	$CentredGame/Top/TopBar/TopBar2/TimeBox.start_timer(seconds)
 
-func set_timer_to(timer_started_time: int) -> void:
-	$CentredGame/Top/TopBar/TopBar2/TimeBox
+func set_timer(timer_started_time: int) -> void:
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.set_timer(timer_started_time)
+
+func get_actual_time_started() -> int:
+	return $CentredGame/Top/TopBar/TopBar2/TimeBox.actual_time_started
+
+func stop_timer() -> void:
+	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
 
 # Shows a message for the given time 
 func show_message(message: String) -> void:
 	$CentredGame/Top/TopBar/MessageBox/Box/Label.text = message
-
-func stop_timer() -> void:
-	$CentredGame/Top/TopBar/TopBar2/TimeBox.stop_timer()
 
 func change_close_to_give_up_button() -> void:
 	$UI/CloseButton.visible = false

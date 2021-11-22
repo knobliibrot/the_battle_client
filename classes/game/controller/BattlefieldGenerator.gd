@@ -1,5 +1,7 @@
 extends Node
 
+class_name BattlefieldGenerator
+
 var battlefield_map: Array
 var field_percantage_map: Dictionary = {}
 var neigbour_counter_map: Dictionary = {}

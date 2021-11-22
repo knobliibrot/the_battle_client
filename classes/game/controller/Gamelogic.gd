@@ -49,9 +49,9 @@ func initialize_online_game(player1: Player, player2: Player, is_user_player1: b
 # Generates the battlefield randomly
 func generate_battlefield(mirrored: bool) -> void:
 	if(mirrored):
-		self.battlefield_map = $BattlefieldGenerator.generate_mirrored_battlefield()
+		self.battlefield_map = get_battlefield_generator().generate_mirrored_battlefield()
 	else:
-		self.battlefield_map = $BattlefieldGenerator.generate_battlefield()
+		self.battlefield_map = get_battlefield_generator().generate_battlefield()
 
 # Make battlefield lighter for sending it to opponent
 func get_field_type_map() -> Array:
@@ -604,4 +604,6 @@ func get_playground() -> Playground:
 # Returns the Battlefield
 func get_battlefield() -> Battlefield:
 	return get_playground().get_node("CentredGame/Battlefield") as Battlefield
-	
+
+func get_battlefield_generator() -> BattlefieldGenerator:
+	return get_node("BattlefieldGenerator") as BattlefieldGenerator

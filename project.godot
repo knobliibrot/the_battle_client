@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://classes/game/model/Battelfield.gd"
 }, {
 "base": "Node",
+"class": "BattlefieldGenerator",
+"language": "GDScript",
+"path": "res://classes/game/controller/BattlefieldGenerator.gd"
+}, {
+"base": "Node",
 "class": "Client",
 "language": "GDScript",
 "path": "res://classes/network/Client.gd"
@@ -109,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/scenes/ScreenScene.gd"
 }, {
+"base": "Control",
+"class": "SearchScreen",
+"language": "GDScript",
+"path": "res://classes/scenes/SearchScreen.gd"
+}, {
 "base": "Node2D",
 "class": "Troop",
 "language": "GDScript",
@@ -127,6 +137,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "ApplicationSettings": "",
 "Battlefield": "",
+"BattlefieldGenerator": "",
 "Client": "",
 "CreateTroopButton": "",
 "Factory": "",
@@ -145,6 +156,7 @@ _global_script_class_icons={
 "Playground": "",
 "QueueButton": "",
 "ScreenScene": "",
+"SearchScreen": "",
 "Troop": "",
 "TroopType": "",
 "TroopselectionButton": ""
