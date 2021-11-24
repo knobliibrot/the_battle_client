@@ -45,6 +45,7 @@ jobs:
           uses: actions/download-artifact@v2
           with:
             name: windows
+            path: ./windows
         - name: Setup Github
           run: |
             git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/knobliibrot/the_battle_website.git ./the_battle_website
@@ -53,9 +54,10 @@ jobs:
             git config --global user.name "Sam"
         - name: Copy and commit fiel
           run: |
-            mv ./$EXPORT_NAME.exe the_battle_website/static
+            zip -r ./$EXPORT_NAME.zip ./windows
+            mv ./$EXPORT_NAME.zip the_battle_website/static
             cd the_battle_website
-            git add -f static/$EXPORT_NAME.exe
+            git add -f static/./$EXPORT_NAME.zip
             git diff-index --quiet HEAD || git commit -m "Automatic commit from project: the_battle_client"
             git push origin main
         
