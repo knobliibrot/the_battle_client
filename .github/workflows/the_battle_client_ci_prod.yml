@@ -28,8 +28,8 @@ jobs:
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
       - name: Windows Build
         run: |
-          mkdir -v -p build/windows
-          godot -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
+          mkdir -v -p export/windows
+          godot -v --export "Windows Desktop" ./export/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
