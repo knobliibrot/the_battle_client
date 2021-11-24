@@ -49,6 +49,8 @@ jobs:
           run: |
             git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/knobliibrot/the_battle_website.git ./the_battle_website
             git lfs install
+            git config --global user.email "methy@hotmail.ch"
+            git config --global user.name "Sam"
         - name: Copy and commit fiel
           run: |
             mv ./$EXPORT_NAME.exe the_battle_website/static
