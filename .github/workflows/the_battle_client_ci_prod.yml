@@ -55,7 +55,7 @@ jobs:
           run: |
             mv ./$EXPORT_NAME.exe the_battle_website/static
             cd the_battle_website
-            git add static/$EXPORT_NAME.exe
+            git add -f static/$EXPORT_NAME.exe
             git diff-index --quiet HEAD || git commit -m "Automatic commit from project: the_battle_client"
             git push origin master
         
