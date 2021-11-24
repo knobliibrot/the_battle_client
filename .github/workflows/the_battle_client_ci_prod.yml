@@ -36,3 +36,24 @@ jobs:
           name: windows
           path: export/windows
           
+  deploy:
+      name: Deploy to website
+      needs:  export-windows
+      runs-on: ubuntu-latest
+      steps:
+        - name: Download artifacts
+          uses: actions/download-artifact@v2
+          with:
+            name: windows
+        - name: Setup Github
+          run: |
+            git clone https://.:${{ secrets.PERSONAL_TOKEN }}@github.com/the_battle_website ./
+            git lfs install
+        - name: Copy and commit fiel
+          run: |
+            cp export/windows/$EXPORT_NAME.exe the_battle_website/static/$EXPORT_NAME.exe
+            cd the_battle_website
+            git add static/$EXPORT_NAME.exe
+            git diff-index --quiet HEAD || git commit -m "Automatic commit from project: the_battle_client"
+            git push target master
+        
