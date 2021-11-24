@@ -47,7 +47,7 @@ jobs:
             name: windows
         - name: Setup Github
           run: |
-            git clone https://.:${{ secrets.PERSONAL_TOKEN }}@github.com/the_battle_website ./
+            git clone https://.:${{ secrets.PERSONAL_TOKEN }}@github.com/the_battle_website ./the_battle_website
             git lfs install
         - name: Copy and commit fiel
           run: |
