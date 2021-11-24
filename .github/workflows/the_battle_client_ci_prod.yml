@@ -58,6 +58,6 @@ jobs:
             mv ./$EXPORT_NAME.zip the_battle_website/static
             cd the_battle_website
             git add -f static/./$EXPORT_NAME.zip
-            git diff-index --quiet HEAD || git commit -m "Automatic commit from project: the_battle_client"
+
             git push origin main
         
