@@ -51,7 +51,7 @@ jobs:
             git lfs install
         - name: Copy and commit fiel
           run: |
-            cp export/windows/$EXPORT_NAME.exe the_battle_website/static/$EXPORT_NAME.exe
+            mv export/windows/$EXPORT_NAME.exe the_battle_website/static/$EXPORT_NAME.exe
             cd the_battle_website
             git add static/$EXPORT_NAME.exe
             git diff-index --quiet HEAD || git commit -m "Automatic commit from project: the_battle_client"
