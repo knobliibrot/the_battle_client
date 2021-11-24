@@ -9,7 +9,7 @@ on:
 
 env:
   GODOT_VERSION: 3.4
-  EXPORT_NAME: "The Battle"
+  EXPORT_NAME: "The-Battle"
 
 jobs:
   export-windows:
