@@ -60,4 +60,4 @@ jobs:
           mkdir -p ~/.ssh/
       - name: Deploy to server
         run: |
-          scp -P 22 -o StrictHostKeyChecking=n -i key ./$EXPORT_NAME.exe ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$EXPORT_NAME.exe
+          scp -P 22 -o StrictHostKeyChecking=no -i key ./$EXPORT_NAME.exe ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$EXPORT_NAME.exe
