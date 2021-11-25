@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/troop_healthbar_filling.png-f9484dd7add204255c21308a81282b9b.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://artifacts/graphics/troops/troop_healthbar_filling.png"
+dest_files=[ "res://.import/troop_healthbar_filling.png-f9484dd7add204255c21308a81282b9b.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=true
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=0.8
