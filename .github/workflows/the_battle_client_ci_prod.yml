@@ -46,8 +46,16 @@ jobs:
           with:
             name: windows
             path: ./windows
-        - name: Send to Sourceforge
+        - name: Setup Github
           run: |
-           sudo apt-get install rsync grsync
-           zip -r ./$EXPORT_NAME.zip ./windows
-           rsync -e ssh ./$EXPORT_NAME.zip samsnorreson8@frs.sourceforge.net:/home/frs/project/the-battle/release1
+            git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/knobliibrot/the_battle_website.git ./the_battle_website
+            git lfs install
+            git config --global user.email "methy@hotmail.ch"
+            git config --global user.name "Sam"
+        - name: Copy and commit fiel
+          run: |
+            zip -r ./$EXPORT_NAME.zip ./windows
+            mv ./$EXPORT_NAME.zip the_battle_website/static
+            cd the_battle_website
+            git add -f static/./$EXPORT_NAME.zip
+            git push origin main
