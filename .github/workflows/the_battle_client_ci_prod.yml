@@ -61,7 +61,8 @@ jobs:
           mkdir -p ~/.ssh/
       - name: Zip it
         run:
-          zip -r export/windows export/$EXPORT_NAME.zip
+          zip -r export/$EXPORT_NAME.zip export/windows 
       - name: Deploy to server
         run: |
-          scp -P 22 -o StrictHostKeyChecking=no -i key export/$EXPORT_NAME.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/export/$EXPORT_NAME.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key export/$EXPORT_NAME.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$EXPORT_NAME.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key export/$EXPORT_NAME.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$EXPORT_NAME.zip
