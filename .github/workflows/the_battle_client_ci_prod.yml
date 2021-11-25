@@ -48,6 +48,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: windows
+          path: export/windows
       - name: Create SSH key
         run: 
           'echo "$SSH_KEY" > key'
@@ -58,6 +59,9 @@ jobs:
         run: |
           sudo chmod 600 key
           mkdir -p ~/.ssh/
+      - name: Zip it
+        run:
+          zip -r export/windows export/$EXPORT_NAME.zip
       - name: Deploy to server
         run: |
-          scp -P 22 -o StrictHostKeyChecking=no -i key ./$EXPORT_NAME.exe ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$EXPORT_NAME.exe
+          scp -P 22 -o StrictHostKeyChecking=no -i key export/$EXPORT_NAME.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/export/$EXPORT_NAME.zip
