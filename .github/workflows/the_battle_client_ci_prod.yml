@@ -29,7 +29,7 @@ jobs:
       - name: Windows Build
         run: |
           mkdir -v -p export/windows
-          godot -v --export "Windows Desktop" ./export/windows/$EXPORT_NAME.exe
+          godot -v --export "windows" ./export/windows/$EXPORT_NAME.exe
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
