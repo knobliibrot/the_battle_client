@@ -74,12 +74,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: windowsx64
-          path: export/windowsx64
+          path: windowsx64
       - name: Download artifacts 
         uses: actions/download-artifact@v2
         with:
           name: windowsx32
-          path: export/windowsx32
+          path: windowsx32
       - name: Create SSH key
         run: 
           'echo "$SSH_KEY" > key'
@@ -92,8 +92,8 @@ jobs:
           mkdir -p ~/.ssh/
       - name: Zip it
         run: |
-          zip export/$ZIP_NAME_WIN64.zip export/windowsx64
-          zip export/$ZIP_NAME_WIN32.zip export/windowsx32 
+          zip -r export/$ZIP_NAME_WIN64.zip windowsx64
+          zip -r export/$ZIP_NAME_WIN32.zip windowsx32 
       - name: Deploy to server
         run: |
           scp -P 22 -o StrictHostKeyChecking=no -i key export/$ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
