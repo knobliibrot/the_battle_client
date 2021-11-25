@@ -92,11 +92,11 @@ jobs:
           mkdir -p ~/.ssh/
       - name: Zip it
         run: |
-          zip -r export/$ZIP_NAME_WIN64.zip windowsx64
-          zip -r export/$ZIP_NAME_WIN32.zip windowsx32 
+          zip -r $ZIP_NAME_WIN64.zip windowsx64
+          zip -r $ZIP_NAME_WIN32.zip windowsx32 
       - name: Deploy to server
         run: |
-          scp -P 22 -o StrictHostKeyChecking=no -i key export/$ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
-          scp -P 22 -o StrictHostKeyChecking=no -i key export/$ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN64.zip
-          scp -P 22 -o StrictHostKeyChecking=no -i key export/$ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN32.zip
-          scp -P 22 -o StrictHostKeyChecking=no -i key export/$ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN32.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN64.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN32.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN32.zip
