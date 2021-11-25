@@ -37,25 +37,27 @@ jobs:
           path: export/windows
           
   deploy:
-      name: Deploy to website
-      needs:  export-windows
-      runs-on: ubuntu-latest
-      steps:
-        - name: Download artifacts
-          uses: actions/download-artifact@v2
-          with:
-            name: windows
-            path: ./windows
-        - name: Setup Github
-          run: |
-            git clone https://${{ secrets.PERSONAL_TOKEN }}@github.com/knobliibrot/the_battle_website.git ./the_battle_website
-            git lfs install
-            git config --global user.email "methy@hotmail.ch"
-            git config --global user.name "Sam"
-        - name: Copy and commit fiel
-          run: |
-            zip -r ./$EXPORT_NAME.zip ./windows
-            mv ./$EXPORT_NAME.zip the_battle_website/static
-            cd the_battle_website
-            git add -f static/./$EXPORT_NAME.zip
-            git push origin main
+    name: Deploy to server
+    needs:  export-windows
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SCP
+        run: 
+          sudo apt install -y openssh-client
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: windows
+      - name: Create SSH key
+        run: 
+          'echo "$SSH_KEY" > key'
+        shell: bash
+        env:
+          SSH_KEY: ${{secrets.SOURCEFORGE_SSH_KEY}}
+      - name: Some Stuff
+        run: |
+          sudo chmod 600 key
+          mkdir -p ~/.ssh/
+      - name: Deploy to server
+        run: |
+          scp -P 22 -o StrictHostKeyChecking=n -i key ./$EXPORT_NAME.exe ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$EXPORT_NAME.exe
