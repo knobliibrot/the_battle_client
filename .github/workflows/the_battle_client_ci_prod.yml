@@ -2,8 +2,9 @@ name: "Production CI"
 
 # Controls when the workflow will run
 on:
-  push:
-
+  release:
+    types: [published]
+    
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -12,6 +13,7 @@ env:
   EXPORT_NAME: "The-Battle"
   ZIP_NAME_WIN64: "windows_x64_the_battle"
   ZIP_NAME_WIN32: "windows_x32_the_battle"
+  RELEASE: ${{ github.event.release.tag_name }}
 
 jobs:
   export-windowsx64:
@@ -102,7 +104,7 @@ jobs:
           cd ..
       - name: Deploy to server
         run: |
-          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/$Release/$ZIP_NAME_WIN64.zip
           scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN64.zip
-          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN32.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/$Release/$ZIP_NAME_WIN32.zip
           scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN32.zip
