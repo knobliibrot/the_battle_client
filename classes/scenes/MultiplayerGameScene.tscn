@@ -105,8 +105,9 @@ align = 1
 [node name="Client" type="Node" parent="." index="3"]
 script = ExtResource( 3 )
 
+[connection signal="ready_to_close" from="SearchScreen" to="." method="_on_SearchScreen_ready_to_close"]
 [connection signal="stop_opponent_search" from="SearchScreen" to="." method="_on_SearchScreen_stop_opponent_search"]
-[connection signal="pressed" from="SearchScreen/StopSearchButton" to="Content/Playground" method="_on_StopSearchButton_pressed"]
+[connection signal="pressed" from="SearchScreen/StopSearchButton" to="SearchScreen" method="_on_StopSearchButton_pressed"]
 [connection signal="pressed" from="SearchScreen/Content/UsernameBox/SearchButton" to="SearchScreen" method="_on_SearchButton_pressed"]
 [connection signal="connected" from="Client" to="." method="_on_Client_connected"]
 [connection signal="connection_closed" from="Client" to="." method="_on_Client_connection_closed"]

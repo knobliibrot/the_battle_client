@@ -1,0 +1,110 @@
+name: "Production CI"
+
+# Controls when the workflow will run
+on:
+  release:
+    types: [published]
+    
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  GODOT_VERSION: 3.4
+  EXPORT_NAME: "The-Battle"
+  ZIP_NAME_WIN64: "windows_x64_the_battle"
+  ZIP_NAME_WIN32: "windows_x32_the_battle"
+  RELEASE: ${{ github.event.release.tag_name }}
+
+jobs:
+  export-windowsx64:
+    name: Windows Export x64
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Windows Build
+        run: |
+          mkdir -v -p export/windows
+          godot -v --export "windowsx64" ./export/windows/$EXPORT_NAME.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windowsx64
+          path: export/windows
+          
+  export-windowsx32:
+    name: Windows Export x32
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Windows Build
+        run: |
+          mkdir -v -p export/windows
+          godot -v --export "windowsx64" ./export/windows/$EXPORT_NAME.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windowsx32
+          path: export/windows
+          
+  deploy:
+    name: Deploy to server
+    needs:  [export-windowsx64, export-windowsx32]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SCP
+        run: 
+          sudo apt install -y openssh-client
+      - name: Download artifacts 
+        uses: actions/download-artifact@v2
+        with:
+          name: windowsx64
+          path: windowsx64
+      - name: Download artifacts 
+        uses: actions/download-artifact@v2
+        with:
+          name: windowsx32
+          path: windowsx32
+      - name: Create SSH key
+        run: 
+          'echo "$SSH_KEY" > key'
+        shell: bash
+        env:
+          SSH_KEY: ${{secrets.SOURCEFORGE_SSH_KEY}}
+      - name: Some Stuff
+        run: |
+          sudo chmod 600 key
+          mkdir -p ~/.ssh/
+      - name: Zip it
+        run: |
+          cd windowsx64
+          zip ../$ZIP_NAME_WIN64.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
+          cd ..
+      - name: Zip it
+        run: |
+          cd windowsx32
+          zip  ../$ZIP_NAME_WIN32.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
+          cd ..
+      - name: Deploy to server
+        run: |
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/$Release/$ZIP_NAME_WIN64.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN64.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/$Release/$ZIP_NAME_WIN32.zip
+          scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN32.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/latest_release/$ZIP_NAME_WIN32.zip

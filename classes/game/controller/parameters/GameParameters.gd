@@ -127,7 +127,7 @@ const LOCALHOST_URL: String = "127.0.0.1"
 const PROD_PORT: String = "9090"
 const TEST_PORT: String = "9080"
 const IS_SERVER_URL: bool = true
-const IS_PROD_PORT: bool = false
+const IS_PROD_PORT: bool = true
 
 const STANDARD_TROOPS: Array = [
 	TroopType.SPEARMAN,
