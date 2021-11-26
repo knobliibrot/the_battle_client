@@ -93,12 +93,12 @@ jobs:
       - name: Zip it
         run: |
           cd windowsx64
-          zip $ZIP_NAME_WIN64.zip /$EXPORT_NAME.exe $EXPORT_NAME.pck
+          zip $ZIP_NAME_WIN64.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
           cd ..
       - name: Zip it
         run: |
           cd windowsx32
-          zip  $ZIP_NAME_WIN32.zip /$EXPORT_NAME.exe /$EXPORT_NAME.pck
+          zip  $ZIP_NAME_WIN32.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
           cd ..
       - name: Deploy to server
         run: |
