@@ -94,6 +94,8 @@ jobs:
         run: |
           zip -r $ZIP_NAME_WIN64.zip windowsx64/$EXPORT_NAME.exe
           zip -r $ZIP_NAME_WIN32.zip windowsx32/$EXPORT_NAME.exe
+          zip -r $ZIP_NAME_WIN64.zip windowsx64/$EXPORT_NAME.pck
+          zip -r $ZIP_NAME_WIN32.zip windowsx32/$EXPORT_NAME.pck
       - name: Deploy to server
         run: |
           scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
