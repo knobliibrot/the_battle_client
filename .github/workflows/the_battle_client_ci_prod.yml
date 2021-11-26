@@ -92,8 +92,14 @@ jobs:
           mkdir -p ~/.ssh/
       - name: Zip it
         run: |
-          zip -r $ZIP_NAME_WIN64.zip windowsx64
-          zip -r $ZIP_NAME_WIN32.zip windowsx32 
+          cd windowsx64
+          zip ../$ZIP_NAME_WIN64.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
+          cd ..
+      - name: Zip it
+        run: |
+          cd windowsx32
+          zip  ../$ZIP_NAME_WIN32.zip $EXPORT_NAME.exe $EXPORT_NAME.pck
+          cd ..
       - name: Deploy to server
         run: |
           scp -P 22 -o StrictHostKeyChecking=no -i key $ZIP_NAME_WIN64.zip ${{ secrets.SOURCEFORGE_USER }}@frs.sourceforge.net:/home/frs/p/the-battle/v0.1.0-alpha/$ZIP_NAME_WIN64.zip
