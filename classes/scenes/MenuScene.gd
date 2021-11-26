@@ -19,10 +19,10 @@ func _on_StartMultiplayerGameButton_pressed() -> void:
 func _on_ChangeGameSettingsButton_pressed() -> void:
 	var settings: Node = SETTINGS_SCENE.instance()
 	var _err = settings.connect("close", self, "_on_SettingsWindow_close")
-	$Overlay.add_child(settings)
+	$ViewportContainer/Content/Control/Overlay.add_child(settings)
 
 func _on_SettingsWindow_close(window: Node) -> void:
-	remove_child(window)
+	$ViewportContainer/Content/Control/Overlay.remove_child(window)
 
 
 

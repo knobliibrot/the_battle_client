@@ -190,17 +190,18 @@ func give_up(pkg: Dictionary) -> void:
 	get_gamelogic().opponent_gave_up()
 	print("opoonent gave up")
 
-func _on_Gamelogic_game_over(player: Player):
+func _on_Gamelogic_game_over(is_player1_game_over: bool):
 	self.game_over = true
 	var new_pkg = Interface.game_over
-	new_pkg[InterfaceKeys.DATA][InterfaceKeys.PLAYER] = player.player_name
+	new_pkg[InterfaceKeys.DATA][InterfaceKeys.IS_PLAYER1] = is_player1_game_over
 	send_request(ServiceNames.GAME_OVER, new_pkg)
 	print("game over")
 
 func game_over(pkg: Dictionary) -> void:
-	self.game_over = true
-	get_gamelogic().game_over()
-	print("opoonent game over")
+	if !self.game_over:
+		self.game_over = true	
+		get_gamelogic().game_over(pkg[InterfaceKeys.DATA][InterfaceKeys.IS_PLAYER1])
+		print("game over")
 
 func _on_Gamelogic_game_finished():
 	emit_signal("ready_to_close")

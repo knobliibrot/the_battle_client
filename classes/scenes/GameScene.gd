@@ -19,7 +19,7 @@ func _on_Gamelogic_removing_from_queue(queue_pos: int):
 func _on_Gamelogic_moving_troop(from: Vector2, to: Vector2):
 	pass # Replace with function body.
 
-func _on_Gamelogic_game_over(player: Player):
+func _on_Gamelogic_game_over(is_player1_game_over: bool):
 	pass # Replace with function body.
 
 func _on_Gamelogic_give_up():

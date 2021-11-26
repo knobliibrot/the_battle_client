@@ -135,7 +135,7 @@ func start_turn(is_player1: bool, round_timer: int) -> void:
 		activate_factories(self.player2)
 		activate_factories(self.player1)
 	
-	var game_over = pay_and_trainingday()
+	pay_and_trainingday()
 	get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
 	if !game_over:
 		get_playground().activate_turn_mode(self.is_player1, self.act_player)
@@ -156,7 +156,7 @@ func activate_factories(player: Player) -> void:
 	#	capture_factory(self.battlefield_map[1][4], player)
 
 # Adds the income to the player's gold and creates a troop if there is one ready on the queue
-func pay_and_trainingday() -> bool:
+func pay_and_trainingday() -> void:
 	self.act_player.gold += self.act_player.income - self.act_player.salary
 	
 	var new_troops: Array = self.act_player.get_new_troops()
@@ -172,7 +172,6 @@ func pay_and_trainingday() -> bool:
 	for troop in self.act_player.troops:
 		troop.movement_left = TroopSettings.fpr[troop.troop_type]
 		troop.attack_done = false
-	return false
 
 func _on_QueueBar_remove_from_queue(position: int) -> void:
 	emit_signal("removing_from_queue", position)
@@ -289,7 +288,7 @@ func move_troop(position: Vector2) -> void:
 	self.selected_field = null
 	if self.game_over:
 		get_playground().update_gui_with_player(self.player1, self.player2, self.act_player)
-		game_over()
+		game_over(!is_player1)
 	else:
 		var state = get_playground().activate_turn_mode(self.is_player1, self.act_player)
 		state.resume()
@@ -560,8 +559,9 @@ func game_turn_done() -> void:
 	elif self.factory_capture_mode_enabled:
 		self.act_player.food = self.act_player.food - 1
 		if self.act_player.food  <= 0:
-			game_over()
-			return true
+			self.game_over = true
+			game_over(is_player1)
+	
 	get_playground().stop_timer()
 	if self.play_running:
 		yield(self, "play_finished")
@@ -571,12 +571,12 @@ func game_turn_done() -> void:
 			emit_signal("turn_finished")
 
 # Stops Round and show the game over overlay
-func game_over() -> void:
+func game_over(is_player1_game_over: bool) -> void:
 	get_playground().show_message("Game Over " + self.act_player.player_name)
 	stop_game()
 	if self.is_multiplayer:
-		get_playground().show_game_over_overlay(!(self.is_player1 == self.is_user_player1))
-	emit_signal("game_over", self.act_player)
+		get_playground().show_game_over_overlay(is_player1_game_over != is_user_player1)
+	emit_signal("game_over", is_player1_game_over)
 
 # Stops Round and show the game over overlay
 func give_up() -> void:
