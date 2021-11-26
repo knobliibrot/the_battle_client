@@ -16,7 +16,7 @@ func _ready():
 	get_search_screen().set_status(SearchOpponentState.CONNECTING)
 	get_client().start_connection()
 
-func _on_SearchButton_pressed() -> void:
+func _on_SearchScreen_stop_opponent_search() -> void:
 	self.user.player_name = get_search_screen().get_username()
 	get_search_screen().display_status_box()
 	self.username_selected = true
@@ -58,7 +58,7 @@ func _on_Client_connection_closed() -> void:
 			get_search_screen().vanish()
 			get_playground().show_game_over_overlay(false, true)
 
-func _on_SearchScreen_stop_opponent_search() -> void:
+func _on_SearchScreen_ready_to_close() -> void:
 	if self.connected:
 		self.close_multiplayer = true
 		get_client().close_connection("Multiplayer closed")

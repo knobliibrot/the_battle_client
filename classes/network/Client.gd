@@ -80,11 +80,11 @@ func _on_data():
 	var error: String = validate_json(json_string)
 	if not error:
 		print("valid")
-		if typeof(json_string) == TYPE_DICTIONARY:
-			emit_signal("response_received", (parse_json(json_string)))
-		else:
-			print("unexpected results")
-			print(json_string)
+		emit_signal("response_received", (parse_json(json_string)))
+#		if typeof(json_string) == TYPE_DICTIONARY:
+#		else:
+#			print("unexpected results")
+#			print(json_string)
 	else:
 		prints("invalid", error)
 

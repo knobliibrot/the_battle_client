@@ -3,6 +3,7 @@ extends Control
 class_name SearchScreen
 
 signal stop_opponent_search
+signal ready_to_close
 
 # Change Status based on SearchOpponentState
 func set_status(status: String) -> void:
@@ -23,3 +24,7 @@ func vanish() -> void:
 
 func _on_SearchButton_pressed() -> void:
 	emit_signal("stop_opponent_search")
+
+
+func _on_StopSearchButton_pressed():
+	emit_signal("ready_to_close")

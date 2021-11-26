@@ -53,3 +53,7 @@ func _on_Field_target_selected(position :Vector2) -> void:
 func _on_Field_troop_selected(position :Vector2) -> void:
 	emit_signal("troop_selected", position)
 
+
+
+func _on_StopSearchButton_pressed():
+	pass # Replace with function body.
